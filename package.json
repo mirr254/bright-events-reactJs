@@ -12,6 +12,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "selenium-setup": "selenium-standalone install",
+    "selenium-start": "selenium-standalone start",
     "tests": "wdio wdio.conf.js",
     "tests-watch": "wdio wdio.conf.js --watch"
   },

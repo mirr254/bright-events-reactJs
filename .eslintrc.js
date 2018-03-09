@@ -1,5 +1,5 @@
 module.exports = {
-    "extends": "airbnb",
+    "extends": "airbnb-base",
     "root": true,
     "env": {
         "node": true,
@@ -13,7 +13,8 @@ module.exports = {
     "rules": {
         "react/prop-types": [2],
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "max-len": [1, 120, 2, {ignoreComments: true}],     
+        "max-len": [1, 120, 2, {ignoreComments: true}],
+        "linebreak-style": 0,     
     }
 };
 
