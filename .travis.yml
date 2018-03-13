@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+  - node_modules
+script:
+  - yarn test
+  - yarn run build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: c9ea2d9c4929f5e62e27ab8a5bf0a89e19fd035e
+  local_dir: build
+  on:
+    branch: development
