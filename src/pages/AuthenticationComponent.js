@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Navbar, Jumbotron, Button } from 'react-bootstrap';
+import { Grid, Navbar, Jumbotron, Button, Tabs, Tab, FormControl, FormGroup, Col, ControlLabel, Form, Checkbox} from 'react-bootstrap';
 
 class Authentication extends Component {
     render() {
@@ -17,16 +17,46 @@ class Authentication extends Component {
                 </Navbar>
                 <Jumbotron>
                     <Grid>
-                        <h1>Welcome to React</h1>
-                        <p>
-                            <Button
-                                bsStyle="success"
-                                bsSize="large"
-                                href="http://react-bootstrap.github.io/components.html"
-                                target="_blank">
-                                View React Bootstrap Docs
-              </Button>
-                        </p>
+                        <h1>Bright Events</h1>
+                        <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                            <Tab eventKey={1} title="Login">
+                                <Form horizontal>
+                                    <FormGroup controlId="formHorizontalEmail">
+                                        <Col componentClass={ControlLabel} sm={2}>
+                                            Email
+                                        </Col>
+                                        <Col sm={10}>
+                                            <FormControl type="email" placeholder="Email" />
+                                        </Col>
+                                    </FormGroup>
+
+                                    <FormGroup controlId="formHorizontalPassword">
+                                        <Col componentClass={ControlLabel} sm={2}>
+                                            Password
+                                        </Col>
+                                        <Col sm={10}>
+                                            <FormControl type="password" placeholder="Password" />
+                                        </Col>
+                                    </FormGroup>
+
+                                    <FormGroup>
+                                        <Col smOffset={2} sm={10}>
+                                            <Checkbox>Remember me</Checkbox>
+                                        </Col>
+                                    </FormGroup>
+
+                                    <FormGroup>
+                                        <Col smOffset={2} sm={10}>
+                                            <Button type="submit">Sign in</Button>
+                                        </Col>
+                                    </FormGroup>
+                                </Form>;
+                            </Tab>
+                            <Tab eventKey={2} title="Signup">
+                                Tab 2 content
+                            </Tab>
+                           
+                        </Tabs>
                     </Grid>
                 </Jumbotron>
             </div>
