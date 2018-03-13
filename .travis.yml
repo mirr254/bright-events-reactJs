@@ -8,6 +8,9 @@ script:
   - yarn test
   - unset CI
   - yarn run build
+
+after_script: # Upload coverage reports 
+  - COVERALLS_REPO_TOKEN=$coveralls_token yarn run coveralls
 deploy:
   provider: pages
   skip_cleanup: true
