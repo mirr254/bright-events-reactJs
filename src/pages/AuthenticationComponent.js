@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import { Grid, Navbar, Jumbotron, Button, Tabs, Tab, FormControl, FormGroup, Col, ControlLabel, Form, Checkbox} from 'react-bootstrap';
-
+import CustomNavbar from '../components/NavbarComponent';
 class Authentication extends Component {
     render() {
         return (
             <div>
-                <Navbar inverse fixedTop>
-                    <Grid>
-                        <Navbar.Header>
-                            <Navbar.Brand>
-                                <a href="/">React App</a>
-                            </Navbar.Brand>
-                            <Navbar.Toggle />
-                        </Navbar.Header>
-                    </Grid>
-                </Navbar>
+                <CustomNavbar />
                 <Jumbotron>
                     <Grid>
                         <h1>Bright Events</h1>

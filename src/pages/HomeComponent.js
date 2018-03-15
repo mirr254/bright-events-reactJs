@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar, Grid} from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 
 import logo from '../assets/logo.svg';
+import CustomNavbar from '../components/NavbarComponent';
 import '../assets/App.css';
 import '../assets/index.css';
 
@@ -12,16 +13,8 @@ class Home extends Component {
             
             <div className="App">
                 // navigation bar
-                <Navbar inverse fixedTop>
-                    <Grid>
-                        <Navbar.Header>
-                            <Navbar.Brand>
-                                <a href="/">Bright Events</a>
-                            </Navbar.Brand>
-                            <Navbar.Toggle />
-                        </Navbar.Header>
-                    </Grid>
-                </Navbar>
+                <CustomNavbar />
+                
                 //Navbar end
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
