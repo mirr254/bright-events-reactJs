@@ -1,19 +1,21 @@
-import { Navbar, Grid } from 'react-bootstrap';
+import { Navbar} from 'react-bootstrap';
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+import '../assets/App.css';
 
 class CustomNavbar extends Component {
     render(){
         return(
-            <Navbar inverse fixedTop>
-                <Grid>
+            <div className="App container">
+                <Navbar fluid collapseOnSelect>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a href="/">Bright Events</a>
+                            <Link to="/">Bright Events</Link>
                         </Navbar.Brand>
                         <Navbar.Toggle />
                     </Navbar.Header>
-                </Grid>
-            </Navbar>
+                </Navbar>
+            </div>
         );
     }
 }
