@@ -4,6 +4,8 @@ import Home from './pages/HomeComponent';
 import CustomNavbar from './components/NavbarComponent';
 import NotFound from './pages/NotFound';
 import Login from './pages/LoginComponent';
+import Signup from './pages/Signup';
+import ConfirmEmail from './pages/ConfirmRegistration';
 
 class Routes extends Component {
   render(){
@@ -15,6 +17,8 @@ class Routes extends Component {
               <Switch>
                   <Route exact path='/' component={Home}/> 
                   <Route path='/login' exact component={Login} />
+                  <Route path='/signup' exact component={Signup} />
+                  <Route path='/confirm' exact component={ConfirmEmail} />
                   <Route component={NotFound} />
                   
               </Switch>
