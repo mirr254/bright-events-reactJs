@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/HomeComponent';
 import CustomNavbar from './components/NavbarComponent';
 import NotFound from './pages/NotFound';
+import Login from './pages/LoginComponent';
 
 class Routes extends Component {
   render(){
@@ -13,7 +14,9 @@ class Routes extends Component {
             <CustomNavbar />
               <Switch>
                   <Route exact path='/' component={Home}/> 
+                  <Route path='/login' exact component={Login} />
                   <Route component={NotFound} />
+                  
               </Switch>
           </div>
         </BrowserRouter>
