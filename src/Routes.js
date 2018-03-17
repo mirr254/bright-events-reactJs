@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound';
 import Login from './pages/LoginComponent';
 import Signup from './pages/Signup';
 import ConfirmEmail from './pages/ConfirmRegistration';
+import Events from './pages/EventsComponent';
 
 class Routes extends Component {
   render(){
@@ -19,6 +20,7 @@ class Routes extends Component {
                   <Route path='/login' exact component={Login} />
                   <Route path='/signup' exact component={Signup} />
                   <Route path='/confirm' exact component={ConfirmEmail} />
+                  <Route path='/events' exact component={Events} />
                   <Route component={NotFound} />
                   
               </Switch>
