@@ -8,6 +8,7 @@
     "bootstrap-3-card": "^0.2.0",
     "enzyme": "^3.3.0",
     "eslint": "^4.18.2",
+    "jest-enzyme": "^6.0.0",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
