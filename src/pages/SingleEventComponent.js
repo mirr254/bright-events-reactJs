@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { Card, Button, CardTitle, CardText, Row, Col, CardImg, Jumbotron, ButtonGroup } from 'reactstrap';
 import UsersRsvp from '../components/RsvpDropdownComponent';
+import ModalPopUp from '../components/ModalComponent';
 
 class EventDetails extends Component {
     constructor(props){
@@ -24,6 +25,7 @@ class EventDetails extends Component {
     render() {
         return (
             <Jumbotron>
+            <ModalPopUp />
             <Row>
                 <Col sm="6">
                     <Card body>
@@ -51,8 +53,8 @@ class EventDetails extends Component {
                         
                         <ButtonGroup>
                             <Button>Edit</Button>{''}
-                            <Button>Delete</Button>{''}
-                            <Button>Add new</Button>
+                                <Button color="danger">Delete</Button>{''}
+                                <Button onClick={ModalPopUp}>Add new</Button>
                         </ButtonGroup>
                     </Card>
                 </Col>

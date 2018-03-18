@@ -18,11 +18,11 @@ class Routes extends Component {
             <CustomNavbar />
               <Switch>
                   <Route exact path='/' component={Home}/> 
-                  <Route path='/login' exact component={Login} />
-                  <Route path='/signup' exact component={Signup} />
-                  <Route path='/confirm' exact component={ConfirmEmail} />
-                  <Route path='/events/1' exact component={EventDetails} />
-                  <Route path='/events' exact component={Events}/>
+                  <Route path='/login' component={Login} />
+                  <Route path='/signup' component={Signup} />
+                  <Route path='/confirm' component={ConfirmEmail} />
+                  <Route path='/events/1' component={EventDetails} />
+                  <Route path='/events' component={Events}/>
                   <Route component={NotFound} />
                   
               </Switch>
