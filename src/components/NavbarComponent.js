@@ -1,21 +1,34 @@
-import { Navbar, Grid } from 'react-bootstrap';
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+import '../assets/App.css';
 
-class CustomNavbar extends Component {
-    render(){
+const CustomNavbar = (props) => {
+    
         return(
-            <Navbar inverse fixedTop>
-                <Grid>
+            <div className="App container">
+                <Navbar fluid collapseOnSelect>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a href="/">Bright Events</a>
+                            <Link to="/">Bright Events</Link>
                         </Navbar.Brand>
                         <Navbar.Toggle />
                     </Navbar.Header>
-                </Grid>
-            </Navbar>
+                    <Navbar.Collapse>
+                        <Nav pullRight>
+                          <LinkContainer to='signup'>
+                            <NavItem>Signup</NavItem>
+                          </LinkContainer>
+                          <LinkContainer to='login'>
+                            <NavItem>Login</NavItem>
+                          </LinkContainer>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+            </div>
         );
-    }
+    
 }
 
 export default CustomNavbar;
