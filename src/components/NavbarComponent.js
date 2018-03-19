@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import '../assets/App.css';
 
-CustomNavbar = (props) => {
+const CustomNavbar = (props) => {
     
         return(
             <div className="App container">

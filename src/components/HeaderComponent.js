@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import '../assets/App.css';
 import '../assets/index.css';
 
-CustomHeader = (props) => {
+const CustomHeader = (props) => {
         return (
              < header className = "App-header" >
                 <img src={logo} className="App-logo" alt="logo" />
