@@ -16,15 +16,15 @@ class Routes extends Component {
         <BrowserRouter>
           <div>
             <CustomNavbar />
-              <Switch>
-                  <Route exact path='/' component={Home}/> 
-                  <Route path='/login' component={Login} />
-                  <Route path='/signup' component={Signup} />
-                  <Route path='/confirm' component={ConfirmEmail} />
-                  <Route path='/events/1' component={EventDetails} />
-                  <Route path='/events' component={Events}/>
-                  <Route component={NotFound} />
-                  
+            <Switch>
+                <Route exact path='/' component={Home}/> 
+                <Route path='/login' component={Login} />
+                <Route path='/signup' component={Signup} />
+                <Route path='/confirm' component={ConfirmEmail} />
+                <Route path='/events/1' component={EventDetails} />
+                <Route path='/events' component={Events}/>
+                <Route component={NotFound} />
+                
               </Switch>
           </div>
         </BrowserRouter>

@@ -4,8 +4,8 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import '../assets/App.css';
 
-class CustomNavbar extends Component {
-    render(){
+CustomNavbar = (props) => {
+    
         return(
             <div className="App container">
                 <Navbar fluid collapseOnSelect>
@@ -28,7 +28,7 @@ class CustomNavbar extends Component {
                 </Navbar>
             </div>
         );
-    }
+    
 }
 
 export default CustomNavbar;

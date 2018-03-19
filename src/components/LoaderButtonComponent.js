@@ -9,9 +9,9 @@ export default ({
     className = "",
     disabled = false,
     ...props
-}) =>
+  }) =>
     <Button
-        className={`LoaderButton ${className}`}
+        className={`loader-button ${className}`}
         disabled={disabled || isLoading}
         {...props}
     >
