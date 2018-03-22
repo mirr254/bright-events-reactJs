@@ -12,6 +12,7 @@ class EventDetails extends Component {
             cost : '',
             description : '',
             location : '',
+            modal : false,
         };
     }
 
@@ -20,12 +21,24 @@ class EventDetails extends Component {
         this.setState( {isLoading : true})
     }
 
+    toggleModal = () => {
+        console.log('Pressed the button');
+        this.setState({
+            
+            modal: !this.state.modal
+        })
+    }
+
 
 
     render() {
         return (
+            <div>
+                <ModalPopUp toggle={this.toggleModal} isOpen={this.state.modal} className={this.props.className} >
+                  <p>this is a trial paragrapgh</p>
+                </ModalPopUp>
             <Jumbotron>
-            <ModalPopUp />
+            
             <Row>
                 <Col sm="6">
                     <Card body>
@@ -54,12 +67,13 @@ class EventDetails extends Component {
                         <ButtonGroup>
                             <Button>Edit</Button>{''}
                                 <Button color="danger">Delete</Button>{''}
-                                <Button onClick={ModalPopUp}>Add new</Button>
+                                <Button onClick={this.toggleModal}>Add new</Button> 
                         </ButtonGroup>
                     </Card>
                 </Col>
             </Row>
             </Jumbotron>
+            </div>
         );
     }
 
