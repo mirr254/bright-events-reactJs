@@ -1,9 +1,7 @@
-/* global it, expect */
-import React from 'react';
-import { shallow } from 'enzyme';
-import App from './App';
+import expect from 'expect';
 
-it('App renders without crashing', () => {
-  const component = shallow(<App />);
-  expect(component.exists()).toEqual(true);
+describe('Our first test', () => {
+  it('should pass', () => {
+    expect(true).toEqual(true);
+  });
 });
