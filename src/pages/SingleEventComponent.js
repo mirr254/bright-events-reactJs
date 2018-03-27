@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import { Card, Button, CardTitle, CardText, Row, Col, CardImg, Jumbotron, ButtonGroup } from 'reactstrap';
 import UsersRsvp from '../components/RsvpDropdownComponent';
-import ModalPopUp from '../components/ModalComponent';
 
 class EventDetails extends Component {
     constructor(props){
@@ -12,7 +11,6 @@ class EventDetails extends Component {
             cost : '',
             description : '',
             location : '',
-            modal : false,
         };
     }
 
@@ -21,22 +19,11 @@ class EventDetails extends Component {
         this.setState( {isLoading : true})
     }
 
-    toggleModal = () => {
-        console.log('Pressed the button');
-        this.setState({
-            
-            modal: !this.state.modal
-        })
-    }
-
-
 
     render() {
         return (
             <div>
-                <ModalPopUp toggle={this.toggleModal} isOpen={this.state.modal} className={this.props.className} >
-                  <p>this is a trial paragrapgh</p>
-                </ModalPopUp>
+               
             <Jumbotron>
             
             <Row>
@@ -67,7 +54,7 @@ class EventDetails extends Component {
                         <ButtonGroup>
                             <Button>Edit</Button>{''}
                                 <Button color="danger">Delete</Button>{''}
-                                <Button onClick={this.toggleModal}>Add new</Button> 
+                                <Button onClick={''}>Add new</Button> 
                         </ButtonGroup>
                     </Card>
                 </Col>

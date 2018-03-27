@@ -8,8 +8,10 @@ import Signup from './pages/Signup';
 import ConfirmEmail from './pages/ConfirmRegistration';
 import EventDetails from './pages/SingleEventComponent';
 import Events from './pages/EventsComponent';
+import AddEvent from './pages/NewEventsPage';
 
 class Routes extends Component {
+  
   render(){
     return(
       
@@ -22,7 +24,9 @@ class Routes extends Component {
                 <Route path='/signup' component={Signup} />
                 <Route path='/confirm' component={ConfirmEmail} />
                 <Route path='/events/1' component={EventDetails} />
-                <Route path='/events' component={Events}/>
+                <Route exact path='/events' component={Events} />
+                <Route path='/events/new_event' component={AddEvent} />
+                 
                 <Route component={NotFound} />
                 
               </Switch>

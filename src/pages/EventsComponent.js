@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, CardTitle, CardText, Row, Col, CardImg, Jumbotron } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, Row, Col, CardImg, Jumbotron, ButtonGroup } from 'reactstrap';
 
 class Events extends Component {
     constructor(props){
