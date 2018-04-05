@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Col, Form, FormGroup, Label, Input, Jumbotron, Button } from 'reactstrap';
 import LoaderButtonComponent from '../components/LoaderButtonComponent';
 import "../assets/login.css";
 
@@ -31,38 +31,27 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="login">
-                <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="username" bsSize="large">
-                        <ControlLabel>Username</ControlLabel>
-                        <FormControl
-                            autoFocus
-                            type="string"
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                        />
-                    </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
-                        <ControlLabel>Password</ControlLabel>
-                        <FormControl
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            type="password"
-                        />
-                    </FormGroup>
-                    <LoaderButtonComponent
-                        block
-                        bsSize="large"
-                        disabled={!this.validateForm()}
-                        type="submit"
-                        isLoading={this.state.isLoading}
-                        text="Login"
-                        loadingText="Logging in…"
-                    />
-                </form>
+            <div>
+                <Jumbotron>
+                <div className="login">
+                    <Form>
+                        <FormGroup row>
+                            <Label for="username" sm={2} size="lg">Username</Label>
+                            <Col sm={12}>
+                                <Input type="text" name="username" id="username" placeholder="username" bsSize="lg" />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="password" sm={2} size="lg">Password</Label>
+                            <Col sm={12}>
+                                <Input type="password" name="password" id="password" placeholder="password"  bsSize="lg"/>
+                            </Col>
+                        </FormGroup>
+                        <Button color="primary">Submit</Button>{' '}
+                    </Form>
+                </div>
+                </Jumbotron>
             </div>
         );
     }
 }
-
-// export default Login;

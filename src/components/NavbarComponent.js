@@ -15,10 +15,10 @@ const CustomNavbar = (props) => {
                     
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/components/">Components</NavLink>
+                                <NavLink href="/login">Login</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+                                <NavLink href="/signup">Sign up</NavLink>
                             </NavItem>
                             
                         </Nav>
