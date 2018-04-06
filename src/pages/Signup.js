@@ -3,8 +3,6 @@ import { FormGroup,
          FormControl,
          ControlLabel
          } from 'react-bootstrap';
-
-import LoaderButtonComponent from '../components/LoaderButtonComponent';
 import "../assets/Signup.css";
 
 class Signup extends Component {
@@ -72,15 +70,7 @@ class Signup extends Component {
                         type="password"
                     />
                 </FormGroup>
-                <LoaderButtonComponent
-                    block
-                    bsSize="large"
-                    disabled={!this.validateForm()}
-                    type="submit"
-                    isLoading={this.state.isLoading}
-                    text="Signup"
-                    loadingText="Signing up…"
-                />
+                
             </form>
         );
     }

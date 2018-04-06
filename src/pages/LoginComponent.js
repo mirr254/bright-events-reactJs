@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Col, Form, FormGroup, Label, Input, Jumbotron, Button } from 'reactstrap';
-import LoaderButtonComponent from '../components/LoaderButtonComponent';
 import "../assets/login.css";
 
 export default class Login extends Component {
@@ -14,20 +13,6 @@ export default class Login extends Component {
         };
     }
 
-    validateForm() {
-        this.state.username.length > 0 && this.state.username.length > 0;
-    }
-
-    handleChange = event => {
-        this.setState({
-            [event.target.id] : event.target.value
-        });
-    }
-
-    handleSubmit = async event => {
-        event.preventDefault();
-        this.setState({ isLoading: true });
-    }
 
     render() {
         return (
