@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Jumbotron } from 'reactstrap';
 import LoginForm from '../components/LoginFormComponent';
 import "../assets/login.css";
-import Axios from "axios";
+import axios from "axios";
 
 export default class Login extends Component {
     constructor(props){
@@ -19,7 +19,7 @@ export default class Login extends Component {
     //lifecycle method
     componentDidMount(){
         //make a get request
-        Axios.get(this.LOGIN_API_URL)
+        axios.get(this.LOGIN_API_URL)
         .then( (res) => {
             //set the state with result
             this.setState({data:res.data})
