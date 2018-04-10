@@ -1,16 +1,36 @@
 import React, { Component } from "react";
-import { Col, Form, FormGroup, Label, Input, Jumbotron, Button } from 'reactstrap';
+import { Jumbotron } from 'reactstrap';
+import LoginForm from '../components/LoginFormComponent';
 import "../assets/login.css";
+import Axios from "axios";
 
 export default class Login extends Component {
     constructor(props){
+        //passing props to the parent class
         super(props);
-
+        //set initial state
         this.state = {
-            isLoading : false,
-            username : '',
-            password : ''
+            data : []
         };
+
+        this.LOGIN_API_URL = 'https://brighter-event.herokuapp.com/api/v1/auth/login';
+    }
+
+    //lifecycle method
+    componentDidMount(){
+        //make a get request
+        Axios.get(this.LOGIN_API_URL)
+        .then( (res) => {
+            //set the state with result
+            this.setState({data:res.data})
+
+        });
+
+    }
+
+    //login user handler
+    loginUser(username,password){
+        //logic
     }
 
 
@@ -19,21 +39,7 @@ export default class Login extends Component {
             <div>
                 <Jumbotron>
                 <div className="login">
-                    <Form>
-                        <FormGroup row>
-                            <Label for="username" sm={2} size="lg">Username</Label>
-                            <Col sm={12}>
-                                <Input type="text" name="username" id="username" placeholder="username" bsSize="lg" />
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Label for="password" sm={2} size="lg">Password</Label>
-                            <Col sm={12}>
-                                <Input type="password" name="password" id="password" placeholder="password"  bsSize="lg"/>
-                            </Col>
-                        </FormGroup>
-                        <Button color="primary">Submit</Button>{' '}
-                    </Form>
+                    <LoginForm />
                 </div>
                 </Jumbotron>
             </div>
