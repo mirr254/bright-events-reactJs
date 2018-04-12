@@ -7,16 +7,16 @@ const LoginForm = (props) => {
             <FormGroup row>
                 <Label for="username" sm={2} size="lg">Username</Label>
                 <Col sm={12}>
-                    <Input type="text" name="username" id="username" placeholder="username" bsSize="lg" />
+                    <Input type="text" name="username" onChange={props.onChange} id="username" placeholder="username" bsSize="lg" />
                 </Col>
             </FormGroup>
             <FormGroup row>
                 <Label for="password" sm={2} size="lg">Password</Label>
                 <Col sm={12}>
-                    <Input type="password" name="password" id="password" placeholder="password" bsSize="lg" />
+                    <Input type="password" name="password" id="password" onChange={props.onChange} placeholder="password" bsSize="lg" />
                 </Col>
             </FormGroup>
-            <Button color="primary">Submit</Button>{' '}
+            <Button onClick={props.handleLogin} color="primary">Submit</Button>
         </Form>
     );
 };
