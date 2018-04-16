@@ -14,6 +14,7 @@ class Login extends Component {
             password: ''
         }
     }
+    
 
     handleClick(event) {
         var apiBaseUrl = "https://brighter-event.herokuapp.com/api/v1/auth/";

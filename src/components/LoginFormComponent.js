@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, Label, Col, Input, Button, Form } from 'reactstrap';
 
 const LoginForm = (props) => {
+    // console.log('`login form component', props)
     return(
         <Form>
             <FormGroup row>

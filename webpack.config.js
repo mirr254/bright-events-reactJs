@@ -28,6 +28,15 @@ module.exports = {
         inject: 'body'
     })],
     devServer: {
+        "proxy": {
+            "/api": {
+                "target": 'https://brighter-event.herokuapp.com',
+                "pathRewrite": { '^/api': '' },
+                "changeOrigin": true,
+                "secure": false
+            }
+        },
         historyApiFallback: true
     }
+
 }
