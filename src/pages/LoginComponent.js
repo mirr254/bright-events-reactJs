@@ -19,22 +19,13 @@ export default class Login extends Component {
             passwordValid: false,
             formValid: false
         };
+        console.log('state', this.state)
 
-        // this.LOGIN_API_URL = 'https://brighter-event.herokuapp.com/api/v1/auth/login';
+        this.LOGIN_API_URL = 'https://brighter-event.herokuapp.com/api/v1/auth/login';
     }
+    
 
-    //lifecycle method
-    componentDidMount(){
-        //make a get request
-        axios({
-            method: 'get',
-            url: this.LOGIN_API_URL,
-        })
-            .then(function (response) {
-                console.log(response)
-            });
-
-    }
+   
 
     //login user handler
     onChange = (event) => { this.handleUserInput(event) }
@@ -53,12 +44,12 @@ export default class Login extends Component {
 
         switch (fieldName) {
             case 'username':
-                usernameValid = value.length > 4;
+                usernameValid = value.length >= 4;
                 validationErrors.username = usernameValid ? "" : " is too short";
                 break;
 
             case 'password':
-                passwordValid = value.length >= 7 && value.match(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/);
+                passwordValid = value.length >= 7;
                 validationErrors.password = passwordValid ? "" : "password must have atleast 6 characters. both letters numbers";
                 break;
         
@@ -81,7 +72,11 @@ export default class Login extends Component {
     }
 
     handleLogin = () => {
-        console.log(this.state)
+        
+        axios.post('https://brighter-event.herokuapp.com/api/v1/auth/login', 
+                      { username: this.state.username, 
+                        password: this.state.password
+                    })
     }
         
     render() {
