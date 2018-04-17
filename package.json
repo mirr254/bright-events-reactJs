@@ -24,6 +24,8 @@
     "react-test-renderer": "^16.2.0",
     "reactstrap": "^5.0.0-beta",
     "redux": "^3.7.2",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
     "webpack": "^4.1.1"
   },
   "scripts": {
