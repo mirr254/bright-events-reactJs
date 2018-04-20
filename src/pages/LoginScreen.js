@@ -53,9 +53,8 @@ class Loginscreen extends Component {
     }
     render() {
         return (
-            <div className="loginscreen">
-                {this.state.loginscreen}
                 <div>
+                {this.state.loginscreen}
                     {this.state.loginmessage}
                     <MuiThemeProvider>
                         <div>
@@ -63,11 +62,9 @@ class Loginscreen extends Component {
                         </div>
                     </MuiThemeProvider>
                 </div>
-            </div>
+            
         );
     }
 }
-const style = {
-    margin: 15,
-};
+
 export default Loginscreen;
