@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import LoginForm from '../components/LoginFormComponent';
 

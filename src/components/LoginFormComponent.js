@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import { Button, TextField} from 'material-ui';
 
 const LoginForm = (props) => {
     // console.log('`login form component', props)
@@ -21,7 +20,7 @@ const LoginForm = (props) => {
                 onChange={props.onChange}
             />
             <br />
-            <RaisedButton label="Submit" primary={true} style={style} onClick={props.handleClick} />
+            <Button variant='raised' color='primary' label="Submit" primary={true} style={style} onClick={props.handleClick} />
         </div>
     );
 };

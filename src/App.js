@@ -1,14 +1,10 @@
 import Routes from "./Routes";
-import React, { Component } from "react";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, { Component, Fragment } from "react";
+import CustomHeader from "./components/HeaderComponent";
 
 class App extends Component {
     render() {
-        return (
-            <MuiThemeProvider >
-                <Routes />
-            </MuiThemeProvider>
-        );
+        
     }
 }
 

@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import { MuiThemeProvider, Button, AppBar, TextField} from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 class Register extends Component {
     constructor(props) {
@@ -27,7 +24,7 @@ class Register extends Component {
         axios.post(apiBaseUrl + '/register', payload)
             .then(function (response) {
                 console.log(response);
-                if (response.data.code == 200) {
+                if (response.data.code === 200) {
                     //  console.log("registration successfull");
                     var loginscreen = [];
                     // loginscreen.push(<Login parentContext={this} />);
@@ -44,6 +41,7 @@ class Register extends Component {
                 console.log(error);
             });
     }
+    
 
     render() {
         return (
@@ -81,7 +79,7 @@ class Register extends Component {
                             onChange={(event, newValue) => this.setState({ password: newValue })}
                         />
                         <br />
-                        <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)} />
+                        <Button variant='raised' color='primary' label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)} />
                     </div>
                 </MuiThemeProvider>
             </div>

@@ -1,15 +1,19 @@
-import { Header } from 'react-bootstrap';
 import React, { Component } from 'react';
-
-import '../assets/App.css';
-import '../assets/index.css';
+import { AppBar, Toolbar, IconButton, Typography, Button } from 'material-ui';
 
 const CustomHeader = (props) => {
         return (
-             < header className = "App-header" >
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">Bright Events</h1>
-             </header >
+                <AppBar position="static">
+                        <Toolbar>
+                                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                                        <MenuIcon />
+                                </IconButton>
+                                <Typography variant="title" color="inherit" className={classes.flex}>
+                                        Bright Events
+                                </Typography>
+                                <Button color="inherit">Login</Button>
+                        </Toolbar>
+                </AppBar>
         );
     
 }

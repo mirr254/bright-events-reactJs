@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/icons": "^1.0.0-beta.42",
+    "@material-ui/icons": "^1.0.0-beta.43",
     "axios": "^0.18.0",
     "babel-eslint": "^8.2.2",
     "bootstrap-3-card": "^0.2.0",
