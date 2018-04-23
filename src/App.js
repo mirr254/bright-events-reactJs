@@ -13,7 +13,9 @@ class App extends Component {
 
            <Footer />
 
-             </Fragment>
+           {/* <Routes /> */}
+
+             </Fragment>      
     }
 }
 
