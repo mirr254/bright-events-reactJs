@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import '../assets/index.css';
-
+import React, { Component, Fragment } from "react";
+import CustomHeader from "../components/HeaderComponent";
+import Footer from '../components/FooterComponent';
+import AllEvents from './AllEventsPage';
 
 class Home extends Component {
     render() {
-        return (
-            <div className="home">
-                <div className="lander">
-                    <h1>Bright Events</h1>
-                    <p>Bright Event management</p>
-                </div>
-            </div>
-        );
+        return <Fragment>
+            <CustomHeader />
+
+            <AllEvents />
+
+            <Footer />
+
+        </Fragment>    
     }
 }
 

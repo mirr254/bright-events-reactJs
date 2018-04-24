@@ -7,13 +7,9 @@ import AllEvents from './pages/AllEventsPage';
 class App extends Component {
     render() {
        return <Fragment>
-            <CustomHeader/>
+            
 
-            <AllEvents />
-
-           <Footer />
-
-           {/* <Routes /> */}
+           <Routes />
 
              </Fragment>      
     }

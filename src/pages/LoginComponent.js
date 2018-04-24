@@ -49,7 +49,7 @@ class Login extends Component {
         return (
             <div>
                 <MuiThemeProvider>
-                    <LoginForm handleClick = {this.handleClick} onChange = {this.onChange}/>
+                    <LoginForm justify='center' handleClick = {this.handleClick} onChange = {this.onChange}/>
                 </MuiThemeProvider>
             </div>
         );

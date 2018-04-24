@@ -5,6 +5,7 @@ import NotFound from './pages/NotFound';
 import Login from './pages/LoginComponent';
 import Signup from './pages/Signup';
 import ConfirmEmail from './pages/ConfirmRegistration';
+import EventViewCard from './pages/SingleEventComponent';
 
 class Routes extends Component {
   
@@ -18,6 +19,7 @@ class Routes extends Component {
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={Signup} />
                 <Route path='/confirm' component={ConfirmEmail} />
+                <Route path='/events/1' component={EventViewCard} />
                  
                 <Route component={NotFound} />
                 
