@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import LoginForm from '../components/LoginFormComponent';
+import CustomHeader from '../components/HeaderComponent';
 
 
 class Login extends Component {
@@ -48,9 +49,9 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <MuiThemeProvider>
-                    <LoginForm justify='center' handleClick = {this.handleClick} onChange = {this.onChange}/>
-                </MuiThemeProvider>
+                <CustomHeader />
+                <LoginForm justify='center' handleClick = {this.handleClick} onChange = {this.onChange}/>
+                
             </div>
         );
     }
