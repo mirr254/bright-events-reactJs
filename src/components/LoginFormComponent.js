@@ -46,6 +46,7 @@ const LoginForm2 = (props) => {
                     className={classNames(classes.margin, classes.textField)}
 
                 />
+                <br />
                 <FormControl className={classNames(classes.margin, classes.textField)}>
                     <InputLabel htmlFor="adornment-password">Password</InputLabel>
                     <Input
