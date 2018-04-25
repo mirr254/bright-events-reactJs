@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './pages/HomeComponent';
-import NotFound from './pages/NotFound';
-import Login from './pages/LoginComponent';
-import Signup from './pages/Signup';
-import ConfirmEmail from './pages/ConfirmRegistration';
-import EventViewCard from './pages/SingleEventComponent';
+import Home from './pages/HomePage';
+import NotFound from './pages/NotFoundPage';
+import Login from './pages/LoginPage';
+import Signup from './pages/SignupPage';
+import ConfirmEmail from './pages/ConfirmRegistrationPage';
+import EventViewCard from './pages/SingleEventPage';
 
 class Routes extends Component {
   
