@@ -38,11 +38,6 @@ class Login extends Component {
         
     }
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-        console.log("current state ", this.state);
-    };
-
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
         console.log('State', this.state.password + " "+ this.state.username)
@@ -64,8 +59,7 @@ class Login extends Component {
                 <br />
                 <div >
                     <LoginForm2 
-                    handleClick = {this.handleClick} 
-                    //onChange = {this.onChange} 
+                    handleClick = {this.handleClick}  
                     handleClickShowPassword = {this.handleClickShowPassword}
                     handleMouseDownPassword = {this.handleMouseDownPassword}
                     handleChange = {this.handleChange}

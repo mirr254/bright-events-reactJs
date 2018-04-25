@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, Button, AppBar, TextField} from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
+import SignupForm from '../components/SignupFormComponent';
+import CustomHeader from '../components/HeaderComponent';
+
 class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: '',
             email: '',
-            password: ''
+            password: '',
+            passwordConfirm: '',
+            showPassword : false,
         }
     }
 
@@ -41,52 +46,41 @@ class Register extends Component {
                 console.log(error);
             });
     }
+
+    handleChange = prop => event => {
+        this.setState({ [prop]: event.target.value});
+        console.log('states', this.state )
+    }
+
+    handleClickShowPassword = () =>{
+        this.setState({ showPassword : !this.state.showPassword });
+    }
+
+    handleMouseDownPassword = event => {
+        event.preventDefault();
+    }
     
 
     render() {
         return (
+            // 
             <div>
-                <MuiThemeProvider>
-                    <div>
-                        <AppBar
-                            title="Register"
+                <CustomHeader />
+                <div align='center' >
+                    <br />
+                    <div >
+                        <SignupForm
+                            handleClick={this.handleClick}
+                            handleChange = {this.handleChange} 
+                            showPassword={this.state.showPassword}
+                            handleClickShowPassword = { this.handleClickShowPassword}
+                            handleMouseDownPassword = { this.handleMouseDownPassword}
                         />
-                        
-                        <TextField
-                            hintText="Enter your username"
-                            floatingLabelText="Username"
-                            onChange={(event, newValue) => this.setState({ username: newValue })}
-                        />
-                        <br />
-                        <TextField
-                            hintText="Enter your Email"
-                            type="email"
-                            floatingLabelText="Email"
-                            onChange={(event, newValue) => this.setState({ email: newValue })}
-                        />
-                        <br />
-                        <TextField
-                            type="password"
-                            hintText="Enter your Password"
-                            floatingLabelText="Password"
-                            onChange={(event, newValue) => this.setState({ password: newValue })}
-                        />
-                        <br />
-                        <TextField
-                            type="password"
-                            hintText="Confirm your Password"
-                            floatingLabelText="Confirm Password"
-                            onChange={(event, newValue) => this.setState({ password: newValue })}
-                        />
-                        <br />
-                        <Button variant='raised' color='primary' label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)} />
                     </div>
-                </MuiThemeProvider>
+                </div>
             </div>
         );
     }
 }
-const style = {
-    margin: 15,
-};
+
 export default Register;

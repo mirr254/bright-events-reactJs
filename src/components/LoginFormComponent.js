@@ -6,7 +6,6 @@ import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
-//import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import { VisibilityOff, AccountCircle, Visibility } from '@material-ui/icons';
 
@@ -30,7 +29,6 @@ const styles = theme => ({
 const LoginForm2 = (props) => {
 
         const { classes } = props;
-        console.log('State', props.state)
 
         return (
             <div className={classes.root}>
