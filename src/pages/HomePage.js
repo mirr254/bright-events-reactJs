@@ -6,6 +6,7 @@ import AllEvents from './AllEventsPage';
 class Home extends Component {
     render() {
         return <Fragment>
+            
             <CustomHeader />
 
             <AllEvents />

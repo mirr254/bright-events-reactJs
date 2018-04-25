@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import { AppBar, Toolbar, IconButton, Typography, Button } from 'material-ui';
+import { AppBar, Toolbar, IconButton, Typography, Button, AutoComplete } from 'material-ui';
+import { Link } from 'react-router-dom'
 
 const styles = {
         root: {
@@ -12,8 +13,10 @@ const styles = {
         },
        
 };
+const loginLink = props => <Link to='/login' {...props} /> // necessary to prevent unexpected unmounting
+const signupLink = props => <Link to='/signup' {...props} />
 
-const CustomHeader = (props) => {
+const CustomHeader = (props) => { 
         const { classes } = props;
         return (
                 <AppBar position="static">
@@ -22,8 +25,9 @@ const CustomHeader = (props) => {
                                 <Typography variant="headline" color="inherit" className={classes.flex} >
                                         Bright Events
                                 </Typography>
-                                <Button color="inherit">Login</Button>
-                                <Button color="inherit">Sign up</Button>
+                                
+                                <Button color="inherit" component={loginLink} >Login</Button>
+                                <Button color="inherit" component={signupLink} >Sign up</Button>
                         </Toolbar>
                 </AppBar>
         );
