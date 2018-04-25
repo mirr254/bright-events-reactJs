@@ -23,6 +23,7 @@ const CustomHeader = (props) => {
                                         Bright Events
                                 </Typography>
                                 <Button color="inherit">Login</Button>
+                                <Button color="inherit">Sign up</Button>
                         </Toolbar>
                 </AppBar>
         );

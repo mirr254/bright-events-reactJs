@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import { FormControl, FormHelperText } from 'material-ui/Form';
 import MenuItem from 'material-ui/Menu/MenuItem';
-import { VisibilityOff, AccountCircle, Visibility } from '@material-ui/icons';
+import { VisibilityOff, AccountCircle, Visibility, Email } from '@material-ui/icons';
 
 
 // material form 2
@@ -53,7 +53,7 @@ const SignupForm = (props) => {
                     onChange={props.handleChange('email')}
                     startAdornment={
                         <InputAdornment position="start">
-                            <AccountCircle />
+                            <Email />
                         </InputAdornment>
                     }
                 />

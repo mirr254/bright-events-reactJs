@@ -16,7 +16,7 @@ class Register extends Component {
         }
     }
 
-    handleClick(event) {
+    handleClick = event => {
         var apiBaseUrl = "https://brighter-event.herokuapp.com/api/v1/auth";
         console.log("values", this.state.username, this.state.email, this.state.password);
         //TODO: be done:check for empty values before hitting submit
@@ -30,16 +30,7 @@ class Register extends Component {
             .then(function (response) {
                 console.log(response);
                 if (response.data.code === 200) {
-                    //  console.log("registration successfull");
-                    var loginscreen = [];
-                    // loginscreen.push(<Login parentContext={this} />);
-                    var loginmessage = "Not Registered yet.Go to registration";
-                    self.props.parentContext.setState({
-                        loginscreen: loginscreen,
-                        loginmessage: loginmessage,
-                        buttonLabel: "Register",
-                        isLogin: true
-                    });
+                     console.log("registration successfull");
                 }
             })
             .catch(function (error) {
