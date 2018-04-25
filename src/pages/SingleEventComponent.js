@@ -28,6 +28,7 @@ class EventViewCard extends React.Component {
         return (
             <div>
                 <CustomHeader />
+                <br />
                 <div align='center'>
                 <Card className={classes.card}>
                     <CardHeader

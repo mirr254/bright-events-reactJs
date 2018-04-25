@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import TextField from 'material-ui/TextField';
-import LoginForm from '../components/LoginFormComponent';
+import LoginForm2 from '../components/LoginFormComponent';
 import CustomHeader from '../components/HeaderComponent';
-
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            showPassword: false,
         }
 
     }
@@ -42,21 +39,45 @@ class Login extends Component {
     }
 
     onChange = event => {
-         this.setState({ [event.target.name]: event.target.value });
+        this.setState({ [event.target.name]: event.target.value });
         console.log("current state ", this.state);
-    }
+    };
+
+    handleChange = prop => event => {
+        this.setState({ [prop]: event.target.value });
+        console.log('State', this.state.password + " "+ this.state.username)
+    };
+
+    handleMouseDownPassword = event => {
+        event.preventDefault();
+    };
+
+    handleClickShowPassword = () => {
+        this.setState({ showPassword: !this.state.showPassword });
+    };
 
     render() {
         return (
             <div>
                 <CustomHeader />
-                <LoginForm justify='center' handleClick = {this.handleClick} onChange = {this.onChange}/>
-                
+                <div align='center' >
+                <br />
+                <div >
+                    <LoginForm2 
+                    handleClick = {this.handleClick} 
+                    //onChange = {this.onChange} 
+                    handleClickShowPassword = {this.handleClickShowPassword}
+                    handleMouseDownPassword = {this.handleMouseDownPassword}
+                    handleChange = {this.handleChange}
+                    showPassword={this.state.showPassword}
+                    />
+                </div>
+                </div>
             </div>
         );
     }
 }
 const style = {
-    margin: 15,
+    margin: 5,
 };
 export default Login;
