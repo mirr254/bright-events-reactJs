@@ -15,6 +15,7 @@ const styles = {
 };
 const loginLink = props => <Link to='/login' {...props} /> // necessary to prevent unexpected unmounting
 const signupLink = props => <Link to='/signup' {...props} />
+const homeLink = props => <Link to='/' {...props} />
 
 const CustomHeader = (props) => { 
         const { classes } = props;
@@ -22,7 +23,7 @@ const CustomHeader = (props) => {
                 <AppBar position="static">
                         <Toolbar>
                                 
-                                <Typography variant="headline" color="inherit" className={classes.flex} >
+                                <Typography component={homeLink} variant="headline" color="inherit" className={classes.flex} >
                                         Bright Events
                                 </Typography>
                                 
