@@ -32,7 +32,7 @@
     "build": "react-scripts build webpack",
     "eject": "react-scripts eject",
     "test": "mocha --reporter progress src/TestSetup.js \"src/**/*.test.js\"",
-    "test:watch": "yarn run test -- --watch",
+    "test:watch": "npm run test -- --watch",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },
