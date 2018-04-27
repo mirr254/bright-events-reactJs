@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import LoginForm2 from '../components/LoginFormComponent';
 import CustomHeader from '../components/HeaderComponent';
+import AuthService from '../components/AuthService';
 
 class Login extends Component {
     constructor(props) {
@@ -11,36 +12,36 @@ class Login extends Component {
             password: '',
             showPassword: false,
         }
+        this.Auth = new AuthService();
 
     }
     
     handleClick = event => {
-        console.log("username : qwertgh", this.state)
-        var apiBaseUrl = "https://brighter-event.herokuapp.com/api/v1/auth/";
-        
-        const requestPromise = require('request-promise');
-        // encode data with base64 for the authentication
-        const base64encodedData = new Buffer(
-            this.state.username + ':' + this.state.password
-        ).toString('base64');
-        
-        requestPromise.get({
-            uri: apiBaseUrl+"login",
-            headers: {
-                'Authorization': 'Basic '+ base64encodedData
-            },
-            json: true
-        }).then(function ok(jsonData) {
-            console.log(jsonData);
-        }).catch(function fail(error) {
-            console.log(error);
-        }) ;
-        
+        console.log("States :", this.state)
+
+        let url = "";
+
+        this.Auth.login(this.state.username, this.state.password)
+            .then(function ok(res) {
+                window.location.href = '/';
+               // this.props.history.replace('/');
+            }).catch(function fail(error) {
+                console.log(error);
+                alert(error)
+            }) ;
+
+
+    }
+
+    //add redirection if we are already logged in
+    componentWillMount = ()=>{
+        if(this.Auth.loggedIn()){
+            this.props.history.replace('/')
+        }
     }
 
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
-        console.log('State', this.state.password + " "+ this.state.username)
     };
 
     handleMouseDownPassword = event => {
