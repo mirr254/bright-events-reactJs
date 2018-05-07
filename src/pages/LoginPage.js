@@ -27,9 +27,8 @@ class Login extends Component {
                // this.props.history.replace('/');
             }).catch(function fail(error) {
                 console.log(error);
-                alert(error)
+                
             }) ;
-
 
     }
 

@@ -74,7 +74,7 @@ export default class AuthService {
     //         'Accept': 'application/json',
     //         'content-type': 'application/json'
     //     }
-    //     //set the authori`ation header
+    //     //set the authorization header
     //     if (this.loggedIn()) {
     //         headers['Authorization'] = 'Basic' + this.getToken()
     //     }
