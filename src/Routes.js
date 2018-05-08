@@ -7,6 +7,7 @@ import Signup from './pages/SignupPage';
 import ConfirmEmail from './pages/ConfirmRegistrationPage';
 import EventViewCard from './pages/SingleEventPage';
 import UserProfilePage from './pages/UserProfilePage';
+import CustomHeader from './components/HeaderComponent';
 
 class Routes extends Component {
   
@@ -15,6 +16,7 @@ class Routes extends Component {
       
         <BrowserRouter>
           <div>
+            <CustomHeader />
             <Switch>
                 <Route exact path='/' component={Home}/> 
                 <Route path='/login' component={Login} />

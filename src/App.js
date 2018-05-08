@@ -1,18 +1,47 @@
-import Routes from "./Routes";
-import React, { Component, Fragment } from "react";
-import CustomHeader from "./components/HeaderComponent";
-import Footer from './components/FooterComponent';
-import AllEvents from './pages/AllEventsPage';
+import Routes from './Routes'
+import React, { Component, Fragment } from 'react'
+import CustomHeader from './components/HeaderComponent'
+import Footer from './components/FooterComponent'
+import AllEvents from './pages/AllEventsPage'
+import AuthService from "./components/AuthService";
 
-class App extends Component {
-    render() {
-       return <Fragment>
-            
+// make a new context
+export const MyContext = React.createContext()
+const auth = new AuthService
 
-           <Routes />
-
-             </Fragment>      
+class MyProvider extends Component{
+    state = {
+     loggedIn: auth.loggedIn()
     }
-}
 
-export default App;
+logout = () => {
+  auth.logout()
+  this.setState({ loggedIn: false })
+}
+ render () {
+    return (
+      <MyContext.Provider
+        value={{
+          state: this.state
+        }}
+      >
+    
+        {this.props.children}
+      </MyContext.Provider>
+    )
+  }
+}
+export default class App extends Component {
+  render () {
+    return (
+      <div>
+        <MyProvider>
+          <div>
+            <Routes />
+          </div>
+
+        </MyProvider>
+      </div>
+    )
+  }
+}

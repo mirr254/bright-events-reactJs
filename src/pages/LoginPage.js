@@ -54,7 +54,6 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <CustomHeader />
                 <div align='center' >
                 <br />
                 <div >

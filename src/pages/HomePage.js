@@ -21,7 +21,6 @@ function Home(props) {
 
             <div className= {classes.root}>
             
-            <CustomHeader />
 
             <AllEvents />
 

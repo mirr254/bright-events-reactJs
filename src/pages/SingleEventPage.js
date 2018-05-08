@@ -13,21 +13,35 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CustomHeader from '../components/HeaderComponent';
+import AuthService from '../components/AuthService';
 
 
 class EventViewCard extends React.Component {
-    state = { expanded: false };
+    constructor(props){
+        super(props);
+        this.state = { expanded: false };
+
+        this.Auth = new AuthService();
+
+    }
+    
 
     handleExpandClick = () => {
         this.setState({ expanded: !this.state.expanded });
     };
+
+    componentWillMount = () => {
+        if (!this.Auth.loggedIn()) {
+            this.props.history.replace('/login');
+            console.log('logged in', !!this.Auth.loggedIn())
+        }
+    }
 
     render() {
         const { classes } = this.props;
 
         return (
             <div>
-                <CustomHeader />
                 <br />
                 <div align='center'>
                 <Card className={classes.card}>
