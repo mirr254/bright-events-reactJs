@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './pages/HomeComponent';
-import CustomNavbar from './components/NavbarComponent';
-import NotFound from './pages/NotFound';
-import Login from './pages/LoginComponent';
-import Signup from './pages/Signup';
-import ConfirmEmail from './pages/ConfirmRegistration';
-import EventDetails from './pages/SingleEventComponent';
-import Events from './pages/EventsComponent';
+import Home from './pages/HomePage';
+import NotFound from './pages/NotFoundPage';
+import Login from './pages/LoginPage';
+import Signup from './pages/SignupPage';
+import ConfirmEmail from './pages/ConfirmRegistrationPage';
+import EventViewCard from './pages/SingleEventPage';
+import UserProfilePage from './pages/UserProfilePage';
+import CustomHeader from './components/HeaderComponent';
 
 class Routes extends Component {
+  
   render(){
     return(
       
         <BrowserRouter>
           <div>
-            <CustomNavbar />
+            <CustomHeader />
             <Switch>
                 <Route exact path='/' component={Home}/> 
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={Signup} />
                 <Route path='/confirm' component={ConfirmEmail} />
-                <Route path='/events/1' component={EventDetails} />
-                <Route path='/events' component={Events}/>
+                <Route path= '/user/1w' component={UserProfilePage} />
+                <Route path='/events/1' component={EventViewCard} />
+                 
                 <Route component={NotFound} />
                 
               </Switch>

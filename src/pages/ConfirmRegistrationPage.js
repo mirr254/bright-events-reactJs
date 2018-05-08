@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { FormControl, FormGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
-import LoaderButtonComponent from '../components/LoaderButtonComponent';
 
 class ConfirmEmail extends Component {
     constructor(props){
@@ -28,15 +27,7 @@ class ConfirmEmail extends Component {
                         />
                         <HelpBlock>Please check your email for the code.</HelpBlock>
                     </FormGroup>
-                    <LoaderButtonComponent
-                        block
-                        bsSize="large"
-                        disabled={!this.validateConfirmationForm()}
-                        type="submit"
-                        isLoading={this.state.isLoading}
-                        text="Verify"
-                        loadingText="Verifying…"
-                    />
+                    
                 </form>
             </div>
             );
