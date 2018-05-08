@@ -31,7 +31,7 @@ const CustomHeader = props => {
   <div>
   <MyContext.Consumer>
     {(context) => (<Fragment> 
-    {console.log('Login status', props.loggedIn)}
+    {console.log('Login status', context.state )}
       <AppBar position='static'>
 
         <Toolbar>
@@ -45,9 +45,9 @@ const CustomHeader = props => {
             Bright Events
           </Typography>
           {/* check if user is logged in  */}
-          {/* {props.state.loggedIn
+          {context.state.loggedIn
                   ? <Button color='inherit'>Logout</Button>
-                  : <Button color='inherit' component={loginLink}>Login</Button>} */}
+                  : <Button color='inherit' component={loginLink}>Login</Button>}
 
         </Toolbar>
       </AppBar>

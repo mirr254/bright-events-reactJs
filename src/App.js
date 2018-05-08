@@ -9,39 +9,34 @@ import AuthService from "./components/AuthService";
 export const MyContext = React.createContext()
 const auth = new AuthService
 
-class MyProvider extends Component{
-    state = {
-     loggedIn: auth.loggedIn()
+export default class App extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      loggedIn: auth.loggedIn()
     }
+  }
 
-logout = () => {
-  auth.logout()
-  this.setState({ loggedIn: false })
-}
- render () {
+  logout = () => {
+    // auth.logout()
+    // this.setState({ loggedIn: false })
+    console.log('am out')
+  }
+  render () {
     return (
       <MyContext.Provider
         value={{
-          state: this.state
+          state: this.state,
+          logout: this.logout
         }}
       >
-    
+
         {this.props.children}
+        <Routes />
+
       </MyContext.Provider>
     )
   }
 }
-export default class App extends Component {
-  render () {
-    return (
-      <div>
-        <MyProvider>
-          <div>
-            <Routes />
-          </div>
 
-        </MyProvider>
-      </div>
-    )
-  }
-}
+
