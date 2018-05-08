@@ -10,7 +10,7 @@ import {
   AutoComplete
 } from 'material-ui'
 import { Link } from 'react-router-dom'
-import {MyContext} from "../App"
+import { MyContext } from '../App'
 
 const styles = {
   root: {
@@ -28,33 +28,37 @@ const CustomHeader = props => {
   const { classes } = props
 
   return (
-  <div>
-  <MyContext.Consumer>
-    {(context) => (<Fragment> 
-    {console.log('Login status', context.state )}
-      <AppBar position='static'>
+    <div>
+      <MyContext.Consumer>
+        {context => (
+          <Fragment> { /* <--provides an empty tag */}
+            <AppBar position='static'>
 
-        <Toolbar>
+              <Toolbar>
 
-          <Typography
-            component={homeLink}
-            variant='headline'
-            color='inherit'
-            className={classes.flex}
-          >
-            Bright Events
-          </Typography>
-          {/* check if user is logged in  */}
-          {context.state.loggedIn
-                  ? <Button color='inherit'>Logout</Button>
-                  : <Button color='inherit' component={loginLink}>Login</Button>}
+                <Typography
+                  component={homeLink}
+                  variant='headline'
+                  color='inherit'
+                  className={classes.flex}
+                >
+                  Bright Events
+                </Typography>
+                {/* check if user is logged in  */}
+                {context.state.loggedIn
+                  ? <Button color='inherit' onClick={context.logout}>
+                      Logout
+                    </Button>
+                  : <Button color='inherit' component={loginLink}>
+                      Login
+                    </Button>}
 
-        </Toolbar>
-      </AppBar>
-    </Fragment>)}
-  </MyContext.Consumer>
-</div>
-
+              </Toolbar>
+            </AppBar>
+          </Fragment>
+        )}
+      </MyContext.Consumer>
+    </div>
   )
 
   CustomHeader.propTypes = {
