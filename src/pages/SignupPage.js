@@ -56,7 +56,6 @@ class Register extends Component {
         return (
             // 
             <div>
-                <CustomHeader />
                 <div align='center' >
                     <br />
                     <div >

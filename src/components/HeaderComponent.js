@@ -4,10 +4,8 @@ import { withStyles } from 'material-ui/styles'
 import {
   AppBar,
   Toolbar,
-  IconButton,
   Typography,
   Button,
-  AutoComplete
 } from 'material-ui'
 import { Link } from 'react-router-dom'
 import { MyContext } from '../App'
@@ -31,7 +29,8 @@ const CustomHeader = props => {
     <div>
       <MyContext.Consumer>
         {context => (
-          <Fragment> { /* <--provides an empty tag */}
+          <Fragment>
+            {' '}{/* <--provides an empty tag */}
             <AppBar position='static'>
 
               <Toolbar>
@@ -44,14 +43,19 @@ const CustomHeader = props => {
                 >
                   Bright Events
                 </Typography>
-                {/* check if user is logged in  */}
+                {/* use context to check if user is logged in  */}
                 {context.state.loggedIn
                   ? <Button color='inherit' onClick={context.logout}>
                       Logout
                     </Button>
-                  : <Button color='inherit' component={loginLink}>
-                      Login
-                    </Button>}
+                  : <div>
+                    {' '}<Button color='inherit' component={loginLink}>
+                        Login
+                      </Button>
+                    <Button color='inherit' component={signupLink}>
+                        Signup
+                      </Button>
+                  </div>}
 
               </Toolbar>
             </AppBar>
