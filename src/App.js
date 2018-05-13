@@ -7,6 +7,7 @@ import AuthService from './components/AuthService'
 
 // make a new context
 export const MyContext = React.createContext()
+//create a new instance of auth to be used for authentication
 const auth = new AuthService()
 
 export default class App extends Component {
@@ -20,8 +21,10 @@ export default class App extends Component {
   logout = () => {
     auth.logout()
     this.setState({ loggedIn: false })
-    console.log('am out')
+    window.location.href = '/'
+
   }
+  
   render () {
     return (
       <MyContext.Provider
