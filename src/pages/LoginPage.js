@@ -56,7 +56,6 @@ class Login extends Component {
       <div>
         <MyContext.Consumer>
           {context => (
-              
             <div align='center'>
               <br />
               <div>

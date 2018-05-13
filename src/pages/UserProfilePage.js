@@ -14,7 +14,7 @@ const drawerWidth = 240;
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        height: 430,
+        height: '70%',
         zIndex: 1,
         overflow: 'hidden',
         position: 'relative',
@@ -41,13 +41,13 @@ function UserProfile(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="absolute" className={classes.appBar}>
+            {/* <AppBar position="absolute" className={classes.appBar}>
                 <Toolbar>
                     <Typography variant="title" color="inherit" noWrap>
                         User:1w Details
           </Typography>
                 </Toolbar>
-            </AppBar>
+            </AppBar> */}
             <Drawer
                 variant="permanent"
                 classes={{

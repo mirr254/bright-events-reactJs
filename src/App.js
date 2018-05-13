@@ -4,7 +4,6 @@ import CustomHeader from './components/HeaderComponent'
 import Footer from './components/FooterComponent'
 import AllEvents from './pages/AllEventsPage'
 import AuthService from './components/AuthService'
-import {withRouter} from 'react-router-dom';
 
 // make a new context
 export const MyContext = React.createContext()
