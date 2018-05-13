@@ -85,7 +85,7 @@ export default class AuthService {
         })
             .then(this._checkStatus)
             .then(response => response.json());
-    // }
+     }
 
     _checkStatus = (response) => {
         //raises an error incase response status is not a success

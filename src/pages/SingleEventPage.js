@@ -13,7 +13,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CustomHeader from '../components/HeaderComponent';
-import AuthService from '../components/AuthService';
+import AuthService from '../utils/AuthService';
 
 
 class EventViewCard extends React.Component {
