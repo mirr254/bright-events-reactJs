@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import LoginForm2 from '../components/LoginFormComponent'
 import CustomHeader from '../components/HeaderComponent'
-import AuthService from '../components/AuthService'
+import AuthService from '../utils/AuthService'
 import { MyContext } from '../App'
 
 class Login extends Component {

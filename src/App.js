@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react'
 import CustomHeader from './components/HeaderComponent'
 import Footer from './components/FooterComponent'
 import AllEvents from './pages/AllEventsPage'
-import AuthService from './components/AuthService'
+import AuthService from './utils/AuthService'
 
 // make a new context
 export const MyContext = React.createContext()

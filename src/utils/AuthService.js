@@ -68,23 +68,23 @@ export default class AuthService {
         return decode(this.getToken());
     }
 
-    // fetch = () => {
-    //     // performs api calls sending the required authentication headers
-    //     const headers = {
-    //         'Accept': 'application/json',
-    //         'content-type': 'application/json'
-    //     }
-    //     //set the authorization header
-    //     if (this.loggedIn()) {
-    //         headers['Authorization'] = 'Basic' + this.getToken()
-    //     }
+    fetch = (url,options ) => {
+        // performs api calls sending the required authentication headers
+        const headers = {
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+        }
+        //set the authorization header
+        if (this.loggedIn()) {
+            headers['Authorization'] = 'Basic' + this.getToken()
+        }
 
-    //     return fetch( url, {
-    //         headers,
-    //         ...options
-    //     })
-    //         .then(this._checkStatus)
-    //         .then(response => response.json());
+        return fetch( url, {
+            headers,
+            ...options
+        })
+            .then(this._checkStatus)
+            .then(response => response.json());
     // }
 
     _checkStatus = (response) => {
