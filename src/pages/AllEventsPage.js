@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
-import Subheader from 'material-ui/List/ListSubheader';
 import IconButton from 'material-ui/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
+import { MyContext } from '../App';
 
 const styles = theme => ({
     root: {
@@ -59,34 +59,44 @@ const tileData = [
   
   ];
 
+function AllEvents (props) {
+  const { classes } = props
 
-
-function AllEvents(props) {
-    const { classes } = props;
-
-    return (
+  return (
+  <div>
+  <MyContext.Consumer>
+    {context => (
         
-            <GridList cellHeight={300} className={classes.gridList} cols={3}>
-                <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-                    <Subheader component="div">All Events</Subheader>
-                </GridListTile>
-                {tileData.map(tile => (
-                    <GridListTile key={tile.img} >
-                        <img src={tile.img} alt={tile.title} />
-                        <GridListTileBar
-                            title={tile.title}
-                            subtitle={<span>by: {tile.author}</span>}
-                            actionIcon={
-                                <IconButton className={classes.icon}>
-                                    <InfoIcon />
-                                </IconButton>
-                            }
-                        />
-                    </GridListTile>
-                ))}
-            </GridList>
-        
-    );
+      <div>
+
+        <GridList cellHeight={300} className={classes.gridList} cols={3}>
+          <GridListTile key='Subheader' cols={3} style={{ height: 'auto' }}>
+          </GridListTile>
+          {context.events.map(tile => (
+            <GridListTile key={tile.id}>
+              <img src='./images/im5.JPG' alt={tile.name} />
+              <GridListTileBar
+                title={tile.title}
+                subtitle={<span>Cost: {tile.cost}</span>}
+                actionIcon={
+                  <IconButton className={classes.icon}>
+                    <InfoIcon />
+                  </IconButton>
+                }
+              />
+            </GridListTile>
+          ))}
+        </GridList>
+
+      </div>
+    )}
+
+  </MyContext.Consumer>
+
+</div>
+
+
+  )
 }
 
 AllEvents.propTypes = {
