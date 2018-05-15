@@ -1,8 +1,5 @@
 import Routes from './Routes'
 import React, { Component } from 'react'
-import CustomHeader from './components/HeaderComponent'
-import Footer from './components/FooterComponent'
-import AllEvents from './pages/AllEventsPage'
 import AuthService from './utils/AuthService'
 import axios from 'axios'
 
@@ -32,12 +29,19 @@ export default class App extends Component {
    axios.get(eventsBaseUrl).then(res => {
     const events = res.data
     this.setState({ events })
-    console.log(this.state.events)
+    // single
+    let res1 = auth.fetch(eventsBaseUrl + '/2')
+    console.log('Single Data ', resolve(res1))
   })
-      
+    
   }
 
+  // getSingleEvent = (id) => {
+  //   let res = auth.fetch(eventsBaseUrl+'/'+id)
+  //   console.log("Single Data ", res)
+  // }
   
+
   render () {
     return (
       <MyContext.Provider

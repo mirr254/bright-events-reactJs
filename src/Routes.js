@@ -23,7 +23,7 @@ class Routes extends Component {
                 <Route path='/signup' component={Signup} />
                 <Route path='/confirm' component={ConfirmEmail} />
                 <Route path= '/user/1w' component={UserProfilePage} />
-                <Route path='/events/1' component={EventViewCard} />
+                <Route path='/events/:id' component={EventViewCard} />
                  
                 <Route component={NotFound} />
                 

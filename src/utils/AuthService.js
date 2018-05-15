@@ -76,7 +76,8 @@ export default class AuthService {
         }
         //set the authorization header
         if (this.loggedIn()) {
-            headers['Authorization'] = 'Basic' + this.getToken()
+            headers['x-access-token'] = this.getToken()
+            
         }
 
         return fetch( url, {
