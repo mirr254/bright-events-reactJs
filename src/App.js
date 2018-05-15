@@ -4,11 +4,13 @@ import CustomHeader from './components/HeaderComponent'
 import Footer from './components/FooterComponent'
 import AllEvents from './pages/AllEventsPage'
 import AuthService from './utils/AuthService'
+import { axios } from 'axios'
 
 // make a new context
 export const MyContext = React.createContext()
 //create a new instance of auth to be used for authentication
 const auth = new AuthService()
+const eventsBaseUrl = 'https://brighter-event.herokuapp.com/api/v1/events'
 
 export default class App extends Component {
   constructor (props) {
@@ -24,6 +26,38 @@ export default class App extends Component {
     window.location.href = '/'
 
   }
+
+  componentDidMount = () => {
+    // fetch for all events data
+  const axios = require('axios')
+  console.log("Mounted")
+
+  const getEvents = async () => {
+    try {
+      return await axios.get(eventsBaseUrl)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // count
+  const countEvents = async () => {
+  const breeds = getEvents()
+    .then(response => {
+      if (response.data.message) {
+        console.log("events",
+          `Got ${Object.entries(response.data.message).length} events`
+        )
+      }
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
+
+
+}
+
   
   render () {
     return (

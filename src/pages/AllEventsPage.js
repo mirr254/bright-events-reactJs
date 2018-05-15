@@ -37,9 +37,9 @@ const tileData = [
         author: 'author2',
     },
     {
-        img: '/images/im3.JPG',
-        title: 'Image1',
-        author: 'author1',
+        img: '/images/im2.JPG',
+        title: 'Image2',
+        author: 'author2',
     },
     {
         img: '/images/im3.JPG',
@@ -52,12 +52,15 @@ const tileData = [
         author: 'author4',
     },
     {
-        img: '/images/im4.JPG',
-        title: 'Image4',
-        author: 'author4',
+        img: '/images/im5.JPG',
+        title: 'Image5',
+        author: 'author5',
     },
   
   ];
+
+
+
 function AllEvents(props) {
     const { classes } = props;
 
