@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Button, TextField } from 'material-ui'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import IconButton from 'material-ui/IconButton'
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input'
-import { FormControl, FormHelperText } from 'material-ui/Form'
-import MenuItem from 'material-ui/Menu/MenuItem'
+import { FormControl } from 'material-ui/Form'
 import { VisibilityOff, AccountCircle, Visibility } from '@material-ui/icons'
 
 // material form 2

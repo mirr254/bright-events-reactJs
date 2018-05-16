@@ -1,10 +1,7 @@
 import Routes from './Routes'
-import React, { Component, Fragment } from 'react'
-import CustomHeader from './components/HeaderComponent'
-import Footer from './components/FooterComponent'
-import AllEvents from './pages/AllEventsPage'
+import React, { Component } from 'react'
 import AuthService from './utils/AuthService'
-import { axios } from 'axios'
+import axios from 'axios'
 
 // make a new context
 export const MyContext = React.createContext()
@@ -16,55 +13,37 @@ export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      loggedIn: auth.loggedIn()
+      loggedIn: auth.loggedIn(),
+      events: [],
     }
   }
 
   logout = () => {
+    //calls the logout function and clears user from the local storage
     auth.logout()
     this.setState({ loggedIn: false })
     window.location.href = '/'
 
   }
 
-  componentDidMount = () => {
-    // fetch for all events data
-  const axios = require('axios')
-  console.log("Mounted")
+ componentDidMount() {
+   axios.get(eventsBaseUrl).then(res => {
+    const events = res.data
+    this.setState({ events })
+  })
 
-  const getEvents = async () => {
-    try {
-      return await axios.get(eventsBaseUrl)
-    } catch (error) {
-      console.error(error)
-    }
   }
-
-  // count
-  const countEvents = async () => {
-  const breeds = getEvents()
-    .then(response => {
-      if (response.data.message) {
-        console.log("events",
-          `Got ${Object.entries(response.data.message).length} events`
-        )
-      }
-    })
-    .catch(error => {
-      console.log(error)
-    })
-}
-
-
-}
-
   
+
   render () {
     return (
+      // Provides the data it gets from the API call to other components that may need
       <MyContext.Provider
         value={{
           state: this.state,
-          logout: this.logout
+          logout: this.logout,
+          events: this.state.events,
+          
         }}
       >
 

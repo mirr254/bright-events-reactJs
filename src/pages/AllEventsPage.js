@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
-import Subheader from 'material-ui/List/ListSubheader';
 import IconButton from 'material-ui/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
+import { MyContext } from '../App';
+import { Link} from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -30,63 +31,47 @@ const styles = theme => ({
     },
 });
 
-const tileData = [
-    {
-        img: './images/im1.JPG',
-        title: 'Image2',
-        author: 'author2',
-    },
-    {
-        img: '/images/im2.JPG',
-        title: 'Image2',
-        author: 'author2',
-    },
-    {
-        img: '/images/im3.JPG',
-        title: 'Image3',
-        author: 'author3',
-    },
-    {
-        img: '/images/im4.JPG',
-        title: 'Image4',
-        author: 'author4',
-    },
-    {
-        img: '/images/im5.JPG',
-        title: 'Image5',
-        author: 'author5',
-    },
-  
-  ];
+function AllEvents (props) {
+  const { classes } = props
 
 
-
-function AllEvents(props) {
-    const { classes } = props;
-
-    return (
+  return (
+  <div>
+  <MyContext.Consumer>
+    {context => (
         
-            <GridList cellHeight={300} className={classes.gridList} cols={3}>
-                <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-                    <Subheader component="div">All Events</Subheader>
-                </GridListTile>
-                {tileData.map(tile => (
-                    <GridListTile key={tile.img} >
-                        <img src={tile.img} alt={tile.title} />
-                        <GridListTileBar
-                            title={tile.title}
-                            subtitle={<span>by: {tile.author}</span>}
-                            actionIcon={
-                                <IconButton className={classes.icon}>
-                                    <InfoIcon />
-                                </IconButton>
-                            }
-                        />
-                    </GridListTile>
-                ))}
-            </GridList>
-        
-    );
+      <div>
+
+        <GridList cellHeight={300} className={classes.gridList} cols={3}>
+          <GridListTile key='Subheader' cols={3} style={{ height: 'auto' }}>
+          </GridListTile>
+          {context.events.map(event => (
+            <GridListTile key={event.id}>
+              <img src='/images/im1.JPG' alt={event.name} />
+              <GridListTileBar
+                title={event.title}
+                subtitle={<span>Cost: {event.cost}</span>}
+                actionIcon={       
+                  <Link to={`/events/${event.id}`} >
+                    <IconButton  className={classes.icon}>
+                        <InfoIcon />
+                    </IconButton>
+                  </Link>
+                }
+              />
+            </GridListTile>
+          ))}
+        </GridList>
+
+      </div>
+    )}
+
+  </MyContext.Consumer>
+
+</div>
+
+
+  )
 }
 
 AllEvents.propTypes = {
