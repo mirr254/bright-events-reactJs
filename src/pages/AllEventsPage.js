@@ -51,7 +51,7 @@ function AllEvents (props) {
               <GridListTileBar
                 title={event.title}
                 subtitle={<span>Cost: {event.cost}</span>}
-                actionIcon={
+                actionIcon={       
                   <Link to={`/events/${event.id}`} >
                     <IconButton  className={classes.icon}>
                         <InfoIcon />

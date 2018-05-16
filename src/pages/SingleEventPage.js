@@ -19,14 +19,19 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import AuthService from '../utils/AuthService'
 import axios from 'axios'
+import MyContext from '../App'
+import { EVENTS_BASE_URL } from '../utils/ConstVariables'
 
 class EventViewCard extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { expanded: false }
+    this.state = {
+      expanded: false,
+      singleEvent: {}
+    }
 
     this.Auth = new AuthService()
-    const eventsBaseUrl = 'https://brighter-event.herokuapp.com/api/v1/events'
+    var eventId
   }
 
   handleExpandClick = () => {
@@ -40,16 +45,15 @@ class EventViewCard extends React.Component {
     }
   }
   componentDidMount = () => {
-    console.log('Location ', this.props.match.params.id)
-    let eventId = this.props.match.params.id
-    // axios
-    //   .get(this.eventsBaseUrl+'/'+eventId)
-    //   .then(function (response) {
-    //     console.log("Event data: ",response.data)
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error)
-    //   })
+    this.eventId = this.props.match.params.id
+    this.getSingleEvent(this.eventId)
+  }
+
+  getSingleEvent = id => {
+    this.Auth.fetch(EVENTS_BASE_URL + '/' + id).then(res => {
+      this.setState({ singleEvent: res })
+      console.log('Single Event', this.state.singleEvent)
+    })
   }
 
   render () {
@@ -71,8 +75,8 @@ class EventViewCard extends React.Component {
                   <MoreVertIcon />
                 </IconButton>
               }
-              title='Shrimp and Chorizo Paella'
-              subheader='September 14, 2016'
+              title={this.state.singleEvent.name}
+              subheader={this.state.singleEvent.date}
             />
             <CardMedia
               className={classes.media}
@@ -81,8 +85,7 @@ class EventViewCard extends React.Component {
             />
             <CardContent>
               <Typography component='p'>
-                This impressive paella is a perfect party dish and a fun meal to cook together with
-                your guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                location : {this.state.singleEvent.location}
               </Typography>
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
@@ -106,30 +109,9 @@ class EventViewCard extends React.Component {
             <Collapse in={this.state.expanded} timeout='auto' unmountOnExit>
               <CardContent>
                 <Typography paragraph variant='body2'>
-                  Method:
+                  {this.state.singleEvent.description}
                 </Typography>
-                <Typography paragraph>
-                  Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-                  minutes.
-                </Typography>
-                <Typography paragraph>
-                  Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-                  heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-                  browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving
-                  chicken and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion,
-                  salt and pepper, and cook, stirring often until thickened and fragrant, about 10
-                  minutes. Add saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-                </Typography>
-                <Typography paragraph>
-                  Add rice and stir very gently to distribute. Top with artichokes and peppers, and
-                  cook without stirring, until most of the liquid is absorbed, 15 to 18 minutes.
-                  Reduce heat to medium-low, add reserved shrimp and mussels, tucking them down into
-                  the rice, and cook again without stirring, until mussels have opened and rice is
-                  just tender, 5 to 7 minutes more. (Discard any mussels that don’t open.)
-                </Typography>
-                <Typography>
-                  Set aside off of the heat to let rest for 10 minutes, and then serve.
-                </Typography>
+
               </CardContent>
             </Collapse>
           </Card>
@@ -140,8 +122,7 @@ class EventViewCard extends React.Component {
 }
 
 EventViewCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  event: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired
 }
 const styles = theme => ({
   card: {

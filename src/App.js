@@ -33,13 +33,6 @@ export default class App extends Component {
   })
 
   }
-
-  getSingleEvent = (id) => {
-    let res = auth.fetch(eventsBaseUrl+'/'+id).then(
-      val => console.log(val)
-    )
-    console.log("Single Data ", res)
-  }
   
 
   render () {
@@ -50,7 +43,7 @@ export default class App extends Component {
           state: this.state,
           logout: this.logout,
           events: this.state.events,
-          getSingleEvent: this.getSingleEvent
+          
         }}
       >
 
