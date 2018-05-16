@@ -19,6 +19,7 @@ export default class App extends Component {
   }
 
   logout = () => {
+    //calls the logout function and clears user from the local storage
     auth.logout()
     this.setState({ loggedIn: false })
     window.location.href = '/'
@@ -29,26 +30,27 @@ export default class App extends Component {
    axios.get(eventsBaseUrl).then(res => {
     const events = res.data
     this.setState({ events })
-    // single
-    let res1 = auth.fetch(eventsBaseUrl + '/2')
-    console.log('Single Data ', resolve(res1))
   })
-    
+
   }
 
-  // getSingleEvent = (id) => {
-  //   let res = auth.fetch(eventsBaseUrl+'/'+id)
-  //   console.log("Single Data ", res)
-  // }
+  getSingleEvent = (id) => {
+    let res = auth.fetch(eventsBaseUrl+'/'+id).then(
+      val => console.log(val)
+    )
+    console.log("Single Data ", res)
+  }
   
 
   render () {
     return (
+      // Provides the data it gets from the API call to other components that may need
       <MyContext.Provider
         value={{
           state: this.state,
           logout: this.logout,
           events: this.state.events,
+          getSingleEvent: this.getSingleEvent
         }}
       >
 
