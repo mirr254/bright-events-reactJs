@@ -27,7 +27,8 @@ class EventViewCard extends React.Component {
     super(props)
     this.state = {
       expanded: false,
-      singleEvent: {}
+      singleEvent: {},
+      rsvp: null
     }
 
     this.Auth = new AuthService()
@@ -44,16 +45,37 @@ class EventViewCard extends React.Component {
       console.log('logged in', !!this.Auth.loggedIn())
     }
   }
+  //this method called right after render method
   componentDidMount = () => {
     this.eventId = this.props.match.params.id
     this.getSingleEvent(this.eventId)
+
+    //this.deleteEvent(this.eventId, "'method':'Delete'")
   }
 
   getSingleEvent = id => {
     this.Auth.fetch(EVENTS_BASE_URL + '/' + id).then(res => {
       this.setState({ singleEvent: res })
       console.log('Single Event', this.state.singleEvent)
+    }).catch( error => {
+        console.log(error)  
     })
+  }
+
+  //call the fetch method with delete option as the arguement
+  deleteEvent = (id) =>{
+      this.Auth.delete(EVENTS_BASE_URL + '/'+ id ).then( res => {
+          console.log("Delete: ", res)
+          //redirect user after succefull delete
+         // this.props.history.push('/')
+      }).catch( error => {
+          console.log("Delete Error: ", error);
+      })
+  }
+
+  showRsvp = () => {
+      console.log("Clicked", 'Favourites');
+
   }
 
   render () {
@@ -90,7 +112,7 @@ class EventViewCard extends React.Component {
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
               <IconButton aria-label='Add to favorites'>
-                <FavoriteIcon />
+                <FavoriteIcon onClick={ this.showRsvp } />
               </IconButton>
               <IconButton aria-label='Share'>
                 <ShareIcon />
