@@ -10,56 +10,72 @@ import ReportIcon from '@material-ui/icons/Report'
 import { Link } from 'react-router-dom'
 import Badge from 'material-ui/Badge'
 
-export const eventsFolderListItems = (
-  <div>
-    <ListItem button component={Link} to='/'>
-      <ListItemIcon>
-        <ViewListIcon />
-      </ListItemIcon>
-      <ListItemText primary='All Events' />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <StarIcon />
-      </ListItemIcon>
-      <Badge badgeContent={5} color='secondary'>
-        <ListItemText primary='My Events' />
-      </Badge>
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <SendIcon />
-      </ListItemIcon>
-      <Badge badgeContent={3} color='primary'>
-        <ListItemText primary='Events attending' />
-      </Badge>
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <CreateIcon />
-      </ListItemIcon>
-      <ListItemText primary='New Event' />
-    </ListItem>
-  </div>
-)
+export const EventsFolderListItems = props => {
+  return (
+    <div>
+      <ListItem button component={Link} to='/'>
+        <ListItemIcon>
+          <ViewListIcon />
+        </ListItemIcon>
+        <ListItemText primary='All Events' />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <StarIcon />
+        </ListItemIcon>
+        <Badge badgeContent={5} color='secondary'>
+          <ListItemText
+            primary='My Events'
+            onClick={() => props.onSelectChange('myEvents')}
+          />
+        </Badge>
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <SendIcon />
+        </ListItemIcon>
+        <Badge badgeContent={3} color='primary'>
+          <ListItemText
+            primary='Events attending'
+            onClick={() => props.onSelectChange('eventsAttending')}
+          />
+        </Badge>
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon>
+          <CreateIcon />
+        </ListItemIcon>
+        <ListItemText
+          primary='New Event'
+          onClick={() => props.onSelectChange('newEvent')}
+        />
+      </ListItem>
+    </div>
+  )
+}
 
-export const profileFolderListItems = (
-  <div>
-    <ListItem button>
-      <ListItemIcon>
-        <MailIcon />
-      </ListItemIcon>
-      <ListItemText primary='My details' />
-    </ListItem>
+export const ProfileFolderListItems = props => {
+  return(
+    <div>
+      <ListItem button>
+        <ListItemIcon>
+          <MailIcon />
+        </ListItemIcon>
+        <ListItemText primary='My details' />
+      </ListItem>
 
-    <ListItem button>
-      <ListItemIcon>
-        <ReportIcon />
-      </ListItemIcon>
-      <Badge badgeContent={2} color='secondary'>
-        <ListItemText primary='Past Events' />
-      </Badge>
-    </ListItem>
-    
-  </div>
-)
+      <ListItem button>
+        <ListItemIcon>
+          <ReportIcon />
+        </ListItemIcon>
+        <Badge badgeContent={2} color='secondary'>
+          <ListItemText 
+             primary='Past Events' 
+             onClick={() => props.onSelectChange('pastEvents')}
+             />
+        </Badge>
+      </ListItem>
+
+    </div>
+  )
+}
