@@ -35,14 +35,14 @@ export default class App extends Component {
   })
 
   //call the function to get user profile
-  //this.getUserProfile()
+   { auth.loggedIn() ? this.getUserProfile() : this.state.publicUserId=null}
   }
 
-  getUserProfile = () => [
+  getUserProfile = () => {
     this.setState({
       publicUserId: auth.getProfile().public_id 
     }) 
-  ]
+  }
   
 
   render () {

@@ -54,6 +54,7 @@ class CustomHeader extends Component {
   //take user to dashboard
   takeUserToDashboard = (userId) =>{
     <Link  to={`/user/${userId}`}/>
+    console.log("user Id :", userId);
     
   }
 
@@ -83,8 +84,6 @@ class CustomHeader extends Component {
                   {/* use context to check if user is logged in  */}
                   {context.state.loggedIn
                     ? <div>
-                      {/* <Button color='inherit' onClick={context.logout}> Logout </Button>  */}
-
                       <div>
                         <IconButton
                           aria-owns={open ? 'menu-appbar' : null}
@@ -108,9 +107,11 @@ class CustomHeader extends Component {
                           open={open}
                           onClose={this.handleClose}
                           >
-                          <MenuItem onClick={this.takeUserToDashboard(context.publicUserId)}>
+                          <Link to={`/user/${context.publicUserId}`}>
+                          <MenuItem >
                               User Dashboard{' '}
                           </MenuItem>
+                          </Link>
                           <MenuItem onClick={context.logout}>
                               Logout
                             </MenuItem>
