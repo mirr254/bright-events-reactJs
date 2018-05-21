@@ -1,4 +1,4 @@
-import { decode } from 'jwt-decode'
+import jwt_decode  from 'jwt-decode'
 
 export default class AuthService {
   // initialize important variables
@@ -25,7 +25,6 @@ export default class AuthService {
         json: true
       })
       .then(function ok (jsonData) {
-        console.log(jsonData.token)
         localStorage.setItem('id_token', jsonData.token)
         return Promise.resolve(jsonData)
       })
@@ -40,7 +39,7 @@ export default class AuthService {
 
   isTokenExpired = token => {
     try {
-      const decoded = decode(token)
+      const decoded = jwt_decode(token)
       if (decoded.exp < Date.now() / 1000) {
         return true
       } else return false
@@ -61,7 +60,7 @@ export default class AuthService {
 
   getProfile = () => {
     // Using jwt-decode npm package to decode the token
-    return decode(this.getToken())
+    return jwt_decode(this.getToken())
   }
 
   fetch = (url, options) => {

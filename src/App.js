@@ -2,6 +2,7 @@ import Routes from './Routes'
 import React, { Component } from 'react'
 import AuthService from './utils/AuthService'
 import axios from 'axios'
+import jwt_decode from 'jwt-decode';
 
 // make a new context
 export const MyContext = React.createContext()
@@ -15,6 +16,7 @@ export default class App extends Component {
     this.state = {
       loggedIn: auth.loggedIn(),
       events: [],
+      publicUserId: null
     }
   }
 
@@ -32,7 +34,15 @@ export default class App extends Component {
     this.setState({ events })
   })
 
+  //call the function to get user profile
+  //this.getUserProfile()
   }
+
+  getUserProfile = () => [
+    this.setState({
+      publicUserId: auth.getProfile().public_id 
+    }) 
+  ]
   
 
   render () {
@@ -43,7 +53,7 @@ export default class App extends Component {
           state: this.state,
           logout: this.logout,
           events: this.state.events,
-          
+          publicUserId: this.state.publicUserId
         }}
       >
 
