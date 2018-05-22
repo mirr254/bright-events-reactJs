@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {Component, Fragment} from 'react'
 import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import ViewListIcon from '@material-ui/icons/ViewList'
 import CreateIcon from '@material-ui/icons/Create'
@@ -17,6 +17,7 @@ export const EventsFolderListItems = props => {
       <MyContext.Consumer>
 
         {context => (
+          
           <Fragment>
             <ListItem button component={Link} to='/'>
               <ListItemIcon>
@@ -29,7 +30,10 @@ export const EventsFolderListItems = props => {
                 <ListItemIcon>
                   <StarIcon />
                 </ListItemIcon>
-                <Badge badgeContent={5} color='secondary'>
+                <Badge badgeContent={
+                        context.numOfOwnEvents
+                        } 
+                   color='secondary'>
                   <ListItemText primary='My Events' />
                 </Badge>
               </ListItem>
@@ -38,7 +42,9 @@ export const EventsFolderListItems = props => {
               <ListItemIcon>
                 <SendIcon />
               </ListItemIcon>
-              <Badge badgeContent={3} color='primary'>
+              <Badge badgeContent={
+                        context.numOfEventsAttending 
+                      } color='primary'>
                 <ListItemText
                   primary='Events attending'
                   component={Link}

@@ -140,7 +140,12 @@ function CreateEventForm (props) {
               </div>
               <div >
 
-                <Button variant='raised' color='primary' className={classes.button} onClick={props.submitEventDetails} >
+                <Button 
+                  variant='raised' 
+                  color='primary' 
+                  className={classes.button} 
+                  //onSubmit={ console.log("Button click", "submit")} 
+                  onClick={ props.onClick} >
                   Save
                 </Button>
 

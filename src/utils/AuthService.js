@@ -31,6 +31,8 @@ export default class AuthService {
       .catch(function fail (error) {})
   }
 
+
+
   loggedIn = () => {
     // check if there is savrd token and it's still valid
     const token = this.getToken() // get token from local storage
@@ -66,6 +68,7 @@ export default class AuthService {
     return null;
     
   }
+
 
   fetch = (url, options) => {
     // performs api calls sending the required authentication headers
@@ -107,7 +110,7 @@ export default class AuthService {
       .then(response => response.json())
   }
    
-  addEvent = (url, options) => {
+  addEvent = (url, data) => {
     // performs api calls sending the required authentication headers
     const headers = {
       Accept: 'application/json',
@@ -122,7 +125,7 @@ export default class AuthService {
     return fetch(url, {
       headers,
       method: 'Post',
-      ...options
+      body: JSON.stringify(data),
     })
       .then(this._checkStatus)
       .then(response => response.json())

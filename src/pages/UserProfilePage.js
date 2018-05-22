@@ -52,7 +52,7 @@ class UserProfile extends Component {
     super(props)
     this.state = {
       eventData: {},
-      componentTodisplay: null,
+      loggedIn: false,
       pictures: {},
       eventName: '',
       eventLocation: '',
@@ -84,15 +84,36 @@ class UserProfile extends Component {
  handleChange = prop => event => {
    
   this.setState({ [prop]: event.target.value})
-  console.log("State :", this.state);
+  
+  this.setState({ 
+      eventData: {
+        eventName: this.state.eventName,
+        eventLocation: this.state.eventLocation,
+        eventDate: this.state.eventDate,
+        eventCost: this.state.eventCost,
+        eventDescription: this.state.eventDescription,
+        eventImgUrl: this.state.eventImgUrl
+      }
+  }) 
+
+  console.log('State :', this.state)
   
 }
 
-submitEventDetails = () => {
-  //save event details via function
-
-
+//create event details
+handleClick = (event) => {
+  console.log("Clicked :");
+  
 }
+
+// add redirection if we are already logged in
+componentWillMount = () => {
+  if ( !auth
+.loggedIn()) {
+    this.props.history.replace('/')
+  }
+}
+
 
   render () {
     const { classes } = this.props
@@ -102,7 +123,6 @@ submitEventDetails = () => {
         <MyContext.Consumer>
           
           {context => (
-               
             <Fragment>
               <div className={classes.root}>
               {/* <AppBar position="absolute" className={classes.appBar}>
@@ -142,11 +162,12 @@ submitEventDetails = () => {
                     component={route.component}
                   />
                 ) )} */}
+                
                 <CreateEventForm 
                   handleChange = {this.handleChange}
                   submitEventDetails = { this.submitEventDetails}
                   onFileLoad = {this.onFileLoad}
-                  submitEventDetails = {this.submitEventDetails}
+                  onClick = {this.handleClick}
                 />
                 
                 
