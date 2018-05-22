@@ -8,7 +8,12 @@ import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+import Button from '@material-ui/core/Button';
+import {LocationOn, AccountCircle, DateRange, AttachMoney} from '@material-ui/icons'
+import Upload from 'material-ui-upload/Upload'
+import UploadPreview from 'material-ui-upload/UploadPreview'
+
+
 
 const styles = theme => ({
   root: {
@@ -17,7 +22,16 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+  },
+  imagePaper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    height: '90%',
+  },
+  button: {
+    margin: theme.spacing.unit,
   },
 
 })
@@ -30,7 +44,23 @@ function CreateEventForm (props) {
       <Grid container spacing={24}>
 
         <Grid item xs={4} sm={3}>
-          <Paper className={classes.paper}>xs=6 sm=3</Paper>
+          <Paper className={classes.imagePaper}>
+            image preview
+            <input
+              accept="image/*"
+              className={classes.input}
+              id="raised-button-file"
+              multiple
+              type="file"
+              onChange={props.handleChange('eventImgUrl')}
+            />
+            <label htmlFor="raised-button-file">
+              <Button variant="raised" component="span" className={classes.button}>
+                Upload
+              </Button>
+            </label> 
+           
+          </Paper>
         </Grid>
 
         <Grid item xs={8} sm={5}>
@@ -49,6 +79,7 @@ function CreateEventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
+                      onChange={props.handleChange('eventName')}
                     />
                   </Grid>
                 </Grid>
@@ -56,7 +87,7 @@ function CreateEventForm (props) {
               <div className={classes.margin}>
                 <Grid container spacing={8} alignItems='flex-end'>
                   <Grid item>
-                    <AccountCircle />
+                    <LocationOn />
                   </Grid>
                   <Grid item>
                     <TextField
@@ -65,6 +96,7 @@ function CreateEventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
+                      onChange={props.handleChange('eventLocation')}
                     />
                   </Grid>
                 </Grid>
@@ -72,7 +104,7 @@ function CreateEventForm (props) {
               <div className={classes.margin}>
                 <Grid container spacing={8} alignItems='flex-end'>
                   <Grid item>
-                    <AccountCircle />
+                    <AttachMoney />
                   </Grid>
                   <Grid item>
                     <TextField
@@ -82,6 +114,7 @@ function CreateEventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
+                      onChange={props.handleChange('eventCost')}
                     />
                   </Grid>
                 </Grid>
@@ -89,7 +122,7 @@ function CreateEventForm (props) {
               <div className={classes.margin}>
                 <Grid container spacing={8} alignItems='flex-end'>
                   <Grid item>
-                    <AccountCircle />
+                    <DateRange />
                   </Grid>
                   <Grid item>
                     <TextField
@@ -100,10 +133,19 @@ function CreateEventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
+                      onChange={props.handleChange('eventDate')}
                     />
                   </Grid>
                 </Grid>
               </div>
+              <div >
+
+                <Button variant='raised' color='primary' className={classes.button} onClick={props.submitEventDetails} >
+                  Save
+                </Button>
+
+              </div>
+
             </div>
           </Paper>
         </Grid>

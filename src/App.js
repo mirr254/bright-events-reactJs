@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import AuthService from './utils/AuthService'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode';
+import { EVENTS_BASE_URL } from './utils/ConstVariables';
+
 
 // make a new context
 export const MyContext = React.createContext()
@@ -43,6 +45,20 @@ export default class App extends Component {
       publicUserId: auth.getProfile().public_id 
     }) 
   }
+
+  createNewEvent = ( data ) => {
+    auth.addEvent(EVENTS_BASE_URL, data)
+    .then( res => {
+      //do something or update state
+      console.log("CREATE MESSAGE :", res);
+      
+
+    })
+    .catch( error=> {
+      console.log("CREATE ERR :", error.message);
+      
+    })
+  }
   
 
   render () {
@@ -53,7 +69,8 @@ export default class App extends Component {
           state: this.state,
           logout: this.logout,
           events: this.state.events,
-          publicUserId: this.state.publicUserId
+          publicUserId: this.state.publicUserId,
+          createNewEvent: this.createNewEvent
         }}
       >
 

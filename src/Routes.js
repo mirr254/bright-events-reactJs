@@ -29,7 +29,7 @@ class Routes extends Component {
                 <Route path='/user/:id/my-events' component={AllEvents} />
                 <Route path='/user/:id/past-events' component={AllEvents} />
                 <Route path='/user/:id/events-attending' component={AllEvents} />
-                <Route path='/user/:id/new-events' component={CreateEventForm} />
+                <Route path='/user/:id/new-event' component={CreateEventForm} />
                 <Route exact path='/events' component={AllEvents} />
                 <Route path='/events/:id' component={EventViewCard} />
                  

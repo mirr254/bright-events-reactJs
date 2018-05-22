@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import Drawer from 'material-ui/Drawer'
@@ -11,6 +11,12 @@ import {
   EventsFolderListItems,
   ProfileFolderListItems
 } from '../assets/UserTileData';
+import CreateEventFormComponent from '../components/CreateEventFormComponent';
+import AllEvents from './AllEventsPage';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import CreateEventForm from '../components/CreateEventFormComponent';
+import AuthService from '../utils/AuthService';
+import {MyContext} from '../App';
 
 const drawerWidth = 240
 
@@ -39,60 +45,116 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar
 })
 
+const auth = new AuthService()
+
 class UserProfile extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      componentTodisplay: null
-
+      eventData: {},
+      componentTodisplay: null,
+      pictures: {},
+      eventName: '',
+      eventLocation: '',
+      eventDate: '',
+      eventCost: 0,
+      eventDescription: '',
+      eventImgUrl: '',
+      
     }
   }
 
-  //A function to change the state of the component to render at the main
-  handleSelectOption = ( componentName ) =>{
-    this.setState({
-      componentTodisplay: componentName
-    })
-    console.log(this.state.componentTodisplay)
-  }
+  //a list of components to toggle for the user dashboard
+   routes = [
+     {
+       path : "/user/:id/new-event",
+       component: <CreateEventFormComponent />
+     },
+     {
+       path : '/user/:id/past-events',
+       component: <AllEvents /> //pass date here to get the past events
+     },
+     {
+       path : '/user/:id/events-attending',
+       component: <AllEvents userid={this.props.match.id}/> //pass public_user_id  here to get the rsvp'd events
+     }
+
+  ]
+
+ handleChange = prop => event => {
+   
+  this.setState({ [prop]: event.target.value})
+  console.log("State :", this.state);
+  
+}
+
+submitEventDetails = () => {
+  //save event details via function
+
+
+}
 
   render () {
     const { classes } = this.props
 
     return (
       <div>
-
-        <div className={classes.root}>
-          {/* <AppBar position="absolute" className={classes.appBar}>
-                <Toolbar>
-                    <Typography variant="title" color="inherit" noWrap>
-                        User:1w Details
-          </Typography>
-                </Toolbar>
-            </AppBar> */}
-          <Drawer
-            variant='permanent'
-            classes={{
-              paper: classes.drawerPaper
-            }}
-          >
-            <div className={classes.toolbar} />
-            <List>
-              <EventsFolderListItems onSelectChange={this.handleSelectOption} />
-            </List>
-            <Divider />
-            <List>
-              <ProfileFolderListItems onSelectChange={this.handleSelectOption} />
-            </List>
-          </Drawer>
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            {/* componentToDisplay goes here */}
-            <Typography noWrap>
-              {'You think water moves fast? You should see ice.'}
-            </Typography>
-          </main>
-        </div>
+        <MyContext.Consumer>
+          
+          {context => (
+               
+            <Fragment>
+              <div className={classes.root}>
+              {/* <AppBar position="absolute" className={classes.appBar}>
+                    <Toolbar>
+                        <Typography variant="title" color="inherit" noWrap>
+                            User:1w Details
+              </Typography>
+                    </Toolbar>
+                </AppBar> */}
+              <Drawer
+                variant='permanent'
+                classes={{
+                  paper: classes.drawerPaper
+                }}
+              >
+                {/* <div className={classes.toolbar} /> */}
+                
+                  <EventsFolderListItems userId={this.props.match.params.id} />
+                
+                <Divider />
+                <List>
+                  <ProfileFolderListItems onSelectChange={this.handleSelectOption} />
+                </List>
+              </Drawer>
+              <main className={classes.content}>
+                <div className={classes.toolbar} >
+                  <Typography > New Event </Typography>
+                </div>
+                {/* componentToDisplay goes here
+                
+                {this.routes.map( (route, index ) =>( 
+                  
+                  <Route 
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    component={route.component}
+                  />
+                ) )} */}
+                <CreateEventForm 
+                  handleChange = {this.handleChange}
+                  submitEventDetails = { this.submitEventDetails}
+                  onFileLoad = {this.onFileLoad}
+                  submitEventDetails = {this.submitEventDetails}
+                />
+                
+                
+              </main>
+            </div>
+            </Fragment>
+          )}
+        </MyContext.Consumer>
       </div>
     )
   }

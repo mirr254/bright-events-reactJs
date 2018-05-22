@@ -61,8 +61,6 @@ export default class AuthService {
   getProfile = () => {
     // Using jwt-decode npm package to decode the token
     if (this.loggedIn()) {
-      console.log("Logged in");
-      
       return jwt_decode(this.getToken())
     }
     return null;
@@ -103,6 +101,27 @@ export default class AuthService {
     return fetch(url, {
       headers,
       method: 'Delete',
+      ...options
+    })
+      .then(this._checkStatus)
+      .then(response => response.json())
+  }
+   
+  addEvent = (url, options) => {
+    // performs api calls sending the required authentication headers
+    const headers = {
+      Accept: 'application/json',
+      'content-type': 'application/json'
+    }
+    // set the authorization header
+    if (this.loggedIn()) {
+      headers['x-access-token'] = this.getToken()
+    }
+
+    //delete the event
+    return fetch(url, {
+      headers,
+      method: 'Post',
       ...options
     })
       .then(this._checkStatus)

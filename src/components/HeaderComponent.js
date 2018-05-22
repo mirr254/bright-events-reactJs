@@ -28,6 +28,7 @@ const styles = {
 
 let anchorEl = null
 
+
 const loginLink = props => <Link to='/login' {...props} /> // necessary to prevent unexpected unmounting
 const signupLink = props => <Link to='/signup' {...props} />
 const homeLink = props => <Link to='/' {...props} />
@@ -39,6 +40,9 @@ class CustomHeader extends Component {
       toolTipOpen: false,
       anchorEl: null
     }
+
+    let dashLink = null
+
   }
 
   // handle menu oper`tions
@@ -51,13 +55,6 @@ class CustomHeader extends Component {
     this.setState({ anchorEl: null })
   }
 
-  //take user to dashboard
-  takeUserToDashboard = (userId) =>{
-    <Link  to={`/user/${userId}`}/>
-    console.log("user Id :", userId);
-    
-  }
-
   render () {
     const { classes } = this.props
     const { anchorEl } = this.state
@@ -66,7 +63,9 @@ class CustomHeader extends Component {
     return (
       <div>
         <MyContext.Consumer>
+          
           {context => (
+               
             <Fragment>
               {' '}{/* <--provides an empty tag */}
               <AppBar position='static'>
@@ -107,11 +106,10 @@ class CustomHeader extends Component {
                           open={open}
                           onClose={this.handleClose}
                           >
-                          <Link to={`/user/${context.publicUserId}`}>
-                          <MenuItem >
+                          { this.dashLink = props => <Link to={`/user/${context.publicUserId}`} {...props} />}
+                          <MenuItem component={this.dashLink} onClick={this.handleClose}  >
                               User Dashboard{' '}
                           </MenuItem>
-                          </Link>
                           <MenuItem onClick={context.logout}>
                               Logout
                             </MenuItem>
