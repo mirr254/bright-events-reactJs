@@ -110,45 +110,6 @@ export default class AuthService {
       .then(this._checkStatus)
       .then(response => response.json())
   }
-   
-  addEvent = (url, data) => {
-    // performs api calls sending the required authentication headers
-    const headers = {
-      Accept: 'application/json',
-      'content-type': 'application/json'
-    }
-    // set the authorization header
-    if (this.loggedIn()) {
-      headers['x-access-token'] = this.getToken()
-    }
-
-    //add the event
-    // return fetch(url, {
-    //   headers,
-    //   method: 'Post',
-    //   body: JSON.stringify(data),
-    // })
-    //   .then(this._checkStatus)
-    //   .then(response => response.json())
-    var config = {
-      headers: headers
-    };
-
-    axios.post(url, JSON.stringify(data), config)
-          .then(function (response) {
-            console.log(response);
-            if (response.data.code === 201) {
-                console.log("Successfully added a new event");
-                return response
-            }
-        })
-        .catch(function (error) {
-            console.log('erro', error.response.data.message);
-            return error
-        });
-  }
-
-
 
   _checkStatus = response => {
     // raises an error incase response status is not a success

@@ -18,6 +18,7 @@ import CreateEventForm from '../components/CreateEventFormComponent';
 import AuthService from '../utils/AuthService';
 import {MyContext} from '../App';
 import { EVENTS_BASE_URL } from '../utils/ConstVariables';
+import axios from 'axios';
 
 const drawerWidth = 240
 
@@ -105,13 +106,27 @@ class UserProfile extends Component {
 
 //create event details
 handleClick = (event) => {
-  // var date = this.state.eventDate.toString()
-  // console.log("Date", date);
-  
-  console.log("Data :",JSON.stringify(this.state.eventData) );
-  
-  var addReq = auth.addEvent(EVENTS_BASE_URL, this.state.eventData);
-  console.log("RESPONSE :", addReq);
+ 
+  //
+  const headers = {
+    Accept: 'application/json',
+    'content-type': 'application/json'
+  }
+  headers['x-access-token'] = auth.getToken()
+
+  var config = {
+    headers : headers
+  }
+  axios.post(EVENTS_BASE_URL, JSON.stringify(this.state.eventData), config)
+          .then(function (response) {
+            console.log(response);
+            if (response.data.code === 201) {
+                console.log("Successfully added a new event");
+            }
+        })
+        .catch(function (error) {
+            console.log('erro', error.response.data.message);
+        });
   
 }
 
