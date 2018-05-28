@@ -60,6 +60,7 @@ class UserProfile extends Component {
       eventDate: '',
       eventCost: 0,
       eventDescription: '',
+      eventCategory: '',
       eventImgUrl: '',
       
     }
@@ -90,8 +91,9 @@ class UserProfile extends Component {
       eventData: {
         name: this.state.eventName,
         location: this.state.eventLocation,
-        date: this.state.eventDate,
-        cost: this.state.eventCost,
+        date: this.state.eventDate.replace( new RegExp("T","gi"), " "),
+        cost: parseInt( this.state.eventCost),
+        category: this.state.eventCategory,
         description: this.state.eventDescription,
         // eventImgUrl: this.state.eventImgUrl
       }
@@ -103,15 +105,13 @@ class UserProfile extends Component {
 
 //create event details
 handleClick = (event) => {
-  // console.log("Data :", this.state.eventData);
-  auth.addEvent(EVENTS_BASE_URL, this.state.eventData)
-    .then( res =>{
-      console.log('Response :', res)
-    })
-    .catch( error => {
-      console.log('POSTING ERROR', error)
-    })
-
+  // var date = this.state.eventDate.toString()
+  // console.log("Date", date);
+  
+  console.log("Data :",JSON.stringify(this.state.eventData) );
+  
+  var addReq = auth.addEvent(EVENTS_BASE_URL, this.state.eventData);
+  console.log("RESPONSE :", addReq);
   
 }
 

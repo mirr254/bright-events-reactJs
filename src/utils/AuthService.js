@@ -1,4 +1,5 @@
 import jwt_decode  from 'jwt-decode'
+import axios from 'axios'
 
 export default class AuthService {
   // initialize important variables
@@ -121,15 +122,33 @@ export default class AuthService {
       headers['x-access-token'] = this.getToken()
     }
 
-    //delete the event
-    return fetch(url, {
-      headers,
-      method: 'Post',
-      body: JSON.stringify(data),
-    })
-      .then(this._checkStatus)
-      .then(response => response.json())
+    //add the event
+    // return fetch(url, {
+    //   headers,
+    //   method: 'Post',
+    //   body: JSON.stringify(data),
+    // })
+    //   .then(this._checkStatus)
+    //   .then(response => response.json())
+    var config = {
+      headers: headers
+    };
+
+    axios.post(url, JSON.stringify(data), config)
+          .then(function (response) {
+            console.log(response);
+            if (response.data.code === 201) {
+                console.log("Successfully added a new event");
+                return response
+            }
+        })
+        .catch(function (error) {
+            console.log('erro', error.response.data.message);
+            return error
+        });
   }
+
+
 
   _checkStatus = response => {
     // raises an error incase response status is not a success
@@ -137,7 +156,7 @@ export default class AuthService {
       // Success status lies between 200 to 300
       return response
     } else {
-      var error = new Error(response.statusText)
+      var error = new Error(response)
       error.response = response
       throw error
     }

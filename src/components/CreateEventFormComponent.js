@@ -85,6 +85,23 @@ function CreateEventForm (props) {
               <div className={classes.margin}>
                 <Grid container spacing={8} alignItems='flex-end'>
                   <Grid item>
+                    <AccountCircle />
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      id='input-with-icon-grid'
+                      label='Category'
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      onChange={props.handleChange('eventCategory')}
+                    />
+                  </Grid>
+                </Grid>
+              </div>
+              <div className={classes.margin}>
+                <Grid container spacing={8} alignItems='flex-end'>
+                  <Grid item>
                     <LocationOn />
                   </Grid>
                   <Grid item>
@@ -120,6 +137,25 @@ function CreateEventForm (props) {
               <div className={classes.margin}>
                 <Grid container spacing={8} alignItems='flex-end'>
                   <Grid item>
+                    <DateRange />
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      id='datetime-local'
+                      label='Date'
+                      type='datetime-local'
+                      defaultValue='2018-05-24T04:20'
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      onChange={props.handleChange('eventDate')}
+                    />
+                  </Grid>
+                </Grid>
+              </div>
+              <div className={classes.margin}>
+                <Grid container spacing={8} alignItems='flex-end'>
+                  <Grid item>
                     <Description />
                   </Grid>
                   <Grid item>
@@ -134,27 +170,7 @@ function CreateEventForm (props) {
                   </Grid>
                 </Grid>
               </div>
-              <div className={classes.margin}>
-                <Grid container spacing={8} alignItems='flex-end'>
-                  <Grid item>
-                    <DateRange />
-                  </Grid>
-                  <Grid item>
-                    <TextField
-                      id='datetime-local'
-                      label='Date'
-                      type='datetime-local'
-                      defaultValue='2017-05-24T10:30'
-                      InputLabelProps={{
-                        shrink: true
-                      }}
-                      onChange={props.handleChange('eventDate')}
-                    />
-                  </Grid>
-                </Grid>
-              </div>
-
-               
+             
               <div >
 
                 <Button 
