@@ -17,21 +17,62 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import Tooltip from '@material-ui/core/Tooltip'
 import AuthService from '../utils/AuthService'
 import axios from 'axios'
 import MyContext from '../App'
 import { EVENTS_BASE_URL } from '../utils/ConstVariables'
+import Menu, { MenuItem } from 'material-ui/Menu'
+import Snackbar from '@material-ui/core/Snackbar'
+import Slide from '@material-ui/core/Slide'
 
 class EventViewCard extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       expanded: false,
-      singleEvent: {}
+      singleEvent: {},
+      toolTipOpen: false,
+      anchorEl: null,
+      eventId: null,
+      snackBaropen: false,
+      snackBarTransition: null,
     }
 
     this.Auth = new AuthService()
     var eventId
+  }
+
+  // for snackbars
+  TransitionDown = props => {
+    return <Slide {...props} direction='down' />
+  }
+
+  handleSnackClose = () => {
+    this.setState({ snackBaropen: false })
+  }
+
+  showSnackBar = Transition => () => {
+    this.setState({ snackBaropen: true, Transition })
+  }
+
+  // handle opening or hiding tooltip on mouse hover
+  handleTooltipClose = () => {
+    this.setState({ toolTipOpen: false })
+  }
+
+  handleTooltipOpen = () => {
+    this.setState({ toolTipOpen: true })
+  }
+
+  // handle menu oper`tions
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget })
+  }
+
+  // close the menu
+  handleClose = () => {
+    this.setState({ anchorEl: null })
   }
 
   handleExpandClick = () => {
@@ -44,20 +85,49 @@ class EventViewCard extends React.Component {
       console.log('logged in', !!this.Auth.loggedIn())
     }
   }
+  // this method called right after render method
   componentDidMount = () => {
-    this.eventId = this.props.match.params.id
-    this.getSingleEvent(this.eventId)
+    this.setState({ eventId: this.props.match.params.id })
+    this.getSingleEvent
+
+    // this.deleteEvent(this.eventId, "'method':'Delete'")
   }
 
-  getSingleEvent = id => {
-    this.Auth.fetch(EVENTS_BASE_URL + '/' + id).then(res => {
-      this.setState({ singleEvent: res })
-      console.log('Single Event', this.state.singleEvent)
-    })
+  getSingleEvent = () => {
+    this.Auth
+      .fetch(EVENTS_BASE_URL + '/' + this.state.eventId)
+      .then(res => {
+        this.setState({ singleEvent: res })
+        console.log('Single Event', this.state.singleEvent)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  // call the fetch method with delete option as the arguement
+  deleteEvent = () => {
+    this.Auth
+      .delete(EVENTS_BASE_URL + '/' + this.state.eventId)
+      .then(res => {
+        console.log('Delete: ', res)
+        // redirect user after succefull delete
+        // this.props.history.push('/')
+      })
+      .catch(error => {
+        this.showSnackBar(this.TransitionDown)
+        console.log('Delete Error: ', error.message)
+      })
+  }
+
+  showRsvp = () => {
+    console.log('Clicked', 'Favourites')
   }
 
   render () {
     const { classes } = this.props
+    const { anchorEl } = this.state
+    const open = Boolean(anchorEl)
 
     return (
       <div>
@@ -71,13 +141,50 @@ class EventViewCard extends React.Component {
                 </Avatar>
               }
               action={
-                <IconButton>
-                  <MoreVertIcon />
-                </IconButton>
+                <Tooltip
+                  enterDelay={100}
+                  id='tooltip-controlled'
+                  leaveDelay={300}
+                  onClose={this.handleTooltipClose}
+                  onOpen={this.handleTooltipOpen}
+                  open={this.state.toolTipOpen}
+                  placement='right'
+                  title='Event Actions'
+                >
+                  <div>
+                    <IconButton
+                      aria-owns={open ? 'menu-appbar' : null}
+                      aria-haspopup='true'
+                      onClick={this.handleMenu}
+                      color='inherit'
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
+                    <Menu
+                      id='menu-appbar'
+                      anchorEl={anchorEl}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right'
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right'
+                      }}
+                      open={open}
+                      onClose={this.handleClose}
+                    >
+                      <MenuItem onClick={this.handleClose}>Edit </MenuItem>
+                      <MenuItem onClick={this.deleteEvent}>Delete</MenuItem>
+                    </Menu>
+                  </div>
+
+                </Tooltip>
               }
               title={this.state.singleEvent.name}
               subheader={this.state.singleEvent.date}
             />
+
             <CardMedia
               className={classes.media}
               image='/images/im1.JPG'
@@ -90,7 +197,7 @@ class EventViewCard extends React.Component {
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
               <IconButton aria-label='Add to favorites'>
-                <FavoriteIcon />
+                <FavoriteIcon onClick={this.showRsvp} />
               </IconButton>
               <IconButton aria-label='Share'>
                 <ShareIcon />
@@ -115,6 +222,16 @@ class EventViewCard extends React.Component {
               </CardContent>
             </Collapse>
           </Card>
+          <Snackbar
+            open={this.state.snackBaropen}
+            onClose={this.handleSnackClose}
+            TransitionComponent={this.state.snackBarTransition}
+            ContentProps={{
+              'aria-describedby': 'message-id'
+            }}
+            message={<span id='message-id'>I love snacks</span>}
+          />
+
         </div>
       </div>
     )
@@ -147,6 +264,16 @@ const styles = theme => ({
   },
   avatar: {
     backgroundColor: red[500]
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  root: {
+    flexGrow: 1
+  },
+  flex: {
+    flex: 1
   }
 })
 
