@@ -9,9 +9,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import FormControl from '@material-ui/core/FormControl'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
-import {LocationOn, AccountCircle, DateRange, AttachMoney} from '@material-ui/icons'
-import Upload from 'material-ui-upload/Upload'
-import UploadPreview from 'material-ui-upload/UploadPreview'
+import {LocationOn, AccountCircle, DateRange, AttachMoney, Description} from '@material-ui/icons'
 
 
 
@@ -90,7 +88,7 @@ function CreateEventForm (props) {
                     <LocationOn />
                   </Grid>
                   <Grid item>
-                    <TextField
+                    <TextField multiline
                       id='input-with-icon-grid'
                       label='Location'
                       InputLabelProps={{
@@ -122,6 +120,23 @@ function CreateEventForm (props) {
               <div className={classes.margin}>
                 <Grid container spacing={8} alignItems='flex-end'>
                   <Grid item>
+                    <Description />
+                  </Grid>
+                  <Grid item>
+                    <TextField multiline
+                      id='input-with-icon-grid'
+                      label='Description'
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      onChange={props.handleChange('eventDescription')}
+                    />
+                  </Grid>
+                </Grid>
+              </div>
+              <div className={classes.margin}>
+                <Grid container spacing={8} alignItems='flex-end'>
+                  <Grid item>
                     <DateRange />
                   </Grid>
                   <Grid item>
@@ -138,6 +153,8 @@ function CreateEventForm (props) {
                   </Grid>
                 </Grid>
               </div>
+
+               
               <div >
 
                 <Button 

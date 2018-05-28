@@ -17,6 +17,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import CreateEventForm from '../components/CreateEventFormComponent';
 import AuthService from '../utils/AuthService';
 import {MyContext} from '../App';
+import { EVENTS_BASE_URL } from '../utils/ConstVariables';
 
 const drawerWidth = 240
 
@@ -87,12 +88,12 @@ class UserProfile extends Component {
   
   this.setState({ 
       eventData: {
-        eventName: this.state.eventName,
-        eventLocation: this.state.eventLocation,
-        eventDate: this.state.eventDate,
-        eventCost: this.state.eventCost,
-        eventDescription: this.state.eventDescription,
-        eventImgUrl: this.state.eventImgUrl
+        name: this.state.eventName,
+        location: this.state.eventLocation,
+        date: this.state.eventDate,
+        cost: this.state.eventCost,
+        description: this.state.eventDescription,
+        // eventImgUrl: this.state.eventImgUrl
       }
   }) 
 
@@ -102,7 +103,15 @@ class UserProfile extends Component {
 
 //create event details
 handleClick = (event) => {
-  console.log("Clicked :");
+  // console.log("Data :", this.state.eventData);
+  auth.addEvent(EVENTS_BASE_URL, this.state.eventData)
+    .then( res =>{
+      console.log('Response :', res)
+    })
+    .catch( error => {
+      console.log('POSTING ERROR', error)
+    })
+
   
 }
 
