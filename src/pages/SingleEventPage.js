@@ -126,6 +126,19 @@ class EventViewCard extends React.Component {
       })
   }
 
+  getEventsRsvpd = () => {
+    this.Auth
+    .fetch(EVENTS_BASE_URL + '/rsvp/' + this.state.eventId)
+    .then(res => {
+      this.setState({ singleEvent: res })
+      console.log('Single Event', this.state.singleEvent)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+  }
+
   handleRsvpChange = name => event => {
     if(event.target.checked){
       this.setState({ rsvp: 'attending' });
