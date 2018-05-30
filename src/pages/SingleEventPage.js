@@ -25,6 +25,8 @@ import { EVENTS_BASE_URL } from '../utils/ConstVariables'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import Snackbar from '@material-ui/core/Snackbar'
 import Slide from '@material-ui/core/Slide'
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 class EventViewCard extends React.Component {
   constructor (props) {
@@ -37,6 +39,8 @@ class EventViewCard extends React.Component {
       eventId: null,
       snackBaropen: false,
       snackBarTransition: null,
+      attending : false,
+      rsvp: 'not attending',
     }
 
     this.Auth = new AuthService()
@@ -84,16 +88,18 @@ class EventViewCard extends React.Component {
       this.props.history.replace('/login')
       console.log('logged in', !!this.Auth.loggedIn())
     }
+    this.setState({ eventId: this.props.match.params.id })
   }
   // this method called right after render method
   componentDidMount = () => {
-    this.setState({ eventId: this.props.match.params.id })
-    this.getSingleEvent
+    
+    this.getSingleEvent()
 
     // this.deleteEvent(this.eventId, "'method':'Delete'")
   }
 
   getSingleEvent = () => {
+    console.log("event ID: ",this.state.eventId);
     this.Auth
       .fetch(EVENTS_BASE_URL + '/' + this.state.eventId)
       .then(res => {
@@ -120,9 +126,19 @@ class EventViewCard extends React.Component {
       })
   }
 
-  showRsvp = () => {
-    console.log('Clicked', 'Favourites')
-  }
+  handleRsvpChange = name => event => {
+    if(event.target.checked){
+      this.setState({ rsvp: 'attending' });
+    }else{
+      this.setState({ rsvp: 'not attending' });
+    }
+    
+    //this.setState({rsvp: })
+    console.log( event.target.value );
+    console.log(this.state.rsvp);
+    
+    
+  };
 
   render () {
     const { classes } = this.props
@@ -196,12 +212,22 @@ class EventViewCard extends React.Component {
               </Typography>
             </CardContent>
             <CardActions className={classes.actions} disableActionSpacing>
-              <IconButton aria-label='Add to favorites'>
+              {/* <IconButton aria-label='Add to favorites'>
                 <FavoriteIcon onClick={this.showRsvp} />
               </IconButton>
               <IconButton aria-label='Share'>
                 <ShareIcon />
-              </IconButton>
+              </IconButton> */}
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={this.state.checkedA}
+                    onChange={this.handleRsvpChange('attending')}
+                    value={this.state.rsvp}
+                  />
+                }
+                label={this.state.rsvp}
+              />
               <IconButton
                 className={classnames(classes.expand, {
                   [classes.expandOpen]: this.state.expanded
