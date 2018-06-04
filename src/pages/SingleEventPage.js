@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment} from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import classnames from 'classnames'
@@ -20,8 +20,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Tooltip from '@material-ui/core/Tooltip'
 import AuthService from '../utils/AuthService'
 import axios from 'axios'
-import MyContext from '../App'
-import { EVENTS_BASE_URL } from '../utils/ConstVariables'
+import {MyContext} from '../App'
+import { EVENTS_BASE_URL } from '../utils/ConstVariables';
 import Menu, { MenuItem } from 'material-ui/Menu'
 import Snackbar from '@material-ui/core/Snackbar'
 import Slide from '@material-ui/core/Slide'
@@ -30,7 +30,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 class EventViewCard extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       expanded: false,
       singleEvent: {},
@@ -39,12 +39,15 @@ class EventViewCard extends React.Component {
       eventId: null,
       snackBaropen: false,
       snackBarTransition: null,
-      attending : false,
+      attending: false,
       rsvp: 'not attending',
-    }
+      publicUserId: null,
+      checkedA: false,
+    };
 
     this.Auth = new AuthService()
-    var eventId
+    var eventId;
+    var publicUserId;
   }
 
   // for snackbars
@@ -71,7 +74,7 @@ class EventViewCard extends React.Component {
 
   // handle menu oper`tions
   handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget })
+    this.setState({ anchorEl: event.currentTarget });
   }
 
   // close the menu
@@ -93,7 +96,9 @@ class EventViewCard extends React.Component {
   // this method called right after render method
   componentDidMount = () => {
     
-    this.getSingleEvent()
+    this.getSingleEvent();
+    //get the rsvp status
+    this.getRsvpStatus(this.publicUserId)
 
     // this.deleteEvent(this.eventId, "'method':'Delete'")
   }
@@ -104,7 +109,6 @@ class EventViewCard extends React.Component {
       .fetch(EVENTS_BASE_URL + '/' + this.state.eventId)
       .then(res => {
         this.setState({ singleEvent: res })
-        console.log('Single Event', this.state.singleEvent)
       })
       .catch(error => {
         console.log(error)
@@ -126,152 +130,198 @@ class EventViewCard extends React.Component {
       })
   }
 
-  getEventsRsvpd = () => {
-    this.Auth
-    .fetch(EVENTS_BASE_URL + '/rsvp/' + this.state.eventId)
-    .then(res => {
-      this.setState({ singleEvent: res })
-      console.log('Single Event', this.state.singleEvent)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  handleRsvpChange = (name, publicUserId) => event => {
+    
+    //set the user id
+    this.setState({publicUserId: publicUserId})
+    
 
-  }
-
-  handleRsvpChange = name => event => {
     if(event.target.checked){
       this.setState({ rsvp: 'attending' });
     }else{
       this.setState({ rsvp: 'not attending' });
     }
     
-    //this.setState({rsvp: })
+    
     console.log( event.target.value );
     console.log(this.state.rsvp);
-    
-    
+    console.log(this.state.publicUserId);
   };
 
+  // get events rsvp
+  getRsvpStatus = (publicUserId) => {
+    this.Auth
+      .fetch(EVENTS_BASE_URL + '/rsvp/'+this.state.eventId+'/' + this.state.publicUserId)
+      .then(res => {
+        this.setState({ rsvp_status: res.message })
+        //change the status now
+        if(res.message != 'no rsvp to this event'){
+          this.setState({checkedA: true})
+        }
+        console.log('Event Response: ', res.message)
+        
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  //Functions below deal with rsvp
+
+  //rsvp to an event
+  makeRsvp = ( eventId, rsvpId, rsvp) => {
+    this.Auth
+    .fetch(EVENTS_BASE_URL + '/' +this.state.eventId + '/rsvp/'+ this.state.publicUserId,
+          'POST', JSON.stringify(rsvp) )
+    .then(res => {
+      //this.setState({ singleEvent: res })
+      console.log('Make Rsvp Response: ', res)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
+  //edit rsvp
+  editRsvp = ( eventId, rsvpId, rsvp) => {
+    this.Auth
+    .fetch(EVENTS_BASE_URL +'/'+this.state.eventId + '/rsvp/'+ this.state.publicUserId,
+          'PUT',JSON.stringify(rsvp))
+    .then(res => {
+      //this.setState({ singleEvent: res })
+      console.log('Edit Rsvp Response: ', res)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
   render () {
-    const { classes } = this.props
-    const { anchorEl } = this.state
-    const open = Boolean(anchorEl)
+    const { classes } = this.props;
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
 
     return (
       <div>
-        <br />
-        <div align='center'>
-          <Card className={classes.card}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label='Recipe' className={classes.avatar}>
-                  R
-                </Avatar>
+         <MyContext.Consumer>
+          
+          {context => (
+            <Fragment>
+              {
+                this.publicUserId = context.publicUserId
               }
-              action={
-                <Tooltip
-                  enterDelay={100}
-                  id='tooltip-controlled'
-                  leaveDelay={300}
-                  onClose={this.handleTooltipClose}
-                  onOpen={this.handleTooltipOpen}
-                  open={this.state.toolTipOpen}
-                  placement='right'
-                  title='Event Actions'
-                >
-                  <div>
-                    <IconButton
-                      aria-owns={open ? 'menu-appbar' : null}
-                      aria-haspopup='true'
-                      onClick={this.handleMenu}
-                      color='inherit'
-                    >
-                      <MoreVertIcon />
-                    </IconButton>
-                    <Menu
-                      id='menu-appbar'
-                      anchorEl={anchorEl}
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right'
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right'
-                      }}
-                      open={open}
-                      onClose={this.handleClose}
-                    >
-                      <MenuItem onClick={this.handleClose}>Edit </MenuItem>
-                      <MenuItem onClick={this.deleteEvent}>Delete</MenuItem>
-                    </Menu>
-                  </div>
+              
+              <br />
+              <div align='center'>
+                <Card className={classes.card}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label='Recipe' className={classes.avatar}>
+                        R
+                      </Avatar>
+                    }
+                    action={
+                      <Tooltip
+                        enterDelay={100}
+                        id='tooltip-controlled'
+                        leaveDelay={300}
+                        onClose={this.handleTooltipClose}
+                        onOpen={this.handleTooltipOpen}
+                        open={this.state.toolTipOpen}
+                        placement='right'
+                        title='Event Actions'
+                      >
+                        <div>
+                          <IconButton
+                            aria-owns={open ? 'menu-appbar' : null}
+                            aria-haspopup='true'
+                            onClick={this.handleMenu}
+                            color='inherit'
+                          >
+                            <MoreVertIcon />
+                          </IconButton>
+                          <Menu
+                            id='menu-appbar'
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right'
+                            }}
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right'
+                            }}
+                            open={open}
+                            onClose={this.handleClose}
+                          >
+                            <MenuItem onClick={this.handleClose}>Edit </MenuItem>
+                            <MenuItem onClick={this.deleteEvent}>Delete</MenuItem>
+                          </Menu>
+                        </div>
 
-                </Tooltip>
-              }
-              title={this.state.singleEvent.name}
-              subheader={this.state.singleEvent.date}
-            />
-
-            <CardMedia
-              className={classes.media}
-              image='/images/im1.JPG'
-              title='Contemplative Reptile'
-            />
-            <CardContent>
-              <Typography component='p'>
-                location : {this.state.singleEvent.location}
-              </Typography>
-            </CardContent>
-            <CardActions className={classes.actions} disableActionSpacing>
-              {/* <IconButton aria-label='Add to favorites'>
-                <FavoriteIcon onClick={this.showRsvp} />
-              </IconButton>
-              <IconButton aria-label='Share'>
-                <ShareIcon />
-              </IconButton> */}
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.checkedA}
-                    onChange={this.handleRsvpChange('attending')}
-                    value={this.state.rsvp}
+                      </Tooltip>
+                    }
+                    title={this.state.singleEvent.name}
+                    subheader={this.state.singleEvent.date}
                   />
-                }
-                label={this.state.rsvp}
-              />
-              <IconButton
-                className={classnames(classes.expand, {
-                  [classes.expandOpen]: this.state.expanded
-                })}
-                onClick={this.handleExpandClick}
-                aria-expanded={this.state.expanded}
-                aria-label='Show more'
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions>
-            <Collapse in={this.state.expanded} timeout='auto' unmountOnExit>
-              <CardContent>
-                <Typography paragraph variant='body2'>
-                  {this.state.singleEvent.description}
-                </Typography>
 
-              </CardContent>
-            </Collapse>
-          </Card>
-          <Snackbar
-            open={this.state.snackBaropen}
-            onClose={this.handleSnackClose}
-            TransitionComponent={this.state.snackBarTransition}
-            ContentProps={{
-              'aria-describedby': 'message-id'
-            }}
-            message={<span id='message-id'>I love snacks</span>}
-          />
+                  <CardMedia
+                    className={classes.media}
+                    image='/images/im1.JPG'
+                    title='Contemplative Reptile'
+                  />
+                  <CardContent>
+                    <Typography component='p'>
+                      location : {this.state.singleEvent.location}
+                    </Typography>
+                  </CardContent>
+                  <CardActions className={classes.actions} disableActionSpacing>
+                   
+                    <FormControlLabel
+                      control={
+                        
+                        <Switch
+                          checked={this.state.checkedA}
+                          onChange={this.handleRsvpChange('attending', context.publicUserId)}
+                          value={this.state.rsvp}
+                        />
+                      }
+                      label={this.state.rsvp}
+                    />
+                    <IconButton
+                      className={classnames(classes.expand, {
+                        [classes.expandOpen]: this.state.expanded
+                      })}
+                      onClick={this.handleExpandClick}
+                      aria-expanded={this.state.expanded}
+                      aria-label='Show more'
+                    >
+                      <ExpandMoreIcon />
+                    </IconButton>
+                  </CardActions>
+                  <Collapse in={this.state.expanded} timeout='auto' unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph variant='body2'>
+                        {this.state.singleEvent.description}
+                      </Typography>
 
-        </div>
+                    </CardContent>
+                  </Collapse>
+                </Card>
+                <Snackbar
+                  open={this.state.snackBaropen}
+                  onClose={this.handleSnackClose}
+                  TransitionComponent={this.state.snackBarTransition}
+                  ContentProps={{
+                    'aria-describedby': 'message-id'
+                  }}
+                  message={<span id='message-id'>I love snacks</span>}
+                />
+
+              </div>
+            </Fragment>
+          )}
+        </MyContext.Consumer>
       </div>
     )
   }
@@ -316,4 +366,4 @@ const styles = theme => ({
   }
 })
 
-export default withStyles(styles)(EventViewCard)
+export default withStyles(styles)(EventViewCard);
