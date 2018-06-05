@@ -156,7 +156,7 @@ class EventViewCard extends React.Component {
       this.setState({ rsvp: 'attending' });
       this.setState({checkedA: true})
       //rsvp as attending
-      this.makeRsvp(this.state.eventId, this.state.publicUserId, {'rsvp': 'attending'});
+      //this.makeRsvp(this.state.eventId, this.state.publicUserId, {'rsvp': 'attending'});
 
     }else{
       this.setState({ rsvp: 'not attending' });
@@ -172,16 +172,16 @@ class EventViewCard extends React.Component {
     this.Auth
       .fetch(EVENTS_BASE_URL + '/rsvp/'+this.state.eventId+'/' + userid)
       .then(res => {
-        console.log('Event Response: ', res)
+        console.log('Event Response: ', res['rsvp'])
 
-          this.setState({ rsvp: res })
+          //this.setState({ rsvp: res['rsvp'] })
           //change the status now
-          if(res === 'attending'){
+          if(res['rsvp'] === 'attending'){
             this.setState({
               checkedA: true,
-              svp: 'attending'
+              rsvp: 'attending'
             });
-          }else if(res.message === 'not attending'){
+          }else if(res['rsvp'] === 'not attending'){
             this.setState({
               checkedA: false,
               rsvp: 'not attending'
