@@ -28,6 +28,7 @@ import Slide from '@material-ui/core/Slide'
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+
 class EventViewCard extends React.Component {
   constructor (props) {
     super(props);
@@ -43,6 +44,7 @@ class EventViewCard extends React.Component {
       rsvp: 'not attending',
       publicUserId: null,
       checkedA: false,
+      response: {},
     };
 
     this.Auth = new AuthService()
@@ -95,10 +97,15 @@ class EventViewCard extends React.Component {
   }
   // this method called right after render method
   componentDidMount = () => {
+
+    //get the currently logged in userid
+
+    const pUserId = this.Auth.getProfile().public_id;
     
     this.getSingleEvent();
     //get the rsvp status
-    this.getRsvpStatus(this.publicUserId)
+    this.getRsvpStatus( pUserId );
+    
 
     // this.deleteEvent(this.eventId, "'method':'Delete'")
   }
@@ -132,54 +139,92 @@ class EventViewCard extends React.Component {
 
   handleRsvpChange = (name, publicUserId) => event => {
     
-    //set the user id
-    this.setState({publicUserId: publicUserId})
+    console.log("Rsvp status: ", this.state.rsvp_status);
+
+    if ( this.state.rsvp_status === 'no rsvp to this event' ) {
+      //TODO: post new rsvp here
+      
+
+    } else {
+      //edit rsvp here
+      console.log("Edit status : ", this.state.rsvp_status);
+      
+    }
     
 
     if(event.target.checked){
       this.setState({ rsvp: 'attending' });
+      this.setState({checkedA: true})
+      //rsvp as attending
+      this.makeRsvp(this.state.eventId, this.state.publicUserId, {'rsvp': 'attending'});
+
     }else{
       this.setState({ rsvp: 'not attending' });
+      this.setState({checkedA: false})
+      //make 
+      
     }
     
-    
-    console.log( event.target.value );
-    console.log(this.state.rsvp);
-    console.log(this.state.publicUserId);
   };
 
   // get events rsvp
-  getRsvpStatus = (publicUserId) => {
+  getRsvpStatus = (userid) => {
     this.Auth
-      .fetch(EVENTS_BASE_URL + '/rsvp/'+this.state.eventId+'/' + this.state.publicUserId)
+      .fetch(EVENTS_BASE_URL + '/rsvp/'+this.state.eventId+'/' + userid)
       .then(res => {
-        this.setState({ rsvp_status: res.message })
-        //change the status now
-        if(res.message != 'no rsvp to this event'){
-          this.setState({checkedA: true})
-        }
-        console.log('Event Response: ', res.message)
-        
+        console.log('Event Response: ', res)
+
+          this.setState({ rsvp: res })
+          //change the status now
+          if(res === 'attending'){
+            this.setState({
+              checkedA: true,
+              svp: 'attending'
+            });
+          }else if(res.message === 'not attending'){
+            this.setState({
+              checkedA: false,
+              rsvp: 'not attending'
+            });
+          }
+
       })
       .catch(error => {
-        console.log(error)
+        console.log('Error Message :',error)
+        this.setState({
+          checkedA: false,
+          rsvp: 'not attending'
+        });
       })
+
+      console.log( this.state );
   }
 
   //Functions below deal with rsvp
 
   //rsvp to an event
-  makeRsvp = ( eventId, rsvpId, rsvp) => {
-    this.Auth
-    .fetch(EVENTS_BASE_URL + '/' +this.state.eventId + '/rsvp/'+ this.state.publicUserId,
-          'POST', JSON.stringify(rsvp) )
-    .then(res => {
-      //this.setState({ singleEvent: res })
-      console.log('Make Rsvp Response: ', res)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  makeRsvp = ( eventId, rsvp) => {
+    //
+      const headers = {
+        Accept: 'application/json',
+        'content-type': 'application/json'
+      }
+      headers['x-access-token'] = this.Auth.getToken()
+
+      var config = {
+        headers : headers
+      }
+      axios.post(EVENTS_BASE_URL+'/'+eventId+'/rsvp', JSON.stringify( rsvp ), config)
+          .then(function (response) {
+            console.log(response.data);
+            if (response.data.code === 201) {
+                console.log("Successfully responded to the event");
+                
+            }
+        })
+        .catch(function (error) {
+            console.log('erro', error.response.data.message);
+        });
   }
 
   //edit rsvp
@@ -208,7 +253,7 @@ class EventViewCard extends React.Component {
           {context => (
             <Fragment>
               {
-                this.publicUserId = context.publicUserId
+                // this.publicUserId = context.publicUserId
               }
               
               <br />
