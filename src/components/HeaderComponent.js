@@ -9,7 +9,8 @@ import { MyContext } from '../App'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import IconButton from 'material-ui/IconButton'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchBar from 'material-ui-search-bar';
 
 
 const styles = {
@@ -32,6 +33,7 @@ let anchorEl = null
 const loginLink = props => <Link to='/login' {...props} /> // necessary to prevent unexpected unmounting
 const signupLink = props => <Link to='/signup' {...props} />
 const homeLink = props => <Link to='/' {...props} />
+
 
 class CustomHeader extends Component {
   constructor (props) {
@@ -131,7 +133,19 @@ class CustomHeader extends Component {
             </Fragment>
           )}
         </MyContext.Consumer>
+        <div className={classes.toolbar} >
+        <SearchBar
+          onChange={() => console.log('onChange')}
+          onRequestSearch={() => console.log('onRequestSearch')}
+          style={{
+            margin: '0 auto',
+            maxWidth: '30%'
+          }}
+          hintText = {'Search event by name'}
+        />
+        </div> 
       </div>
+      // {/* <div className={classes.toolbar} /> */}
     )
   }
 }
