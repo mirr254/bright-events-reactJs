@@ -101,7 +101,7 @@ getCurrentUserEvents = () => {
           getCurrentUserEvents: this.getCurrentUserEvents,
           eventsAttending: this.state.eventsAttending,
           numOfEventsAttending : this.state.eventsAttending.length,
-          numOfOwnEvents : this.state.currentUserEvents.length
+          numOfOwnEvents : this.state.currentUserEvents.length,
         }}
       >
 

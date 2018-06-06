@@ -149,13 +149,7 @@ componentWillMount = () => {
           {context => (
             <Fragment>
               <div className={classes.root}>
-              {/* <AppBar position="absolute" className={classes.appBar}>
-                    <Toolbar>
-                        <Typography variant="title" color="inherit" noWrap>
-                            User:1w Details
-              </Typography>
-                    </Toolbar>
-                </AppBar> */}
+             
               <Drawer
                 variant='permanent'
                 classes={{
