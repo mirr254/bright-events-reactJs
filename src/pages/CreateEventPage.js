@@ -46,9 +46,7 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar
 })
 
-const auth = new AuthService()
-
-class UserProfile extends Component {
+class CreateEventPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -64,13 +62,18 @@ class UserProfile extends Component {
       eventImgUrl: '',
       
     }
+
+    this.Auth = new AuthService()
   }
 
-  componentDidMount = () => {
-    console.log("props :",this.props.component);
-    console.log('*****');
+  componentWillMount = () => {
+    if (!this.Auth.loggedIn()) {
+      this.props.history.replace('/login')
+      console.log('logged in', !!this.Auth.loggedIn())
+    }
     
   }
+
   handleChange = prop => event => {
    
     this.setState({ [prop]: event.target.value})
@@ -99,7 +102,7 @@ handleClick = (event) => {
     Accept: 'application/json',
     'content-type': 'application/json'
   }
-  headers['x-access-token'] = auth.getToken()
+  headers['x-access-token'] = this.Auth.getToken()
 
   var config = {
     headers : headers
@@ -116,38 +119,6 @@ handleClick = (event) => {
         });
 }
 
-onClickEdit = (event_id) => {
-  //
-  const headers = {
-    Accept: 'application/json',
-    'content-type': 'application/json'
-  }
-  headers['x-access-token'] = auth.getToken()
-
-  var config = {
-    headers : headers
-  }
-    axios.put(EVENTS_BASE_URL+'/'+event_id , JSON.stringify(this.state.eventData), config)
-    .then(function (response) {
-      console.log(response);
-      if (response.data.code === 201) {
-          console.log("Successfully added a new event");
-      }
-  })
-  .catch(function (error) {
-      console.log('erro', error.response.data.message);
-  })
-
-}
-
-// add redirection if we are already logged in
-componentWillMount = () => {
-  if ( !auth
-.loggedIn()) {
-    this.props.history.replace('/')
-  }
-}
-
 
   render () {
     const { classes } = this.props
@@ -159,34 +130,16 @@ componentWillMount = () => {
           {context => (
             <Fragment>
               <div className={classes.root}>
-             
-              <Drawer
-                variant='permanent'
-                classes={{
-                  paper: classes.drawerPaper
-                }}
-              >
-                {/* <div className={classes.toolbar} /> */}
-                
-                  <EventsFolderListItems userId={this.props.match.params.id} />
-                
-                <Divider />
-                <List>
-                  <ProfileFolderListItems onSelectChange={this.handleSelectOption} />
-                </List>
-              </Drawer>
+            
               <main className={classes.content}>
                 <div className={classes.toolbar} >
                   <Typography > New Event </Typography>
                 </div>
-               
-                
                 <EventForm 
                   handleChange = {this.handleChange}
                   submitEventDetails = { this.submitEventDetails}
                   onFileLoad = {this.onFileLoad}
                   onClick = {this.handleClick}
-                  
                   onClickEdit = {this.onClickEdit}
                 />
                 
@@ -201,8 +154,8 @@ componentWillMount = () => {
   }
 }
 
-UserProfile.propTypes = {
+CreateEventPage.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(UserProfile)
+export default withStyles(styles)(CreateEventPage)

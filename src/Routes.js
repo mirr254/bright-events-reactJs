@@ -9,7 +9,8 @@ import EventViewCard from './pages/SingleEventPage';
 import UserProfilePage from './pages/UserProfilePage';
 import CustomHeader from './components/HeaderComponent';
 import AllEvents from './pages/AllEventsPage';
-import CreateEventForm from './components/CreateEventFormComponent';
+import CreateEventPage from './pages/CreateEventPage';
+import EditEventPage from './pages/EditEventPage';
 
 
 class Routes extends Component {
@@ -26,11 +27,9 @@ class Routes extends Component {
                 <Route path='/signup' component={Signup} />
                 <Route path='/confirm' component={ConfirmEmail} />
                 <Route exact path= '/user/:id' component={UserProfilePage} />
-                <Route path='/user/:id/my-events' component={AllEvents} />
-                <Route path='/user/:id/past-events' component={AllEvents} />
-                <Route path='/user/:id/events-attending' component={AllEvents} />
-                <Route path='/user/:id/new-event' component={CreateEventForm} />
                 <Route exact path='/events' component={AllEvents} />
+                <Route path='/events/create-event' component={CreateEventPage} />
+                <Route path='/events/edit-event' component={EditEventPage} />
                 <Route path='/events/:id' component={EventViewCard} />
                  
                 <Route component={NotFound} />

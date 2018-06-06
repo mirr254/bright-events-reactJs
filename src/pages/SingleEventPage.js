@@ -22,11 +22,12 @@ import AuthService from '../utils/AuthService'
 import axios from 'axios'
 import {MyContext} from '../App'
 import { EVENTS_BASE_URL } from '../utils/ConstVariables';
-import Menu, { MenuItem } from 'material-ui/Menu'
-import Snackbar from '@material-ui/core/Snackbar'
-import Slide from '@material-ui/core/Slide'
+import Menu, { MenuItem } from 'material-ui/Menu';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Link } from 'react-router-dom';
 
 
 class EventViewCard extends React.Component {
@@ -94,35 +95,40 @@ class EventViewCard extends React.Component {
       this.props.history.replace('/login')
       console.log('logged in', !!this.Auth.loggedIn())
     }
-    this.setState({ eventId: this.props.match.params.id })
+    this.setState({ 
+      eventId: this.props.match.params.id,
+      publicUserId: this.Auth.getProfile().public_id
+    })
   }
   // this method called right after render method
   componentDidMount = () => {
 
-    //get the currently logged in userid
-
-    const pUserId = this.Auth.getProfile().public_id;
-    
     this.getSingleEvent();
     //get the rsvp status
-    this.getRsvpStatus( pUserId );
+    this.getRsvpStatus( this.state.publicUserId );
     
 
     // this.deleteEvent(this.eventId, "'method':'Delete'")
   }
 
+  // The functions below are for EVENTS
   getSingleEvent = () => {
-    console.log("event ID: ",this.state.eventId);
+    
     this.Auth
       .fetch(EVENTS_BASE_URL + '/' + this.state.eventId)
       .then(res => {
         this.setState({ singleEvent: res })
+        console.log("event : ", res);
       })
       .catch(error => {
         console.log(error)
       })
   }
 
+  // handle edit of events
+  handleEdit = () => {
+
+  }
   // call the fetch method with delete option as the arguement
   deleteEvent = () => {
     this.Auth
@@ -136,6 +142,7 @@ class EventViewCard extends React.Component {
         this.showSnackBar(this.TransitionDown)
         console.log('Delete Error: ', error.response)
       })
+      this.setState({ anchorEl: null })
   }
 
   handleRsvpChange = (name, publicUserId) => event => {
@@ -298,6 +305,7 @@ class EventViewCard extends React.Component {
                           >
                             <MoreVertIcon />
                           </IconButton>
+                          
                           <Menu
                             id='menu-appbar'
                             anchorEl={anchorEl}
@@ -312,8 +320,16 @@ class EventViewCard extends React.Component {
                             open={open}
                             onClose={this.handleClose}
                           >
-                            <MenuItem onClick={this.handleClose}>Edit </MenuItem>
-                            <MenuItem onClick={this.deleteEvent}>Delete</MenuItem>
+                          { this.editEventComponentLink = props => <Link to={{pathname: `/events/edit-event`, state: this.state.singleEvent }} {...props} />}
+                            <MenuItem 
+                              disabled={ this.state.singleEvent.user_public_id === this.state.publicUserId ? true : false } 
+                              component={this.editEventComponentLink}
+                              onClick={this.handleEdit}>Edit </MenuItem>
+                            <MenuItem 
+                                disabled={ 
+                                  this.state.singleEvent.user_public_id !== this.state.publicUserId ? true : false
+                                }
+                                onClick={this.deleteEvent}>Delete</MenuItem>
                           </Menu>
                         </div>
 
@@ -339,6 +355,9 @@ class EventViewCard extends React.Component {
                       control={
                         
                         <Switch
+                        disabled={ 
+                          this.state.singleEvent.user_public_id === this.state.publicUserId ? true : false
+                        }
                           checked={this.state.checkedA}
                           onChange={this.handleRsvpChange('attending', context.publicUserId)}
                           value={this.state.rsvp}
