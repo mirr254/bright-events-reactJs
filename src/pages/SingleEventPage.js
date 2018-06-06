@@ -44,7 +44,8 @@ class EventViewCard extends React.Component {
       rsvp: 'not attending',
       publicUserId: null,
       checkedA: false,
-      response: {},
+      res: {},
+      newRsvp: false
     };
 
     this.Auth = new AuthService()
@@ -140,70 +141,41 @@ class EventViewCard extends React.Component {
   handleRsvpChange = (name, publicUserId) => event => {
     
     console.log("Rsvp status: ", this.state.rsvp_status);
-
-    if ( this.state.rsvp_status === 'no rsvp to this event' ) {
-      //TODO: post new rsvp here
-      
-
-    } else {
-      //edit rsvp here
-      console.log("Edit status : ", this.state.rsvp_status);
-      
-    }
     
 
     if(event.target.checked){
       this.setState({ rsvp: 'attending' });
       this.setState({checkedA: true})
       //rsvp as attending
-      //this.makeRsvp(this.state.eventId, this.state.publicUserId, {'rsvp': 'attending'});
+      //check if new event
+      this.state.newRsvp
+      ? 
+      this.makeRsvp({ eventId: this.state.eventId, userId: publicUserId, rsvp:'attending' , method: 'post'}) //make new rsvp
+      :
+      this.makeRsvp( { eventId: this.state.eventId, userId: publicUserId, rsvp:'attending' , 
+                       method: 'put', rsvpId: this.state.res.rsvp_id} )
+
 
     }else{
       this.setState({ rsvp: 'not attending' });
       this.setState({checkedA: false})
-      //make 
+      //edit rsvp
+      this.state.newRsvp
+      ? 
+      this.makeRsvp({ eventId: this.state.eventId, userId: publicUserId, rsvp:'not attending' , method: 'post'}) //make new rsvp
+      :
+      this.makeRsvp( { eventId: this.state.eventId, userId: publicUserId, rsvp:'attending' , 
+                       method: 'put', rsvpId: this.state.res.rsvp_id} )
       
     }
     
   };
 
-  // get events rsvp
-  getRsvpStatus = (userid) => {
-    this.Auth
-      .fetch(EVENTS_BASE_URL + '/rsvp/'+this.state.eventId+'/' + userid)
-      .then(res => {
-        console.log('Event Response: ', res['rsvp'])
-
-          //this.setState({ rsvp: res['rsvp'] })
-          //change the status now
-          if(res['rsvp'] === 'attending'){
-            this.setState({
-              checkedA: true,
-              rsvp: 'attending'
-            });
-          }else if(res['rsvp'] === 'not attending'){
-            this.setState({
-              checkedA: false,
-              rsvp: 'not attending'
-            });
-          }
-
-      })
-      .catch(error => {
-        console.log('Error Message :',error)
-        this.setState({
-          checkedA: false,
-          rsvp: 'not attending'
-        });
-      })
-
-      console.log( this.state );
-  }
 
   //Functions below deal with rsvp
 
   //rsvp to an event
-  makeRsvp = ( eventId, rsvp) => {
+  makeRsvp = ( {eventId, userId, rsvp, rsvpId, method} ) => {
     //
       const headers = {
         Accept: 'application/json',
@@ -214,7 +186,11 @@ class EventViewCard extends React.Component {
       var config = {
         headers : headers
       }
-      axios.post(EVENTS_BASE_URL+'/'+eventId+'/rsvp', JSON.stringify( rsvp ), config)
+      
+      console.log('OPTIONS :', eventId, userId, {rsvp} );
+      method === 'post' ?
+      
+      axios.post(EVENTS_BASE_URL+'/'+eventId+'/rsvp', JSON.stringify( {rsvp} ), config)
           .then(function (response) {
             console.log(response.data);
             if (response.data.code === 201) {
@@ -224,22 +200,63 @@ class EventViewCard extends React.Component {
         })
         .catch(function (error) {
             console.log('erro', error.response.data.message);
-        });
+        })
+      
+        :
+        axios.put(EVENTS_BASE_URL+'/'+eventId+'/rsvp/'+rsvp.rsvp_id, JSON.stringify( {rsvp} ), config)
+          .then(function (response) {
+            console.log(response.data);
+            if (response.data.code === 201) {
+                console.log("Successfully changed your response to the event");
+                
+            }
+        })
+        .catch(function (error) {
+            console.log('erro', error.response.data.message);
+        })
+        console.log("PUT request RSVPID :", rsvpId);
+        
+
   }
 
-  //edit rsvp
-  editRsvp = ( eventId, rsvpId, rsvp) => {
+  
+  // get events rsvp
+  getRsvpStatus = (userid) => {
     this.Auth
-    .fetch(EVENTS_BASE_URL +'/'+this.state.eventId + '/rsvp/'+ this.state.publicUserId,
-          'PUT',JSON.stringify(rsvp))
-    .then(res => {
-      //this.setState({ singleEvent: res })
-      console.log('Edit Rsvp Response: ', res)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+      .fetch(EVENTS_BASE_URL + '/rsvp/'+this.state.eventId+'/' + userid)
+      .then(res => {
+        console.log('Event Response: ', res)
+
+          this.setState({ response: res })
+          //change the status now
+          if(res['rsvp'] === 'attending'){
+            this.setState({
+              checkedA: true,
+              rsvp: 'attending',
+              res
+            });
+            console.log('Response State', this.state.res.rsvp_id );
+          }else if(res['rsvp'] === 'not attending'){
+            this.setState({
+              checkedA: false,
+              rsvp: 'not attending',
+              res
+            });
+          }
+
+      })
+      .catch(error => {
+        console.log('Error Message :',error.response)
+        this.setState({
+          checkedA: false,
+          rsvp: 'not attending',
+          newRsvp: true
+        });
+      })
+
+      
   }
+
 
   render () {
     const { classes } = this.props;
