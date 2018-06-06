@@ -1,1 +1,3 @@
-#ReactJs app to consume bright events api created using python flask
+*ReactJs app to consume bright events api created using python flask*
+
+[![Build Status](https://travis-ci.org/mirr254/bright-events-reactJs.svg?branch=development)](https://travis-ci.org/mirr254/bright-events-reactJs) [![Coverage Status](https://coveralls.io/repos/github/mirr254/bright-events-reactJs/badge.svg?branch=development)](https://coveralls.io/github/mirr254/bright-events-reactJs?branch=development)
