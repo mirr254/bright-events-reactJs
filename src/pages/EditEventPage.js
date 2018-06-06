@@ -48,7 +48,7 @@ const styles = theme => ({
 
 const auth = new AuthService()
 
-class UserProfile extends Component {
+class EditEventPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -64,6 +64,15 @@ class UserProfile extends Component {
       eventImgUrl: '',
       
     }
+    this.Auth = new AuthService()
+  }
+
+  componentWillMount = () => {
+    if (!this.auth.loggedIn()) {
+      this.props.history.replace('/login')
+      console.log('logged in', !!this.Auth.loggedIn())
+    }
+    
   }
 
   componentDidMount = () => {
@@ -104,16 +113,17 @@ handleClick = (event) => {
   var config = {
     headers : headers
   }
-  axios.post(EVENTS_BASE_URL, JSON.stringify(this.state.eventData), config)
-          .then(function (response) {
-            console.log(response);
-            if (response.data.code === 201) {
-                console.log("Successfully added a new event");
-            }
-        })
-        .catch(function (error) {
-            console.log('erro', error.response.data.message);
-        });
+    axios.put(EVENTS_BASE_URL+'/'+event_id , JSON.stringify(this.state.eventData), config)
+    .then(function (response) {
+      console.log(response);
+      if (response.data.code === 201) {
+          console.log("Successfully added a new event");
+      }
+  })
+  .catch(function (error) {
+      console.log('erro', error.response.data.message);
+  })
+
 }
 
 onClickEdit = (event_id) => {
@@ -122,7 +132,7 @@ onClickEdit = (event_id) => {
     Accept: 'application/json',
     'content-type': 'application/json'
   }
-  headers['x-access-token'] = auth.getToken()
+  headers['x-access-token'] = this.Auth.getToken()
 
   var config = {
     headers : headers
@@ -140,14 +150,6 @@ onClickEdit = (event_id) => {
 
 }
 
-// add redirection if we are already logged in
-componentWillMount = () => {
-  if ( !auth
-.loggedIn()) {
-    this.props.history.replace('/')
-  }
-}
-
 
   render () {
     const { classes } = this.props
@@ -159,35 +161,17 @@ componentWillMount = () => {
           {context => (
             <Fragment>
               <div className={classes.root}>
-             
-              <Drawer
-                variant='permanent'
-                classes={{
-                  paper: classes.drawerPaper
-                }}
-              >
-                {/* <div className={classes.toolbar} /> */}
-                
-                  <EventsFolderListItems userId={this.props.match.params.id} />
-                
-                <Divider />
-                <List>
-                  <ProfileFolderListItems onSelectChange={this.handleSelectOption} />
-                </List>
-              </Drawer>
+            
               <main className={classes.content}>
                 <div className={classes.toolbar} >
                   <Typography > New Event </Typography>
                 </div>
-               
-                
                 <EventForm 
                   handleChange = {this.handleChange}
                   submitEventDetails = { this.submitEventDetails}
                   onFileLoad = {this.onFileLoad}
                   onClick = {this.handleClick}
                   data={this.props.location.state}
-                  onClickEdit = {this.onClickEdit}
                 />
                 
                 
@@ -201,8 +185,8 @@ componentWillMount = () => {
   }
 }
 
-UserProfile.propTypes = {
+EditEventPage.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(UserProfile)
+export default withStyles(styles)(EditEventPage)
