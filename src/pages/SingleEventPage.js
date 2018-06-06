@@ -164,7 +164,7 @@ class EventViewCard extends React.Component {
       ? 
       this.makeRsvp({ eventId: this.state.eventId, userId: publicUserId, rsvp:'not attending' , method: 'post'}) //make new rsvp
       :
-      this.makeRsvp( { eventId: this.state.eventId, userId: publicUserId, rsvp:'attending' , 
+      this.makeRsvp( { eventId: this.state.eventId, userId: publicUserId, rsvp:'not attending' , 
                        method: 'put', rsvpId: this.state.res.rsvp_id} )
       
     }
@@ -203,17 +203,18 @@ class EventViewCard extends React.Component {
         })
       
         :
-        axios.put(EVENTS_BASE_URL+'/'+eventId+'/rsvp/'+rsvp.rsvp_id, JSON.stringify( {rsvp} ), config)
+        axios.put(EVENTS_BASE_URL+'/'+eventId+'/rsvp/'+rsvpId, JSON.stringify( {rsvp} ), config)
           .then(function (response) {
             console.log(response.data);
             if (response.data.code === 201) {
-                console.log("Successfully changed your response to the event");
+                console.log("Successfully changed your response to the event", {rsvp});
                 
             }
         })
         .catch(function (error) {
-            console.log('erro', error.response.data.message);
+            console.log('erro', error.response);
         })
+        console.log({rsvp})
         console.log("PUT request RSVPID :", rsvpId);
         
 
