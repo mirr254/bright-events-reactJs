@@ -130,11 +130,11 @@ class EventViewCard extends React.Component {
       .then(res => {
         console.log('Delete: ', res)
         // redirect user after succefull delete
-        // this.props.history.push('/')
+        this.props.history.push('/')
       })
       .catch(error => {
         this.showSnackBar(this.TransitionDown)
-        console.log('Delete Error: ', error.message)
+        console.log('Delete Error: ', error.response)
       })
   }
 
@@ -214,10 +214,8 @@ class EventViewCard extends React.Component {
         .catch(function (error) {
             console.log('erro', error.response);
         })
-        console.log({rsvp})
-        console.log("PUT request RSVPID :", rsvpId);
         
-
+        
   }
 
   
@@ -270,9 +268,6 @@ class EventViewCard extends React.Component {
           
           {context => (
             <Fragment>
-              {
-                // this.publicUserId = context.publicUserId
-              }
               
               <br />
               <div align='center'>
