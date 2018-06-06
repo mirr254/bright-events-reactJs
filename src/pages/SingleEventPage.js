@@ -46,7 +46,8 @@ class EventViewCard extends React.Component {
       publicUserId: null,
       checkedA: false,
       res: {},
-      newRsvp: false
+      newRsvp: false,
+      eventUserId: null
     };
 
     this.Auth = new AuthService()
@@ -107,8 +108,6 @@ class EventViewCard extends React.Component {
     //get the rsvp status
     this.getRsvpStatus( this.state.publicUserId );
     
-
-    // this.deleteEvent(this.eventId, "'method':'Delete'")
   }
 
   // The functions below are for EVENTS
@@ -117,8 +116,12 @@ class EventViewCard extends React.Component {
     this.Auth
       .fetch(EVENTS_BASE_URL + '/' + this.state.eventId)
       .then(res => {
-        this.setState({ singleEvent: res })
-        console.log("event : ", res);
+        this.setState({ 
+          singleEvent: res,
+          eventUserId: res.public_userid
+        })
+        console.log("Event : ", res);
+        console.log("Event user id : ", res.public_userid);
       })
       .catch(error => {
         console.log(error)
@@ -322,12 +325,12 @@ class EventViewCard extends React.Component {
                           >
                           { this.editEventComponentLink = props => <Link to={{pathname: `/events/edit-event`, state: this.state.singleEvent }} {...props} />}
                             <MenuItem 
-                              disabled={ this.state.singleEvent.user_public_id === this.state.publicUserId ? true : false } 
+                              disabled={ this.state.eventUserId !== this.state.publicUserId ? true : false } 
                               component={this.editEventComponentLink}
                               onClick={this.handleEdit}>Edit </MenuItem>
                             <MenuItem 
                                 disabled={ 
-                                  this.state.singleEvent.user_public_id !== this.state.publicUserId ? true : false
+                                  this.state.eventUserId !== this.state.publicUserId ? true : false
                                 }
                                 onClick={this.deleteEvent}>Delete</MenuItem>
                           </Menu>
@@ -356,7 +359,7 @@ class EventViewCard extends React.Component {
                         
                         <Switch
                         disabled={ 
-                          this.state.singleEvent.user_public_id === this.state.publicUserId ? true : false
+                          this.state.eventUserId === this.state.publicUserId ? true : false
                         }
                           checked={this.state.checkedA}
                           onChange={this.handleRsvpChange('attending', context.publicUserId)}
