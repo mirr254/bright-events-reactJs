@@ -320,7 +320,7 @@ class EventViewCard extends React.Component {
                             open={open}
                             onClose={this.handleClose}
                           >
-                          { this.editEventComponentLink = props => <Link to={{pathname: `/user/${context.publicUserId}`, state: this.state.singleEvent }} {...props} />}
+                          { this.editEventComponentLink = props => <Link to={{pathname: `/events/edit-event`, state: this.state.singleEvent }} {...props} />}
                             <MenuItem 
                               disabled={ this.state.singleEvent.user_public_id === this.state.publicUserId ? true : false } 
                               component={this.editEventComponentLink}

@@ -186,7 +186,7 @@ componentWillMount = () => {
                   submitEventDetails = { this.submitEventDetails}
                   onFileLoad = {this.onFileLoad}
                   onClick = {this.handleClick}
-                  data={this.props.location.state}
+                  
                   onClickEdit = {this.onClickEdit}
                 />
                 

@@ -7,7 +7,6 @@ cache:
 script:
   - npm test
   - unset CI
-  - npm run build
 
 after_script: # Upload coverage reports 
   - COVERALLS_REPO_TOKEN=$coveralls_token 

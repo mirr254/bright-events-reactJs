@@ -52,9 +52,9 @@ class EditEventPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      eventData: {},
+      data: {},
+      newEventData: {},
       loggedIn: false,
-      pictures: {},
       eventName: '',
       eventLocation: '',
       eventDate: '',
@@ -68,24 +68,20 @@ class EditEventPage extends Component {
   }
 
   componentWillMount = () => {
-    if (!this.auth.loggedIn()) {
+    if (!this.Auth.loggedIn()) {
       this.props.history.replace('/login')
       console.log('logged in', !!this.Auth.loggedIn())
     }
+    this.setState({data: this.props.location.state})
     
   }
 
-  componentDidMount = () => {
-    console.log("props :",this.props.component);
-    console.log('*****');
-    
-  }
   handleChange = prop => event => {
    
     this.setState({ [prop]: event.target.value})
     
     this.setState({ 
-        eventData: {
+        newEventData: {
           name: this.state.eventName,
           location: this.state.eventLocation,
           date: this.state.eventDate.replace( new RegExp("T","gi"), " "),
@@ -113,7 +109,8 @@ handleClick = (event) => {
   var config = {
     headers : headers
   }
-    axios.put(EVENTS_BASE_URL+'/'+event_id , JSON.stringify(this.state.eventData), config)
+  console.log("Edited Data: ",this.state.newEventData);
+    axios.put(EVENTS_BASE_URL+'/'+this.state.data.event_id, JSON.stringify(this.state.newEventData), config)
     .then(function (response) {
       console.log(response);
       if (response.data.code === 201) {
@@ -121,31 +118,7 @@ handleClick = (event) => {
       }
   })
   .catch(function (error) {
-      console.log('erro', error.response.data.message);
-  })
-
-}
-
-onClickEdit = (event_id) => {
-  //
-  const headers = {
-    Accept: 'application/json',
-    'content-type': 'application/json'
-  }
-  headers['x-access-token'] = this.Auth.getToken()
-
-  var config = {
-    headers : headers
-  }
-    axios.put(EVENTS_BASE_URL+'/'+event_id , JSON.stringify(this.state.eventData), config)
-    .then(function (response) {
-      console.log(response);
-      if (response.data.code === 201) {
-          console.log("Successfully added a new event");
-      }
-  })
-  .catch(function (error) {
-      console.log('erro', error.response.data.message);
+      console.log('erro', error.response);
   })
 
 }

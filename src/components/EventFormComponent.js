@@ -39,8 +39,7 @@ function EventForm (props) {
 
   return (
     <div className={classes.root}>
-    {console.log( 'DAta :', data)
-    }
+    
       <Grid container spacing={24}>
 
         <Grid item xs={4} sm={3}>
@@ -79,7 +78,7 @@ function EventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
-                      value={ data !== undefined ? data.name : ''}
+                      defaultValue={ data !== undefined ? data.name : ''}
                       onChange={props.handleChange('eventName')}
                     />
                   </Grid>
@@ -97,7 +96,7 @@ function EventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
-                      value={data !== undefined ? data.category : ''}
+                      defaultValue={data !== undefined ? data.category : ''}
                       onChange={props.handleChange('eventCategory')}
                     />
                   </Grid>
@@ -115,7 +114,7 @@ function EventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
-                      value = {data !== undefined ? data.location : ''}
+                      defaultValue = {data !== undefined ? data.location : ''}
                       onChange={props.handleChange('eventLocation')}
                     />
                   </Grid>
@@ -134,7 +133,7 @@ function EventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
-                      value = {data !== undefined ? data.cost : ''}
+                      defaultValue = {data !== undefined ? data.cost : ''}
                       onChange={props.handleChange('eventCost')}
                     />
                   </Grid>
@@ -154,7 +153,7 @@ function EventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
-                      value = {data !== undefined ? data.date : '2018-05-24T04:20'}
+                      defaultValue = {data !== undefined ? data.date : '2018-05-24T04:20'}
                       onChange={props.handleChange('eventDate')}
                     />
                   </Grid>
@@ -172,7 +171,7 @@ function EventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
-                      value = {data !== undefined ? data.description : ''}
+                      defaultValue = {data !== undefined ? data.description : ''}
                       onChange={props.handleChange('eventDescription')}
                     />
                   </Grid>
@@ -181,28 +180,15 @@ function EventForm (props) {
              
               <div >
 
-                {/* check if data has anything and show edit button */}
-                { 
-                  data !== undefined ? <Button 
-                    variant='raised' 
-                    color='primary' 
-                    className={classes.button}
-                    type='submit'
-                    //onSubmit={ console.log("Button click", "submit")} 
-                    onSubmit={ props.onClickEdit(data.event_id)} >
-                    Edit
-                  </Button> :
-
                     <Button 
                     variant='raised' 
                     color='primary' 
                     className={classes.button} 
-                    //onSubmit={ console.log("Button click", "submit")} 
-                    onClick={ props.onClick('post')} >
+                    onClick={ props.onClick} >
                     Save
                     </Button>
 
-                }
+                
 
               </div>
 

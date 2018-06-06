@@ -73,7 +73,7 @@ class CreateEventPage extends Component {
     }
     
   }
-  
+
   handleChange = prop => event => {
    
     this.setState({ [prop]: event.target.value})
@@ -119,29 +119,6 @@ handleClick = (event) => {
         });
 }
 
-onClickEdit = (event_id) => {
-  //
-  const headers = {
-    Accept: 'application/json',
-    'content-type': 'application/json'
-  }
-  headers['x-access-token'] = this.Auth.getToken()
-
-  var config = {
-    headers : headers
-  }
-    axios.put(EVENTS_BASE_URL+'/'+event_id , JSON.stringify(this.state.eventData), config)
-    .then(function (response) {
-      console.log(response);
-      if (response.data.code === 201) {
-          console.log("Successfully added a new event");
-      }
-  })
-  .catch(function (error) {
-      console.log('erro', error.response.data.message);
-  })
-
-}
 
   render () {
     const { classes } = this.props
@@ -163,7 +140,6 @@ onClickEdit = (event_id) => {
                   submitEventDetails = { this.submitEventDetails}
                   onFileLoad = {this.onFileLoad}
                   onClick = {this.handleClick}
-                  data={this.props.location.state}
                   onClickEdit = {this.onClickEdit}
                 />
                 
