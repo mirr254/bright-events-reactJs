@@ -22,12 +22,12 @@ class Routes extends Component {
           <div>
             <CustomHeader />
             <Switch>
-                <Route exact path='/' component={Home}/> 
+                <Route exact path='/' component={Home} /> 
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={Signup} />
                 <Route path='/confirm' component={ConfirmEmail} />
                 <Route exact path= '/user/:id' component={UserProfilePage} />
-                <Route exact path='/events' component={AllEvents} />
+                <Route exact path='/events' component={AllEvents} searchResult={'some thing cool'}/>
                 <Route path='/events/create-event' component={CreateEventPage} />
                 <Route path='/events/edit-event' component={EditEventPage} />
                 <Route path='/events/:id' component={EventViewCard} />

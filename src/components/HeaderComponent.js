@@ -66,23 +66,7 @@ class CustomHeader extends Component {
     this.setState({ anchorEl: null })
   }
 
-  handleSearch = () => {
-
-    console.log(this.state.searchValue)
-
-    axios.get( EVENTS_BASE_URL+'/search?q='+this.state.searchValue )
-    .then(res => {
-      this.setState({ 
-        eventsSearched: res.data,
-      });
-     <AllEvents events={this.state.eventsSearched} />
-      console.log("Events Searched : ", this.state.eventsSearched);
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
-  }
+  
 
   render () {
     const { classes } = this.props
@@ -161,7 +145,7 @@ class CustomHeader extends Component {
           )}
         </MyContext.Consumer>
         <div className={classes.toolbar} >
-        <Tooltip title="Search by event name">
+        {/* <Tooltip title="Search by event name">
         <SearchBar
           onChange={(searchValue) => this.setState({searchValue})}
           onRequestSearch={this.handleSearch}
@@ -171,7 +155,7 @@ class CustomHeader extends Component {
           }}
           hintText={'Search event by name'}
         />
-        </Tooltip>
+        </Tooltip> */}
         </div> 
       </div>
       // {/* <div className={classes.toolbar} /> */}
