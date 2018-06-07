@@ -9,5 +9,9 @@ script:
   - unset CI
 
 after_script: # Upload coverage reports 
-  - COVERALLS_REPO_TOKEN=$coveralls_token 
   - npx jest --coverage
+
+
+after_success:
+- coveralls < coverage/lcov.info
+“coveralls”: “cat ./coverage/lcov.info | node node_modules/.bin/coveralls”
