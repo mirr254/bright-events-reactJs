@@ -26,6 +26,7 @@ export default class AuthService {
         json: true
       })
       .then(function ok (jsonData) {
+        //console.log("Login Data", Promise.resolve(jsonData))
         localStorage.setItem('id_token', jsonData.token)
         return Promise.resolve(jsonData)
       })
