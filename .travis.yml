@@ -5,12 +5,8 @@ cache:
   directories:
   - node_modules
 script:
-  - npx jest
+  - npx test -- -u --coverage
   - unset CI
-
-after_script: # Upload coverage reports 
-  - npx jest --coverage
-
 
 after_success:
 - coveralls < coverage/lcov.info
