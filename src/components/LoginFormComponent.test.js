@@ -1,6 +1,9 @@
 import React from 'react';
 import Login from "./LoginFormComponent";
-import { mount } from '../../test/helpers';
+import Enzyme, { mount, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('Login form component', () =>{
   const props = {
