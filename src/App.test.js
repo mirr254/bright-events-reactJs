@@ -25,6 +25,4 @@ describe('It renders the app without crashing', () => {
     expect(wrapper.public_user_id).toBe(undefined)
   });
 
-
-
 });

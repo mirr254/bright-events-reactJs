@@ -48,7 +48,7 @@ const styles = theme => ({
 
 const auth = new AuthService()
 
-class EditEventPage extends Component {
+export class EditEventPage extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -129,9 +129,7 @@ handleClick = (event) => {
 
     return (
       <div>
-        <MyContext.Consumer>
-          
-          {context => (
+       
             <Fragment>
               <div className={classes.root}>
             
@@ -151,8 +149,7 @@ handleClick = (event) => {
               </main>
             </div>
             </Fragment>
-          )}
-        </MyContext.Consumer>
+          
       </div>
     )
   }

@@ -32,6 +32,20 @@ describe('Signup form component', () => {
     it('should have 4 formLabels', () => {
         expect( enzymeWrapper.find('FormLabel').length).toBe(4)
     })
+    it('should have InputArdonment', () => {
+        expect( enzymeWrapper.find('InputAdornment').length).toBe(4)
+    })
+    it('should have IconButton', () => {
+        expect( enzymeWrapper.find('IconButton').length).toBe(2)
+    })
+    it('should have AccountCircle', () => {
+        expect( enzymeWrapper.find('AccountCircle').length).toBe(1)
+    })
+    it('should have Email and formcontrol', () => {
+        expect( enzymeWrapper.find('Email').length).toBe(1)
+        expect( enzymeWrapper.find('FormControl').length).toBe(4)
+    })
+    
 
     const signupFormProps = enzymeWrapper.props()
 

@@ -6,20 +6,12 @@ import Home from './HomePage';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('Login form component', () =>{
-    // ensure you're resetting modules before each test
-    beforeEach(() => {
-        jest.resetModules();
-    });
-    
+    const props = {
+        events: {}
+      };
     beforeAll( () => {
         const ls = require("../utils/localstorage.js");
         ls.setLocalStorage();
       })
 
-    it('Components mounts without errors', ()=> {
-        const wrapper = shallow(<Home /> )
-        
-        expect(wrapper.find('.root').exists());
-        
-    })
 })
