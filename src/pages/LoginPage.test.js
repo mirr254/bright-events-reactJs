@@ -5,7 +5,9 @@ import Login from './LoginPage';
 
 function setup(saving) {
     const props = {
-        course: {}, saving: saving, errors: {},
+        course: {}, 
+        saving: saving, 
+        errors: {},
         onSave: () => {},
         onChange: () =>{}
     };
@@ -13,8 +15,9 @@ function setup(saving) {
     return shallow(<Login {...props} />);
 
     // test if it renders form
-    it('renders form, button and fields', () => {
+    
+    it('renders submit button ', () => {
         const Wrapper = setup(false);
-        //expect(Wrapper.find('LoginForm2').length).toBe(1)
+        expect(Wrapper.find('LoginForm2').length).toBe(1)
     });
 }

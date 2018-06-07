@@ -11,6 +11,13 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 import IconButton from 'material-ui/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchBar from 'material-ui-search-bar';
+import axios from 'axios';
+import { EVENTS_BASE_URL } from '../utils/ConstVariables';
+import HomePage from '../pages/HomePage';
+
+import { Route} from 'react-router-dom';
+import UserProfilePage from '../pages/UserProfilePage';
+import AllEvents from '../pages/AllEventsPage';
 
 
 const styles = {
@@ -40,7 +47,9 @@ class CustomHeader extends Component {
     super(props)
     this.state = {
       toolTipOpen: false,
-      anchorEl: null
+      anchorEl: null,
+      searchValue: null,
+      eventsSearched: []
     }
 
     let dashLink = null
@@ -55,6 +64,24 @@ class CustomHeader extends Component {
   // close the menu
   handleClose = () => {
     this.setState({ anchorEl: null })
+  }
+
+  handleSearch = () => {
+
+    console.log(this.state.searchValue)
+
+    axios.get( EVENTS_BASE_URL+'/search?q='+this.state.searchValue )
+    .then(res => {
+      this.setState({ 
+        eventsSearched: res.data,
+      });
+     <AllEvents events={this.state.eventsSearched} />
+      console.log("Events Searched : ", this.state.eventsSearched);
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
   }
 
   render () {
@@ -135,13 +162,13 @@ class CustomHeader extends Component {
         </MyContext.Consumer>
         <div className={classes.toolbar} >
         <SearchBar
-          onChange={() => console.log('onChange')}
-          onRequestSearch={() => console.log('onRequestSearch')}
+          onChange={(searchValue) => this.setState({searchValue})}
+          onRequestSearch={this.handleSearch}
           style={{
             margin: '0 auto',
             maxWidth: '30%'
           }}
-          hintText = {'Search event by name'}
+          hintText={'Search event by name'}
         />
         </div> 
       </div>

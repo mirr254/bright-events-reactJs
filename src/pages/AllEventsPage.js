@@ -32,7 +32,7 @@ const styles = theme => ({
 });
 
 function AllEvents (props) {
-  const { classes } = props
+  const { classes, events } = props
 
 
   return (
@@ -41,11 +41,13 @@ function AllEvents (props) {
     {context => (
         
       <div>
+        {console.log( "EVENTS proped: ", props.events)}
+        
 
         <GridList cellHeight={300} className={classes.gridList} cols={3}>
           <GridListTile key='Subheader' cols={3} style={{ height: 'auto' }}>
           </GridListTile>
-          {context.events.map(event => (
+          {props.events.map(event => (
             <GridListTile key={event.id}>
               <img src='/images/im1.JPG' alt={event.name} />
               <GridListTileBar

@@ -5,6 +5,7 @@ import AllEvents from './AllEventsPage';
 import {PropTypes } from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { width } from "window-size";
+import { MyContext } from '../App'
 
 const styles = theme =>({
     root: {
@@ -17,15 +18,26 @@ function Home(props) {
 
     const {classes} = props;
    
-        return( <div>
+        return(
+         <div>
+             <MyContext.Consumer>
+                 {
+                     context => (
+                         <div>
 
-            <div className= {classes.root}>
-            
+                            <div className= {classes.root}>
+                            
 
-            <AllEvents />
+                            <AllEvents events={context.events} />
 
-            <Footer />
-            </div>
+                            <Footer />
+                            </div>
+                         </div>
+                     )
+                 }
+
+            </MyContext.Consumer>
+
 
         </div>    
         );
