@@ -40,7 +40,7 @@ function AllEvents (props) {
   <div>
   <MyContext.Consumer>
     {context => (
-        
+          
       <div>
         {console.log( "EVENTS proped: ", props.events)}
         
