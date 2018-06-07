@@ -11,7 +11,7 @@ describe('Login form component', () =>{
     };
 
     it('should have a div class named not-found', ()=> {
-        const wrapper = shallow(<NotFoundPage />);
+        const wrapper = shallow(<NotFoundPage /> )
         expect(wrapper.find('.not-found').length).toBe(1);
     })
 })
