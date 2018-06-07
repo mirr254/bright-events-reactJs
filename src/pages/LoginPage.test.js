@@ -1,23 +1,29 @@
 import expect from 'expect';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Login from './LoginPage';
+import Adapter from 'enzyme-adapter-react-16';
 
-function setup(saving) {
+Enzyme.configure({ adapter: new Adapter() });
+
+function setup() {
     const props = {
-        course: {}, 
-        saving: saving, 
-        errors: {},
-        onSave: () => {},
-        onChange: () =>{}
-    };
+        showPassword : jest.fn()
+    }
 
-    return shallow(<Login {...props} />);
+    const enzymeWrapper = mount(<Login {...props} />)
 
-    // test if it renders form
-    
-    it('renders submit button ', () => {
-        const Wrapper = setup(false);
-        expect(Wrapper.find('LoginForm2').length).toBe(1)
-    });
+    return{
+        props,
+        enzymeWrapper
+    }
 }
+
+describe('components', () => {
+    describe('header', () => {
+        it('should render self and subcomponents', () => {
+            const {enzymeWrapper} = setup()
+            console.log(enzymeWrapper.debug())
+        })
+    })
+})

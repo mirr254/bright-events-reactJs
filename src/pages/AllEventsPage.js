@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import { MyContext } from '../App';
 import { Link} from 'react-router-dom';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
     root: {
@@ -50,6 +51,8 @@ function AllEvents (props) {
           {props.events.map(event => (
             <GridListTile key={event.id}>
               <img src='/images/im1.JPG' alt={event.name} />
+
+              <Tooltip title="Click on the exclamation to view event details">
               <GridListTileBar
                 title={event.title}
                 subtitle={<span>Cost: {event.cost}</span>}
@@ -61,7 +64,9 @@ function AllEvents (props) {
                   </Link>
                 }
               />
+              </Tooltip >
             </GridListTile>
+
           ))}
         </GridList>
 

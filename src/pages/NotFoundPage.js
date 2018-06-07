@@ -1,5 +1,4 @@
 import React from 'react';
-import '../assets/notFound.css';
 
 export default () => 
     <div className='not-found'>

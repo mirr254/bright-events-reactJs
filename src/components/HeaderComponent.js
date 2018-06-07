@@ -14,7 +14,7 @@ import SearchBar from 'material-ui-search-bar';
 import axios from 'axios';
 import { EVENTS_BASE_URL } from '../utils/ConstVariables';
 import HomePage from '../pages/HomePage';
-
+import Tooltip from '@material-ui/core/Tooltip';
 import { Route} from 'react-router-dom';
 import UserProfilePage from '../pages/UserProfilePage';
 import AllEvents from '../pages/AllEventsPage';
@@ -161,6 +161,7 @@ class CustomHeader extends Component {
           )}
         </MyContext.Consumer>
         <div className={classes.toolbar} >
+        <Tooltip title="Search by event name">
         <SearchBar
           onChange={(searchValue) => this.setState({searchValue})}
           onRequestSearch={this.handleSearch}
@@ -170,6 +171,7 @@ class CustomHeader extends Component {
           }}
           hintText={'Search event by name'}
         />
+        </Tooltip>
         </div> 
       </div>
       // {/* <div className={classes.toolbar} /> */}
