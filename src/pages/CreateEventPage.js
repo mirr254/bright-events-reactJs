@@ -7,10 +7,6 @@ import Toolbar from 'material-ui/Toolbar'
 import List from 'material-ui/List'
 import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
-import {
-  EventsFolderListItems,
-  ProfileFolderListItems
-} from '../assets/UserTileData';
 import AllEvents from './AllEventsPage';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import EventForm from '../components/EventFormComponent';

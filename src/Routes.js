@@ -6,7 +6,6 @@ import Login from './pages/LoginPage';
 import Signup from './pages/SignupPage';
 import ConfirmEmail from './pages/ConfirmRegistrationPage';
 import EventViewCard from './pages/SingleEventPage';
-import UserProfilePage from './pages/UserProfilePage';
 import CustomHeader from './components/HeaderComponent';
 import AllEvents from './pages/AllEventsPage';
 import CreateEventPage from './pages/CreateEventPage';
@@ -26,7 +25,6 @@ class Routes extends Component {
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={Signup} />
                 <Route path='/confirm' component={ConfirmEmail} />
-                <Route exact path= '/user/:id' component={UserProfilePage} />
                 <Route exact path='/events' component={AllEvents} searchResult={'some thing cool'}/>
                 <Route path='/events/create-event' component={CreateEventPage} />
                 <Route path='/events/edit-event' component={EditEventPage} />
