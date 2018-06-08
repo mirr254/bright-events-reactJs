@@ -66,6 +66,7 @@ const LoginForm2 = props => {
       </FormControl>
       <br />
       <Button
+        className="fooo"
         variant='raised'
         color='primary'
         label='Submit'

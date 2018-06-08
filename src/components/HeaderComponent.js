@@ -9,7 +9,14 @@ import { MyContext } from '../App'
 import Menu, { MenuItem } from 'material-ui/Menu'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import IconButton from 'material-ui/IconButton'
-import AccountCircle from '@material-ui/icons/AccountCircle'
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchBar from 'material-ui-search-bar';
+import axios from 'axios';
+import { EVENTS_BASE_URL } from '../utils/ConstVariables';
+import HomePage from '../pages/HomePage';
+import Tooltip from '@material-ui/core/Tooltip';
+import { Route} from 'react-router-dom';
+import AllEvents from '../pages/AllEventsPage';
 
 
 const styles = {
@@ -33,12 +40,15 @@ const loginLink = props => <Link to='/login' {...props} /> // necessary to preve
 const signupLink = props => <Link to='/signup' {...props} />
 const homeLink = props => <Link to='/' {...props} />
 
+
 class CustomHeader extends Component {
   constructor (props) {
     super(props)
     this.state = {
       toolTipOpen: false,
-      anchorEl: null
+      anchorEl: null,
+      searchValue: null,
+      eventsSearched: []
     }
 
     let dashLink = null
@@ -54,6 +64,8 @@ class CustomHeader extends Component {
   handleClose = () => {
     this.setState({ anchorEl: null })
   }
+
+  
 
   render () {
     const { classes } = this.props
@@ -131,6 +143,9 @@ class CustomHeader extends Component {
             </Fragment>
           )}
         </MyContext.Consumer>
+        <div className={classes.toolbar} >
+       
+        </div> 
       </div>
     )
   }

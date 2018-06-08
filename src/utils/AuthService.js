@@ -26,6 +26,7 @@ export default class AuthService {
         json: true
       })
       .then(function ok (jsonData) {
+        //console.log("Login Data", Promise.resolve(jsonData))
         localStorage.setItem('id_token', jsonData.token)
         return Promise.resolve(jsonData)
       })
@@ -111,10 +112,6 @@ export default class AuthService {
       .then(response => response.json())
   }
 
-  // edit rsvp status
-  editRsvp = (url, options) => {
-
-  }
 
   _checkStatus = response => {
     // raises an error incase response status is not a success

@@ -64,15 +64,15 @@ logout = () => {
 
 //get current user events  ## /api/v1/events/user/<string:public_user_id>
 getCurrentUserEvents = () => {
-    auth.fetch(EVENTS_BASE_URL + '/user/' + this.publicUserId )
-    .then(res => {
-      this.setState({ currentUserEvents: res })
-    })
-    .catch(error => {
-      console.log("Current User Error :", error)
-    })
-    
-  }
+  auth.fetch(EVENTS_BASE_URL + '/user/' + this.publicUserId )
+  .then(res => {
+    this.setState({ currentUserEvents: res })
+  })
+  .catch(error => {
+    console.log("Current User Error :", error)
+  })
+  
+}
 
   //get the events attending ///api/v1/events/rsvp/<string:public_user_id>
   getCurrentUserEventsAttending =()=> {

@@ -54,8 +54,6 @@ class Login extends Component {
   render () {
     return (
       <div>
-        <MyContext.Consumer>
-          {context => (
             <div align='center'>
               <br />
               <div>
@@ -68,9 +66,7 @@ class Login extends Component {
                 />
               </div>
             </div>
-          )}
-
-        </MyContext.Consumer>
+       
       </div>
     )
   }

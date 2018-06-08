@@ -94,12 +94,12 @@ class EventViewCard extends React.Component {
   componentWillMount = () => {
     if (!this.Auth.loggedIn()) {
       this.props.history.replace('/login')
-      console.log('logged in', !!this.Auth.loggedIn())
-    }
+    }else{
     this.setState({ 
       eventId: this.props.match.params.id,
       publicUserId: this.Auth.getProfile().public_id
     })
+  }
   }
   // this method called right after render method
   componentDidMount = () => {
