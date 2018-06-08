@@ -112,10 +112,6 @@ export default class AuthService {
       .then(response => response.json())
   }
 
-  // edit rsvp status
-  editRsvp = (url, options) => {
-
-  }
 
   _checkStatus = response => {
     // raises an error incase response status is not a success

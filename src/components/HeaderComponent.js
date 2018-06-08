@@ -55,10 +55,6 @@ class CustomHeader extends Component {
 
   }
 
-  componentDidMount(){
-    
-  }
-
   // handle menu oper`tions
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget })
