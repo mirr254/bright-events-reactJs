@@ -5,6 +5,7 @@ import Enzyme, { mount, shallow } from 'enzyme';
 import MockAdapter from 'axios-mock-adapter';
 import Adapter from 'enzyme-adapter-react-16';
 import axios from 'axios';
+import { EVENTS_BASE_URL } from '../utils/ConstVariables';
 
 jest.mock('./EditEventPage');
 
@@ -13,6 +14,17 @@ Enzyme.configure({ adapter: new Adapter() });
 describe('It renders the app without crashing', () => {
 
     const mock = new MockAdapter(axios);
+    const data = {
+        category: "Educational",
+        cost: 10000,
+        date: "21/11/19 16:30",
+        date_created: "Wed, 21 Mar 2018 22:17:34 GMT",
+        description: "Going to be amazing",
+        id: 1,
+        location: "Pangani",
+        name: "PSG tournament",
+        public_userid: "b69bc555-92d3-4333-992c-8aee40fb967a"
+      }
 
   beforeAll( () => {
     const ls = require("../utils/localstorage.js");
@@ -21,32 +33,14 @@ describe('It renders the app without crashing', () => {
 
   
   it('Component renders without crashing', () => {
-    mock.onGet('http://localhost:8000/api/v2/events')
+    mock.onGet(EVENTS_BASE_URL+'/2', data )
       .reply(
         200,
         [
           {
-            category: "Educational",
-            cost: 10000,
-            date: "21/11/19 16:30",
-            date_created: "Wed, 21 Mar 2018 22:17:34 GMT",
-            description: "Going to be amazing",
-            id: 1,
-            location: "Pangani",
-            name: "PSG tournament",
-            public_userid: "b69bc555-92d3-4333-992c-8aee40fb967a"
+            message: "b69bc555-92d3-4333-992c-8aee40fb967a"
           },
-          {
-            category: "Educational",
-            cost: 10000,
-            date: "21/11/20 16:30",
-            date_created: "Wed, 21 Mar 2018 22:17:34 GMT",
-            description: "Going to be amazing",
-            id: 2,
-            location: "Pangani",
-            name: "PSG tournament",
-            public_userid: "b69bc555-92d3-4333-992c-8aee40fb967a"
-          }
+         
         ]
       );
 
