@@ -4,7 +4,7 @@ import LoginForm2 from '../components/LoginFormComponent'
 import CustomHeader from '../components/HeaderComponent'
 import AuthService from '../utils/AuthService'
 import { MyContext } from '../App'
-import {Button} from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
 
 class Login extends Component {
   constructor (props) {
@@ -12,25 +12,61 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      showPassword: false
+      showPassword: false,
+      buttonLoading: false,
+      //snackbar
+
+      signupSnackBar: false,
+      vertical: 'bottom',
+      horizontal: 'center',
+      errorMsg:'initial msg',
     }
     this.Auth = new AuthService()
   }
 
   handleClick = event => {
-    console.log('States :', this.state)
+    this.setState({
+      buttonLoading: true,
+     })
+    //const loginResponse = this.Auth.login(this.state.username, this.state.password);
+     
 
-    let url = ''
+    const requestPromise = require('request-promise')
+    var apiBaseUrl = 'https://brighter-event.herokuapp.com/api/v1/auth/'
+    // encode data with base64 for the authentication
+    const base64encodedData = new Buffer(this.state.username + ':' + this.state.password).toString(
+      'base64'
+    )
 
-    this.Auth
-      .login(this.state.username, this.state.password)
-      .then(function ok (res) {
-        window.location.href = '/'
-        // this.props.history.replace('/');
+    requestPromise
+      .get({
+        uri: apiBaseUrl + 'login',
+        headers: {
+          Authorization: 'Basic ' + base64encodedData
+        },
+        json: true
       })
-      .catch(function fail (error) {
-        console.log(error)
+      .then((jsonData) =>{
+        console.log("Login Data", Promise.resolve(jsonData))
+        localStorage.setItem('id_token', jsonData.token)
+        this.setState({
+          buttonLoading: false,
+          signupSnackBar: true,
+          errorMsg: 'Successfully logged in'
+         })
+        
       })
+      .catch( (error) => {
+      console.log(error.message);
+       
+       this.setState({
+        buttonLoading: false,
+        signupSnackBar: true,
+        errorMsg: 'Sorry! Wrong username or password'
+       })
+      })
+     
+      
   }
 
   // add redirection if we are already logged in
@@ -51,8 +87,12 @@ class Login extends Component {
   handleClickShowPassword = () => {
     this.setState({ showPassword: !this.state.showPassword })
   }
+  handleSnackBarClose = () => {
+    this.setState({ signupSnackBar: false });
+  };
 
   render () {
+    const { vertical, horizontal } = this.state;
     return (
       <div>
             <div align='center'>
@@ -64,12 +104,20 @@ class Login extends Component {
                   handleMouseDownPassword={this.handleMouseDownPassword}
                   handleChange={this.handleChange}
                   showPassword={this.state.showPassword}
+                  buttonLoading = {this.state.buttonLoading}
                 />
-                <Button >
-                  Top-Center
-                </Button>
               </div>
             </div>
+            <Snackbar
+                    anchorOrigin={{ vertical, horizontal }}
+                    open={this.state.signupSnackBar}
+                    autoHideDuration={5000}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    onClose={this.handleSnackBarClose}
+                    message={<span id="message-id">{this.state.errorMsg}</span>}
+               />
        
       </div>
     )

@@ -74,7 +74,7 @@ const LoginForm2 = props => {
         style={style}
         onClick={props.handleClick}
       >
-        Submit
+        {props.buttonLoading ? 'Loading...' : 'Login'}
       </Button>
     </div>
   )
