@@ -49,6 +49,7 @@ class Login extends Component {
       .then((jsonData) =>{
         console.log("Login Data", Promise.resolve(jsonData))
         localStorage.setItem('id_token', jsonData.token)
+        this.props.history.replace('/')
         this.setState({
           buttonLoading: false,
           signupSnackBar: true,
