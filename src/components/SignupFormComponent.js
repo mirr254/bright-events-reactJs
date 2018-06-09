@@ -83,7 +83,7 @@ const SignupForm = (props) => {
             <br />
 
             <Button variant='raised' color='primary' label="Submit" primary={true} style={style} onClick={props.handleClick} >
-                Sign Up
+                {props.buttonLoading ? 'Loading..' : 'Signup' }
                 </Button>
            
         </div>

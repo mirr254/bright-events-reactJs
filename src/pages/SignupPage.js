@@ -4,6 +4,7 @@ import SignupForm from '../components/SignupFormComponent';
 import CustomHeader from '../components/HeaderComponent';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
+import AuthService from '../utils/AuthService';
 
 class Register extends Component {
     constructor(props) {
@@ -19,16 +20,19 @@ class Register extends Component {
             signupSnackBar: false,
             vertical: 'bottom',
             horizontal: 'center',
-            errorMsg:'initial msg'
+            errorMsg:'initial msg',
+            buttonLoading : false,
         }
+        this.Auth = new AuthService()
     }
 
     handleClick = (event) => {
         var apiBaseUrl = "https://brighter-event.herokuapp.com/api/v1/auth";
         console.log("values", this.state.username, this.state.email, this.state.password);
         //TODO: be done:check for empty values before hitting submit
-        var self = this;
-        console.log('before', this);
+        this.setState({
+            buttonLoading: true,
+        })
         let  history = this.props.history;
         var payload = {
             "username": this.state.username,
@@ -38,12 +42,18 @@ class Register extends Component {
         axios.post(apiBaseUrl + '/register', payload)
             .then( (response) => {
                 this.props.history.replace('/login');
+                this.setState({ 
+                    errorMsg: "Registered successfully",
+                    signupSnackBar: true,
+                    buttonLoading: false,
+                })
             })
             .catch((error) => {
                 console.log(error.response.data.message);
                 this.setState({ 
                     errorMsg: error.response.data.message,
-                    signupSnackBar: true
+                    signupSnackBar: true,
+                    buttonLoading: false,
                 })
                 
             });
@@ -66,6 +76,12 @@ class Register extends Component {
         this.setState({ signupSnackBar: false });
       };
     
+      // add redirection if we are already logged in
+  componentWillMount = () => {
+    if (this.Auth.loggedIn()) {
+      this.props.history.replace('/')
+    }
+  }
 
     render() {
         const { vertical, horizontal, signupSnackBar } = this.state;
@@ -81,6 +97,7 @@ class Register extends Component {
                             showPassword={this.state.showPassword}
                             handleClickShowPassword = { this.handleClickShowPassword}
                             handleMouseDownPassword = { this.handleMouseDownPassword}
+                            buttonLoading = {this.state.buttonLoading}
                         />
                         
                     </div>
