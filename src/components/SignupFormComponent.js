@@ -79,31 +79,11 @@ const SignupForm = (props) => {
                     }
                 />
             </FormControl>
-            < br />
-            <FormControl className={classNames(classes.margin, classes.textField)}>
-                <InputLabel htmlFor="adornment-password">Confirm Password</InputLabel>
-                <Input
-                    id="adornment-password2"
-                    type={props.showPassword ? 'text' : 'password'}
-                    value={props.password}
-                    onChange={props.handleChange('passwordConfirm')}
-                    startAdornment={
-                        <InputAdornment position="start">
-                            <IconButton
-                                aria-label="Toggle password visibility"
-                                onClick={props.handleClickShowPassword}
-                                onMouseDown={props.handleMouseDownPassword}
-                            >
-                                {props.showPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                />
-            </FormControl>
+            
             <br />
 
             <Button variant='raised' color='primary' label="Submit" primary={true} style={style} onClick={props.handleClick} >
-                Take me In
+                Sign Up
                 </Button>
            
         </div>

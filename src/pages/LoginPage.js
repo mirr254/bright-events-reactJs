@@ -4,6 +4,7 @@ import LoginForm2 from '../components/LoginFormComponent'
 import CustomHeader from '../components/HeaderComponent'
 import AuthService from '../utils/AuthService'
 import { MyContext } from '../App'
+import {Button} from '@material-ui/core/Button';
 
 class Login extends Component {
   constructor (props) {
@@ -64,6 +65,9 @@ class Login extends Component {
                   handleChange={this.handleChange}
                   showPassword={this.state.showPassword}
                 />
+                <Button >
+                  Top-Center
+                </Button>
               </div>
             </div>
        
