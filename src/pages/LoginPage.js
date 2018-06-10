@@ -5,6 +5,8 @@ import CustomHeader from '../components/HeaderComponent'
 import AuthService from '../utils/AuthService'
 import { MyContext } from '../App'
 import Snackbar from '@material-ui/core/Snackbar';
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import USERNAME_COOKIE_KEY from '../utils/ConstVariables';
 
 class Login extends Component {
   constructor (props) {
@@ -28,46 +30,31 @@ class Login extends Component {
     this.setState({
       buttonLoading: true,
      })
-    //const loginResponse = this.Auth.login(this.state.username, this.state.password);
-     
+     const result = this.Auth.login(this.state.username, this.state.password)
+    //  console.log('LOGIN response :', Promise.result );
 
-    const requestPromise = require('request-promise')
-    var apiBaseUrl = 'https://brighter-event.herokuapp.com/api/v1/auth/'
-    // encode data with base64 for the authentication
-    const base64encodedData = new Buffer(this.state.username + ':' + this.state.password).toString(
-      'base64'
-    )
-
-    requestPromise
-      .get({
-        uri: apiBaseUrl + 'login',
-        headers: {
-          Authorization: 'Basic ' + base64encodedData
-        },
-        json: true
-      })
-      .then((jsonData) =>{
-        console.log("Login Data", Promise.resolve(jsonData))
-        localStorage.setItem('id_token', jsonData.token)
-        this.props.history.replace('/')
-        this.setState({
-          buttonLoading: false,
-          signupSnackBar: true,
-          errorMsg: 'Successfully logged in'
-         })
+     result.then((res) =>{
+        if (res === 401 ) {
+          //error could not login in
+          this.setState({ 
+            errorMsg: "Wrong username or password",
+            signupSnackBar: true,
+            buttonLoading: false,
+        })
+        } else {
+          this.props.history.replace('/');
+                this.setState({ 
+                    errorMsg: "Login successfull",
+                    signupSnackBar: true,
+                    buttonLoading: false,
+                })
+          
+        }
+        // this.props.history.replace('/');
+        console.log('LOGIN response :', res);
         
       })
-      .catch( (error) => {
-      console.log(error.message);
-       
-       this.setState({
-        buttonLoading: false,
-        signupSnackBar: true,
-        errorMsg: 'Sorry! Wrong username or password'
-       })
-      })
-     
-      
+
   }
 
   // add redirection if we are already logged in

@@ -73,6 +73,7 @@ const LoginForm2 = props => {
         primary
         style={style}
         onClick={props.handleClick}
+        disabled={props.buttonLoading ? true : false}
       >
         {props.buttonLoading ? 'Loading...' : 'Login'}
       </Button>

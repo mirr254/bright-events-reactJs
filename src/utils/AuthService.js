@@ -28,10 +28,13 @@ export default class AuthService {
       .then((jsonData) =>{
         //console.log("Login Data", Promise.resolve(jsonData))
         localStorage.setItem('id_token', jsonData.token)
-        //return Promise.resolve(jsonData)
+        
+        return Promise.resolve(jsonData)
       })
       .catch( (error) => {
-       // return error;
+        console.log("LOGin Error Auth ", error.response.statusCode);
+        
+       return error.response.statusCode;
       })
   }
 

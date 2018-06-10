@@ -14,6 +14,7 @@ import AuthService from '../utils/AuthService';
 import {MyContext} from '../App';
 import { EVENTS_BASE_URL } from '../utils/ConstVariables';
 import axios from 'axios';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const drawerWidth = 240
 
@@ -56,6 +57,12 @@ class CreateEventPage extends Component {
       eventDescription: '',
       eventCategory: '',
       eventImgUrl: '',
+      //snackbar
+
+      signupSnackBar: false,
+      vertical: 'bottom',
+      horizontal: 'center',
+      errorMsg:'initial msg',
       
     }
 
@@ -104,20 +111,30 @@ handleClick = (event) => {
     headers : headers
   }
   axios.post(EVENTS_BASE_URL, JSON.stringify(this.state.eventData), config)
-          .then(function (response) {
+          .then( (response) => {
             console.log(response);
             if (response.data.code === 201) {
-                console.log("Successfully added a new event");
+              this.setState({
+                buttonLoading: false,
+                signupSnackBar: true,
+                errorMsg: 'Successfully created the event '+this.state.eventName
+               })
             }
         })
-        .catch(function (error) {
-            console.log('erro', error.response.data.message);
+        .catch((error) => {
+            console.log('Error creating :', error.response.data.message);
+            this.setState({
+              buttonLoading: false,
+              signupSnackBar: true,
+              errorMsg: error.response.data.message
+             })
         });
 }
 
 
   render () {
     const { classes } = this.props
+    const { vertical, horizontal } = this.state;
 
     return (
       <div>
@@ -138,6 +155,16 @@ handleClick = (event) => {
                   onClick = {this.handleClick}
                   onClickEdit = {this.onClickEdit}
                 />
+                <Snackbar
+                    anchorOrigin={{ vertical, horizontal }}
+                    open={this.state.signupSnackBar}
+                    autoHideDuration={5000}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    onClose={this.handleSnackBarClose}
+                    message={<span id="message-id">{this.state.errorMsg}</span>}
+               />
                 
                 
               </main>
