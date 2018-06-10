@@ -17,6 +17,7 @@ import HomePage from '../pages/HomePage';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Route} from 'react-router-dom';
 import AllEvents from '../pages/AllEventsPage';
+import AuthService from '../utils/AuthService';
 
 
 const styles = {
@@ -30,7 +31,7 @@ const styles = {
     margin: 10,
     color: '#fff',
     backgroundColor: deepPurple[500]
-  }
+  },
 }
 
 let anchorEl = null
@@ -39,7 +40,7 @@ let anchorEl = null
 const loginLink = props => <Link to='/login' {...props} /> // necessary to prevent unexpected unmounting
 const signupLink = props => <Link to='/signup' {...props} />
 const homeLink = props => <Link to='/' {...props} />
-
+const auth = new AuthService();
 
 class CustomHeader extends Component {
   constructor (props) {
@@ -48,10 +49,13 @@ class CustomHeader extends Component {
       toolTipOpen: false,
       anchorEl: null,
       searchValue: null,
-      eventsSearched: []
+      eventsSearched: [],
+      username: null,
+      toolTipOpen: false,
     }
 
     let dashLink = null
+    
 
   }
 
@@ -63,6 +67,15 @@ class CustomHeader extends Component {
   // close the menu
   handleClose = () => {
     this.setState({ anchorEl: null })
+  }
+
+  // handle opening or hiding tooltip on mouse hover
+  handleTooltipClose = () => {
+    this.setState({ toolTipOpen: false })
+  }
+
+  handleTooltipOpen = () => {
+    this.setState({ toolTipOpen: true })
   }
 
   
@@ -96,6 +109,16 @@ class CustomHeader extends Component {
                   {context.state.loggedIn
                     ? <div>
                       <div>
+                      <Tooltip
+                        enterDelay={100}
+                        id='tooltip-controlled'
+                        leaveDelay={300}
+                        onClose={this.handleTooltipClose}
+                        onOpen={this.handleTooltipOpen}
+                        open={this.state.toolTipOpen}
+                        placement='bottom'
+                        title={ this.state.username}
+                      >
                         <IconButton
                           aria-owns={open ? 'menu-appbar' : null}
                           aria-haspopup='true'
@@ -104,6 +127,7 @@ class CustomHeader extends Component {
                           >
                           <AccountCircle />
                         </IconButton>
+                      </Tooltip>
                         <Menu
                           id='menu-appbar'
                           anchorEl={anchorEl}

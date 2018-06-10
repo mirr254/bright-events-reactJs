@@ -2249,6 +2249,10 @@ copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
 
+core-js@^0.8.3:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-0.8.4.tgz#c22665f1e0d1b9c3c5e1b08dabd1f108695e4fcf"
+
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -3915,7 +3919,7 @@ global-prefix@^1.0.1:
     is-windows "^1.0.1"
     which "^1.2.14"
 
-global@~4.3.0:
+global@^4.3.2, global@~4.3.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/global/-/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
   dependencies:
@@ -5218,6 +5222,10 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
+jsdom-global@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/jsdom-global/-/jsdom-global-3.0.2.tgz#6bd299c13b0c4626b2da2c0393cd4385d606acb9"
+
 jsdom@^11.11.0:
   version "11.11.0"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-11.11.0.tgz#df486efad41aee96c59ad7a190e2449c7eb1110e"
@@ -6151,6 +6159,13 @@ mocha@^5.2.0:
     minimatch "3.0.4"
     mkdirp "0.5.1"
     supports-color "5.4.0"
+
+mock-local-storage@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.0.5.tgz#899ff300027cefed47816e6dc539bb059fcce489"
+  dependencies:
+    core-js "^0.8.3"
+    global "^4.3.2"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -7533,6 +7548,13 @@ react-router-dom@^4.2.2:
     react-router "^4.2.0"
     warning "^3.0.0"
 
+react-router-enzyme-context@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-router-enzyme-context/-/react-router-enzyme-context-1.2.0.tgz#7aa11c80e23278fa31f8a29845f7b37760d99350"
+  dependencies:
+    history "^4.7.2"
+    prop-types "^15.6.0"
+
 react-router@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.2.0.tgz#61f7b3e3770daeb24062dae3eedef1b054155986"
@@ -8227,6 +8249,10 @@ setprototypeof@1.0.3:
 setprototypeof@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
+
+sfcookies@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/sfcookies/-/sfcookies-1.0.2.tgz#e2df7b4d4c9db15965bbab9a9ce72829daff5bb9"
 
 sha.js@^2.4.0, sha.js@^2.4.8:
   version "2.4.11"

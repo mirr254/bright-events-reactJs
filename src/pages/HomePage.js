@@ -9,6 +9,7 @@ import { MyContext } from '../App'
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
+import { Link } from 'react-router-dom';
 
 const styles = theme =>({
     root: {
@@ -17,16 +18,19 @@ const styles = theme =>({
         position: 'relative',
         
     },
-    fab: {
+    absolute: {
         position: 'absolute',
-        bottom: theme.spacing.unit * 8,
-        right: theme.spacing.unit * -8,
+        bottom: theme.spacing.unit * 10,
+        right: theme.spacing.unit * 8,
       },
 });
 
 function Home(props) {
 
     const {classes} = props;
+
+    //const createEventLink = <Link to={'/create-event'} />
+    const createEventLink = props => <Link to={{pathname: `/events/create-event`}} {...props} />
    
         return(
          <div>
@@ -39,8 +43,8 @@ function Home(props) {
                             
 
                             <AllEvents events={context.events} />
-                            <Tooltip title="Create New Event">
-                                <Button variant="fab" className={classes.fab} color={'primary'}>
+                            <Tooltip title="Create new event">
+                                <Button component={createEventLink} variant="fab" className={classes.absolute} color={'primary'}>
                                 {<AddIcon />}
                                 </Button>
                             </Tooltip>

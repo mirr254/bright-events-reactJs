@@ -108,7 +108,7 @@ render(){
                 <Tooltip title="Click on the exclamation to view event details">
                 <GridListTileBar
                   title={event.title}
-                  subtitle={<span>Cost: {event.cost}</span>}
+                  subtitle={<span>Event Name: {event.name}</span>}
                   actionIcon={       
                     <Link to={`/events/${event.id}`} >
                       <IconButton  className={classes.icon}>

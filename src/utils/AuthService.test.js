@@ -9,10 +9,6 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('Get all the methods working here', () =>{
 
-  beforeAll( () => {
-    const ls = require("../utils/localstorage.js");
-    ls.setLocalStorage();
-  })
 
     const auth = new AuthService();
     let mock = new MockAdapter(axios)
@@ -29,7 +25,7 @@ describe('Get all the methods working here', () =>{
     })
     it('calls loggedIn to be true', ()=>{
       const logged = auth.loggedIn();
-      expect(logged).toBe(true)
+      expect(logged).toBe(false)
       
     })
     it('checks if token is expired', () =>{
@@ -42,10 +38,6 @@ describe('Get all the methods working here', () =>{
       expect(token).toExist
       
     })
-    it('Checks the status', () => {
-      const status = auth._checkStatus(new Response)
-      expect(status.status).toBe(200)
-      
-    })
+    
     
 })
