@@ -184,8 +184,10 @@ function EventForm (props) {
                     variant='raised' 
                     color='primary' 
                     className={classes.button} 
+                    disabled={props.buttonLoading ? true : false}
                     onClick={ props.onClick} >
-                    Save
+
+                    {props.buttonLoading ? 'Loading...' : 'Save'}
                     </Button>
 
                 

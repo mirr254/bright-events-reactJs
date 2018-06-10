@@ -63,6 +63,7 @@ class CreateEventPage extends Component {
       vertical: 'bottom',
       horizontal: 'center',
       errorMsg:'initial msg',
+      buttonLoading: false,
       
     }
 
@@ -99,6 +100,9 @@ class CreateEventPage extends Component {
 
 //create event details
 handleClick = (event) => {
+  this.setState({
+    buttonLoading: true,
+   })
  
   //
   const headers = {
@@ -119,6 +123,8 @@ handleClick = (event) => {
                 signupSnackBar: true,
                 errorMsg: 'Successfully created the event '+this.state.eventName
                })
+               //redirect to all events
+               this.props.history.replace('/')
             }
         })
         .catch((error) => {
@@ -154,6 +160,7 @@ handleClick = (event) => {
                   onFileLoad = {this.onFileLoad}
                   onClick = {this.handleClick}
                   onClickEdit = {this.onClickEdit}
+                  buttonLoading = {this.state.buttonLoading}
                 />
                 <Snackbar
                     anchorOrigin={{ vertical, horizontal }}
