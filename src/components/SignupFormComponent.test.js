@@ -8,42 +8,42 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('Signup form component', () => {
     const props = {
-        showPassword : jest.fn(),
-        handleChange : jest.fn(),
-        handleClick: jest.fn(),
+        showPassword : true,
+        handleChange : ()=>{},
+        handleClick: ()=>{},
 
     }
     const enzymeWrapper = mount(<SignupForm {...props} />)
 
     it('should render 4 input fields and a button', () => {
         
-        expect( enzymeWrapper.find('input').length).toBe(4)
+        expect( enzymeWrapper.find('input').length).toBe(3)
         expect( enzymeWrapper.find('Button').length).toBe(1)
     })
     it('should render a button', () => {
         expect( enzymeWrapper.find('Button').length).toBe(1)
     })
     it('should render input labels', () => {
-        expect( enzymeWrapper.find('InputLabel').length).toBe(4)
+        expect( enzymeWrapper.find('InputLabel').length).toBe(3)
     })
     it('should have signup form', () => {
         expect( enzymeWrapper.find('SignupForm').length).toBe(1)
     })
     it('should have 4 formLabels', () => {
-        expect( enzymeWrapper.find('FormLabel').length).toBe(4)
+        expect( enzymeWrapper.find('FormLabel').length).toBe(3)
     })
     it('should have InputArdonment', () => {
-        expect( enzymeWrapper.find('InputAdornment').length).toBe(4)
+        expect( enzymeWrapper.find('InputAdornment').length).toBe(3)
     })
     it('should have IconButton', () => {
-        expect( enzymeWrapper.find('IconButton').length).toBe(2)
+        expect( enzymeWrapper.find('IconButton').length).toBe(1)
     })
     it('should have AccountCircle', () => {
         expect( enzymeWrapper.find('AccountCircle').length).toBe(1)
     })
     it('should have Email and formcontrol', () => {
         expect( enzymeWrapper.find('Email').length).toBe(1)
-        expect( enzymeWrapper.find('FormControl').length).toBe(4)
+        expect( enzymeWrapper.find('FormControl').length).toBe(3)
     })
     
 

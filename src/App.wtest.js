@@ -4,17 +4,9 @@ import App from './App';
 import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-jest.mock('./App');
-
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('It renders the app without crashing', () => {
-
-  beforeAll( () => {
-    const ls = require("../src/utils/localstorage.js");
-    ls.setLocalStorage();
-  })
-  
   it('renders without crashing', () => {
     const wrapper = mount( <App />);
     

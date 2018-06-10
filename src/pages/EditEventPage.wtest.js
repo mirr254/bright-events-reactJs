@@ -7,7 +7,6 @@ import Adapter from 'enzyme-adapter-react-16';
 import axios from 'axios';
 import { EVENTS_BASE_URL } from '../utils/ConstVariables';
 
-jest.mock('./EditEventPage');
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -25,11 +24,6 @@ describe('It renders the app without crashing', () => {
         name: "PSG tournament",
         public_userid: "b69bc555-92d3-4333-992c-8aee40fb967a"
       }
-
-  beforeAll( () => {
-    const ls = require("../utils/localstorage.js");
-    ls.setLocalStorage();
-  })
 
   
   it('Component renders without crashing', () => {
