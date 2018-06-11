@@ -40,6 +40,7 @@ let anchorEl = null
 const loginLink = props => <Link to='/login' {...props} /> // necessary to prevent unexpected unmounting
 const signupLink = props => <Link to='/signup' {...props} />
 const homeLink = props => <Link to='/' {...props} />
+const myEventsLink = props => <Link to='/events/myevents' {...props} />
 const auth = new AuthService();
 
 class CustomHeader extends Component {
@@ -109,7 +110,7 @@ class CustomHeader extends Component {
                      context.state.loggedIn ?
 
                   <Typography
-                    component={homeLink}
+                    component={myEventsLink}
                     variant='headline'
                     color='inherit'
                     className={classes.flex}
