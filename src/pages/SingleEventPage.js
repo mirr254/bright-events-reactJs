@@ -139,7 +139,7 @@ class EventViewCard extends React.Component {
       .then(res => {
         console.log('Delete: ', res)
         // redirect user after succefull delete
-        this.props.history.push('/')
+        this.props.history.replace('/events/myevents')
       })
       .catch(error => {
         this.showSnackBar(this.TransitionDown)
