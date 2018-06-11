@@ -40,6 +40,7 @@ let anchorEl = null
 const loginLink = props => <Link to='/login' {...props} /> // necessary to prevent unexpected unmounting
 const signupLink = props => <Link to='/signup' {...props} />
 const homeLink = props => <Link to='/' {...props} />
+const myEventsLink = props => <Link to='/events/myevents' {...props} />
 const auth = new AuthService();
 
 class CustomHeader extends Component {
@@ -105,6 +106,19 @@ class CustomHeader extends Component {
                   >
                     Bright Events
                   </Typography>
+                  {
+                     context.state.loggedIn ?
+
+                  <Typography
+                    component={myEventsLink}
+                    variant='headline'
+                    color='inherit'
+                    className={classes.flex}
+                  >
+                    My Events
+                  </Typography> :
+                  null
+                  }
                   {/* use context to check if user is logged in  */}
                   {context.state.loggedIn
                     ? <div>

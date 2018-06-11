@@ -10,6 +10,7 @@ import CustomHeader from './components/HeaderComponent';
 import AllEvents from './pages/AllEventsPage';
 import CreateEventPage from './pages/CreateEventPage';
 import EditEventPage from './pages/EditEventPage';
+import MyEvents from './pages/MyEvents';
 
 
 class Routes extends Component {
@@ -27,6 +28,7 @@ class Routes extends Component {
                 <Route path='/confirm' component={ConfirmEmail} />
                 <Route exact path='/events' component={AllEvents} searchResult={'some thing cool'}/>
                 <Route path='/events/create-event' component={CreateEventPage} />
+                <Route path='/events/myevents' component={MyEvents}/>
                 <Route path='/events/edit-event' component={EditEventPage} />
                 <Route path='/events/:id' component={EventViewCard} />
                  
