@@ -11,14 +11,13 @@ import SearchBar from 'material-ui-search-bar';
 import axios from 'axios';
 import {EVENTS_BASE_URL} from '../utils/ConstVariables';
 import AuthService from '../utils/AuthService';
+import FooterComponent from '../components/FooterComponent';
 
 const styles = theme => ({
     root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
+      width: '85%',
+      margin: 'auto',
+      position: 'relative',
     },
     gridList: {
         // width: 900,
@@ -36,38 +35,51 @@ const styles = theme => ({
     },
 });
 
-class AllEvents extends Component {
+class MyEvents extends Component {
   constructor(props){
     super(props);
     this.state = {
-      events : [],
-      searchName : ''
+      myEventsData : [],
+      searchName : '',
+      publicUserId: null
     }
 
-    this.auth = new AuthService()
-   // console.log("PROPS AlleventsPage  :", this.props.events)
+    this.Auth = new AuthService()
+   // console.log("PROPS MyEventsPage  :", this.props.events)
   }
 
-  componentDidMount = () => {
+  componentDidMount =()=>{
 
-     //fetch all events
-     this.auth.fetch(EVENTS_BASE_URL )
-     .then(res => {
-      console.log(" AlleventsPage - PRopS  :", this.props)
-       this.setState({ events: res })
-     })
-     .catch(error => {
-       console.log("Fetch events error :", error)
-     })
-     
-     
+    console.log("Logged in user id :", this.state.publicUserId);
+    
+
+   // fetch all user events
+//     fetch all events
+    this.Auth.fetch(EVENTS_BASE_URL+'/user/'+this.state.publicUserId )
+    .then(res => {
+    this.setState({ myEventsData: res })
+    })
+    .catch(error => {
+    console.log("Fetch events error :", error)
+    })
+}
+
+  componentWillMount = () => {
+    if (!this.Auth.loggedIn()) {
+      this.props.history.replace('/login')
+      console.log('MyEvents Page: logged in', !!this.Auth.loggedIn())
+    }
+    const publicUserId = this.Auth.getProfile().public_id
+    this.setState({ publicUserId: publicUserId })
+
+    
   }
 
   handleSearch = () => {
     axios.get( EVENTS_BASE_URL+'/search?q='+this.state.searchName )
     .then(res => {
       this.setState({ 
-        events: res.data,
+        myEventsData: res.data,
       });
       console.log("Events Searched : ", this.state.events);
     })
@@ -81,7 +93,7 @@ class AllEvents extends Component {
 render(){
 
     
-    const { classes, events } = this.props
+    const { classes} = this.props
 
     return (
     <div>
@@ -90,6 +102,7 @@ render(){
       {context => (
             
         <div>
+          <div>
           <Tooltip title="Search by event name">
           <SearchBar
             onChange={(searchName) => this.setState({searchName})
@@ -102,12 +115,15 @@ render(){
             hintText={'Search event by name'}
           />
           </Tooltip>
+          </div>
+
+          <div className= {classes.root} >
           
 
           <GridList cellHeight={300} className={classes.gridList} cols={3}>
             <GridListTile key='Subheader' cols={3} style={{ height: 'auto' }}>
             </GridListTile>
-            {this.state.events.map(event => (
+            {this.state.myEventsData.map(event => (
               <GridListTile key={event.id}>
                 <img src='/images/im1.png' alt={event.name} />
 
@@ -128,18 +144,20 @@ render(){
 
             ))}
           </GridList>
+          </div>
 
         </div>
       )}
 
     </MyContext.Consumer>
+    <FooterComponent />
 
   </div>
     )
 }}
 
-AllEvents.propTypes = {
+MyEvents.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AllEvents);
+export default withStyles(styles)(MyEvents);

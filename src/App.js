@@ -98,7 +98,7 @@ getCurrentUserEvents = () => {
           loggedIn: this.state.loggedIn,
           publicUserId: this.state.publicUserId,
           createNewEvent: this.createNewEvent,
-          getCurrentUserEvents: this.getCurrentUserEvents,
+          currentUserEvents: this.state.currentUserEvents,
           eventsAttending: this.state.eventsAttending,
           numOfEventsAttending : this.state.eventsAttending.length,
           numOfOwnEvents : this.state.currentUserEvents.length,
