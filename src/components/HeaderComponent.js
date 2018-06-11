@@ -105,6 +105,19 @@ class CustomHeader extends Component {
                   >
                     Bright Events
                   </Typography>
+                  {
+                     context.state.loggedIn ?
+
+                  <Typography
+                    component={homeLink}
+                    variant='headline'
+                    color='inherit'
+                    className={classes.flex}
+                  >
+                    My Events
+                  </Typography> :
+                  null
+                  }
                   {/* use context to check if user is logged in  */}
                   {context.state.loggedIn
                     ? <div>
