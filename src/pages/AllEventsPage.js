@@ -45,6 +45,9 @@ class AllEvents extends Component {
       events : [],
       searchName : '',
       //pagination
+      value: 0,
+      numOfEvents : 1,
+      numOfPages: 1,
      
     }
 
@@ -80,6 +83,29 @@ class AllEvents extends Component {
     })
   
   }
+
+  //handle tabs/pagination change
+  handleTabChange = (event, value) => {
+
+    //handle api call with page numbers
+    axios.get( EVENTS_BASE_URL+'?page='+this.state.value )
+    .then(res => {
+      this.setState({ 
+        events: res,
+      });
+      console.log("Pagination Events Searched : ", this.state.events);
+      console.log("Num of events : ", this.state.events.length);
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+    this.setState({ value });
+    console.log("Tab `change :", this.state.value);
+    
+};
+
+
 
   
 render(){
@@ -136,7 +162,7 @@ render(){
           <Paper className={classes.root}>
                 <Tabs
                     value={this.state.value}
-                    onChange={this.handleChange}
+                    onChange={this.handleTabChange}
                     indicatorColor="primary"
                     textColor="primary"
                     centered
