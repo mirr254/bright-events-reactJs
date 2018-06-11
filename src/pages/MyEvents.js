@@ -12,6 +12,8 @@ import axios from 'axios';
 import {EVENTS_BASE_URL} from '../utils/ConstVariables';
 import AuthService from '../utils/AuthService';
 import FooterComponent from '../components/FooterComponent';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = theme => ({
     root: {
@@ -94,6 +96,8 @@ render(){
 
     
     const { classes} = this.props
+    const createEventLink = props => <Link to={{pathname: `/events/create-event`}} {...props} />
+
 
     return (
     <div>
@@ -150,6 +154,11 @@ render(){
       )}
 
     </MyContext.Consumer>
+    <Tooltip title="Create new event">
+        <Button component={createEventLink} variant="fab" className={classes.absolute} color={'primary'}>
+        {<AddIcon />}
+        </Button>
+    </Tooltip>
     <FooterComponent />
 
   </div>
