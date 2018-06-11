@@ -11,6 +11,8 @@ import SearchBar from 'material-ui-search-bar';
 import axios from 'axios';
 import {EVENTS_BASE_URL} from '../utils/ConstVariables';
 import AuthService from '../utils/AuthService';
+import Paper from 'material-ui/Paper';
+import Tabs, { Tab } from 'material-ui/Tabs';
 
 const styles = theme => ({
     root: {
@@ -41,7 +43,9 @@ class AllEvents extends Component {
     super(props);
     this.state = {
       events : [],
-      searchName : ''
+      searchName : '',
+      //pagination
+     
     }
 
     this.auth = new AuthService()
@@ -128,6 +132,21 @@ render(){
 
             ))}
           </GridList>
+          <div> 
+          <Paper className={classes.root}>
+                <Tabs
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    centered
+                >
+                    <Tab label="Page 1" />
+                    <Tab label="Item 2" />
+                    <Tab label="Item 3" />
+                </Tabs>
+            </Paper>
+          </div>
 
         </div>
       )}
