@@ -87,10 +87,10 @@ export class EditEventPage extends Component {
 
   handleChange = props => event => {
     console.log("Values changed", props ,event.target.value);
-    
+
     this.setState({ [props]: event.target.value})
   
-    console.log("State: ", this.state);
+    console.log("State change: ", this.state);
 
     this.setState({ 
       newEventData: {
@@ -126,30 +126,28 @@ handleClick = (event) => {
     headers : headers
   }
   
-  console.log("State: ", this.state);
-  
-  
   console.log("Edited Data: ",this.state.newEventData);
-  //   axios.put(EVENTS_BASE_URL+'/'+this.state.eventId, JSON.stringify(this.state.newEventData), config)
-  //   .then( (response) =>{
-  //     if (response.status === 201) {
+  
+    axios.put(EVENTS_BASE_URL+'/'+this.state.eventId, JSON.stringify(this.state.newEventData), config)
+    .then( (response) =>{
+      if (response.status === 201) {
           
-  //         this.setState({
-  //           buttonLoading: false,
-  //           signupSnackBar: true,
-  //           errorMsg: 'Successfully updated the event '+this.state.data.eventName
-  //          })
-  //          this.props.history.replace('/events/'+this.state.data.event_id)
-  //     }
-  // })
-  // .catch((error) =>{
-  //     console.log('Edit Error', error.response);
-  //     this.setState({
-  //       buttonLoading: false,
-  //       signupSnackBar: true,
-  //       errorMsg: error.response.data.message
-  //      })
-  // })
+          this.setState({
+            buttonLoading: false,
+            signupSnackBar: true,
+            errorMsg: 'Successfully updated the event '+this.state.data.eventName
+           })
+           this.props.history.replace('/events/'+this.state.data.event_id)
+      }
+  })
+  .catch((error) =>{
+      console.log('Edit Error', error.response);
+      this.setState({
+        buttonLoading: false,
+        signupSnackBar: true,
+        errorMsg: error.response.data.message
+       })
+  })
 
 }
 

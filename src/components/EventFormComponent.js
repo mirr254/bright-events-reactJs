@@ -160,7 +160,7 @@ function EventForm (props) {
                       InputLabelProps={{
                         shrink: true
                       }}
-                      defaultValue = {data !== undefined ? newDate : '2018-05-24T04:20'}
+                      defaultValue = {data !== undefined ? newDate : '2018/05/24T04:20'}
                       onChange={props.handleChange('date')}
                     />
                   </Grid>
