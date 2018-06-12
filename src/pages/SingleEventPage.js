@@ -28,6 +28,12 @@ import Slide from '@material-ui/core/Slide';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Link } from 'react-router-dom';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 
 class EventViewCard extends React.Component {
@@ -47,7 +53,8 @@ class EventViewCard extends React.Component {
       checkedA: false,
       res: {},
       newRsvp: false,
-      eventUserId: null
+      eventUserId: null,
+      eventGuests: []
     };
 
     this.Auth = new AuthService()
@@ -107,6 +114,27 @@ class EventViewCard extends React.Component {
     this.getSingleEvent();
     //get the rsvp status
     this.getRsvpStatus( this.state.publicUserId );
+
+    this.getEventGuests();
+
+    
+  }
+
+  //get event guests
+  getEventGuests = () =>{
+    this.Auth
+    .fetch(EVENTS_BASE_URL+'/'+this.state.eventId+'/guests')
+    .then(res => {
+      console.log("Guests :", res);
+      
+      this.setState({
+        eventGuests: res
+      })
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
     
   }
 
@@ -120,8 +148,8 @@ class EventViewCard extends React.Component {
           singleEvent: res,
           eventUserId: res.public_userid
         })
-        console.log("Event : ", res);
-        console.log("Event user id : ", res.public_userid);
+        // console.log("Event : ", res);
+        // console.log("Event user id : ", res.public_userid);
       })
       .catch(error => {
         console.log(error)
@@ -139,7 +167,7 @@ class EventViewCard extends React.Component {
       .then(res => {
         console.log('Delete: ', res)
         // redirect user after succefull delete
-        this.props.history.push('/')
+        this.props.history.replace('/events/myevents')
       })
       .catch(error => {
         this.showSnackBar(this.TransitionDown)
@@ -381,9 +409,48 @@ class EventViewCard extends React.Component {
                   </CardActions>
                   <Collapse in={this.state.expanded} timeout='auto' unmountOnExit>
                     <CardContent>
+                      <div>
                       <Typography paragraph variant='body2'>
-                        {this.state.singleEvent.description}
+                        Description : {this.state.singleEvent.description}
                       </Typography>
+
+                      </div>
+
+                    </CardContent>
+                  </Collapse>
+                  {/* guests list */}
+                  <Collapse in={this.state.expanded} xs={4} timeout='auto' unmountOnExit>
+                    <CardContent>
+                      <div>
+                      <Typography paragraph variant='body2'>
+                      Event Guests:
+                      </Typography>
+
+                      {/* table */}
+                      <Paper className={classes.root}>
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Username</TableCell>
+            <TableCell>Response</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {this.state.eventGuests.map(guest => {
+            return (
+              <TableRow key={guest.username}>
+                <TableCell component="th" scope="row">
+                  {guest.username}
+                </TableCell>
+                <TableCell>{guest.rsvp}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </Paper>
+
+                      </div>
 
                     </CardContent>
                   </Collapse>
@@ -413,6 +480,9 @@ EventViewCard.propTypes = {
 const styles = theme => ({
   card: {
     maxWidth: '40%'
+  },
+  table: {
+    minWidth: '40%',
   },
   media: {
     height: 0,

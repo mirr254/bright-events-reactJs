@@ -11,6 +11,9 @@ import SearchBar from 'material-ui-search-bar';
 import axios from 'axios';
 import {EVENTS_BASE_URL} from '../utils/ConstVariables';
 import AuthService from '../utils/AuthService';
+import Paper from 'material-ui/Paper';
+import Tabs, { Tab } from 'material-ui/Tabs';
+
 
 const styles = theme => ({
     root: {
@@ -41,7 +44,12 @@ class AllEvents extends Component {
     super(props);
     this.state = {
       events : [],
-      searchName : ''
+      searchName : '',
+      //pagination
+      total: 20,
+      display: 7,
+      number: 7,
+     
     }
 
     this.auth = new AuthService()
@@ -77,6 +85,30 @@ class AllEvents extends Component {
   
   }
 
+  //handle tabs/pagination change
+  handleTabChange = (event, value) => {
+    
+    this.setState({value: value })
+    console.log("Value : ", value);
+
+    console.log("State Value : ", this.state.value);
+    
+
+    //handle api call with page numbers
+    axios.get( EVENTS_BASE_URL+'?page='+this.state.value )
+    .then(res => {
+      this.setState({ 
+        events: res.data,
+      });
+      console.log("Pagination Events Searched : ", res.data);
+      console.log("Num of events : ", res.data.length);
+    })
+    .catch(error => {
+      console.log(error)
+    })
+
+    
+};
   
 render(){
 
@@ -128,6 +160,9 @@ render(){
 
             ))}
           </GridList>
+          <div> 
+          
+          </div>
 
         </div>
       )}
