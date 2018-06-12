@@ -51,14 +51,16 @@ export class EditEventPage extends Component {
     this.state = {
       data: {},
       newEventData: {},
+      //data
+      name: this.props.location.state.name,
+      location: this.props.location.state.location,
+      date: this.props.location.state.date,
+      cost: this.props.location.state.cost,
+      description: this.props.location.state.description,
+      category: this.props.location.state.category,
+      eventId: this.props.location.state.event_id,
+      
       loggedIn: false,
-      eventName: '',
-      eventLocation: '',
-      eventDate: '',
-      eventCost: 0,
-      eventDescription: '',
-      eventCategory: '',
-      eventImgUrl: '',
       //snackbar
       signupSnackBar: false,
       vertical: 'bottom',
@@ -74,28 +76,36 @@ export class EditEventPage extends Component {
     if (!this.Auth.loggedIn()) {
       this.props.history.replace('/login')
       console.log('logged in', !!this.Auth.loggedIn())
+    }else{
+      this.setState({
+        data: this.props.location.state,
+        eventId: this.props.location.state.event_id
+      })
     }
-    this.setState({data: this.props.location.state})
     
   }
 
-  handleChange = prop => event => {
-   
-    this.setState({ [prop]: event.target.value})
-    
-    this.setState({ 
-        newEventData: {
-          name: this.state.eventName,
-          location: this.state.eventLocation,
-          date: this.state.eventDate.replace( new RegExp("T","gi"), " "),
-          cost: parseInt( this.state.eventCost),
-          category: this.state.eventCategory,
-          description: this.state.eventDescription,
-          // eventImgUrl: this.state.eventImgUrl
-        }
-    }) 
+  handleChange = props => event => {
+    console.log("Values changed", props ,event.target.value);
+
+    this.setState({ [props]: event.target.value})
   
-    console.log('State :', this.state)
+    console.log("State change: ", this.state);
+
+    this.setState({ 
+      newEventData: {
+        name: this.state.name,
+        location: this.state.location,
+        date: this.state.date.replace( new RegExp("T","gi"), " "),
+        cost: parseInt( this.state.cost),
+        category: this.state.category,
+        description: this.state.description,
+        // eventImgUrl: this.state.eventImgUrl
+      }
+  }) 
+    
+    //this.setState({ newEventData: Object.assign({}, this.state.newEventData, { [props]: event.target.value }) });
+    
     
   }
 
@@ -115,10 +125,11 @@ handleClick = (event) => {
   var config = {
     headers : headers
   }
+  
   console.log("Edited Data: ",this.state.newEventData);
-    axios.put(EVENTS_BASE_URL+'/'+this.state.data.event_id, JSON.stringify(this.state.newEventData), config)
+  
+    axios.put(EVENTS_BASE_URL+'/'+this.state.eventId, JSON.stringify(this.state.newEventData), config)
     .then( (response) =>{
-      console.log(response.status);
       if (response.status === 201) {
           
           this.setState({
@@ -160,7 +171,8 @@ handleClick = (event) => {
                   submitEventDetails = { this.submitEventDetails}
                   onFileLoad = {this.onFileLoad}
                   onClick = {this.handleClick}
-                  data={this.props.location.state}
+                  data={this.state.data}
+                  buttonLoading = {this.state.buttonLoading}
                 />
                 <Snackbar
                     anchorOrigin={{ vertical, horizontal }}

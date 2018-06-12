@@ -4,7 +4,18 @@
 
 
 ## Description
+
 A react app to consume API that can be found on [GitHub](http://github.com/mirr254/Bright-events) and a linkt to app hosted on heroku [Bright events ](https://brighter-event.herokuapp.com).
+
+This application allows users to perform the following actions:
+- Create account 
+- Login
+- Create new events
+- Edit events
+- Delete own events
+- View event guests
+- Rsvp to events
+
 
 It can be accessed online via the link [Bright events React App](https://st-bright-events-ui.herokuapp.com)
 

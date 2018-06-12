@@ -42,7 +42,8 @@ class Login extends Component {
             buttonLoading: false,
         })
         } else {
-          this.props.history.replace('/');
+          //this.props.history.replace('/'); -> redirect
+          window.location.replace('/')
                 this.setState({ 
                     errorMsg: "Login successfull",
                     signupSnackBar: true,

@@ -117,15 +117,13 @@ handleClick = (event) => {
   axios.post(EVENTS_BASE_URL, JSON.stringify(this.state.eventData), config)
           .then( (response) => {
             console.log(response);
-            if (response.data.code === 201) {
-              this.setState({
-                buttonLoading: false,
-                signupSnackBar: true,
-                errorMsg: 'Successfully created the event '+this.state.eventName
-               })
-               //redirect to all events
-               this.props.history.replace('/')
-            }
+            this.setState({
+              buttonLoading: false,
+              signupSnackBar: true,
+              errorMsg: 'Successfully created the event '+this.state.eventName
+             })
+            //redirect to all events
+            this.props.history.replace('/')
         })
         .catch((error) => {
             console.log('Error creating :', error.response.data.message);
