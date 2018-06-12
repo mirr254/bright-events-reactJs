@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button';
 import {LocationOn, AccountCircle, DateRange, AttachMoney, Description} from '@material-ui/icons'
 
 
-
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -34,8 +33,16 @@ const styles = theme => ({
 
 })
 
+function insert(str, index, value) {
+  return str.substr(0, index) + value + str.substr(index);
+}
+
 function EventForm (props) {
   const { classes, data } = props
+
+  console.log('New Date string', insert(data.date, 10, 'T').replace(/\s/g,''))
+  const newDate = insert(data.date, 10, 'T').replace(/\s/g,'');
+
 
   return (
     <div className={classes.root}>
@@ -79,7 +86,7 @@ function EventForm (props) {
                         shrink: true
                       }}
                       defaultValue={ data !== undefined ? data.name : ''}
-                      onChange={props.handleChange('eventName')}
+                      onChange={props.handleChange('name')}
                     />
                   </Grid>
                 </Grid>
@@ -97,7 +104,7 @@ function EventForm (props) {
                         shrink: true
                       }}
                       defaultValue={data !== undefined ? data.category : ''}
-                      onChange={props.handleChange('eventCategory')}
+                      onChange={props.handleChange('category')}
                     />
                   </Grid>
                 </Grid>
@@ -115,8 +122,9 @@ function EventForm (props) {
                         shrink: true
                       }}
                       defaultValue = {data !== undefined ? data.location : ''}
-                      onChange={props.handleChange('eventLocation')}
+                      onChange={props.handleChange('location')}
                     />
+                    
                   </Grid>
                 </Grid>
               </div>
@@ -134,7 +142,7 @@ function EventForm (props) {
                         shrink: true
                       }}
                       defaultValue = {data !== undefined ? data.cost : ''}
-                      onChange={props.handleChange('eventCost')}
+                      onChange={props.handleChange('cost')}
                     />
                   </Grid>
                 </Grid>
@@ -149,12 +157,11 @@ function EventForm (props) {
                       id='datetime-local'
                       label='Date'
                       type='datetime-local'
-                      defaultValue={data !== undefined ? data.date : '2018-05-24T04:20'}
                       InputLabelProps={{
                         shrink: true
                       }}
-                      defaultValue = {data !== undefined ? data.date : '2018-05-24T04:20'}
-                      onChange={props.handleChange('eventDate')}
+                      defaultValue = {data !== undefined ? newDate : '2018-05-24T04:20'}
+                      onChange={props.handleChange('date')}
                     />
                   </Grid>
                 </Grid>
@@ -172,7 +179,7 @@ function EventForm (props) {
                         shrink: true
                       }}
                       defaultValue = {data !== undefined ? data.description : ''}
-                      onChange={props.handleChange('eventDescription')}
+                      onChange={props.handleChange('description')}
                     />
                   </Grid>
                 </Grid>
@@ -185,6 +192,7 @@ function EventForm (props) {
                     color='primary' 
                     className={classes.button} 
                     disabled={props.buttonLoading ? true : false}
+                    onSubmit={props.onSubmit}
                     onClick={ props.onClick} >
 
                     {props.buttonLoading ? 'Loading...' : 'Save'}

@@ -344,7 +344,7 @@ class EventViewCard extends React.Component {
 
                   <CardMedia
                     className={classes.media}
-                    image='/images/im1.JPG'
+                    image='/images/im1.png'
                     title='Contemplative Reptile'
                   />
                   <CardContent>

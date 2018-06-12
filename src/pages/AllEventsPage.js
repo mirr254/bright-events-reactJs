@@ -14,6 +14,7 @@ import AuthService from '../utils/AuthService';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
 
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -45,9 +46,9 @@ class AllEvents extends Component {
       events : [],
       searchName : '',
       //pagination
-      value: 0,
-      numOfEvents : 1,
-      numOfPages: 1,
+      total: 20,
+      display: 7,
+      number: 7,
      
     }
 
@@ -86,27 +87,28 @@ class AllEvents extends Component {
 
   //handle tabs/pagination change
   handleTabChange = (event, value) => {
+    
+    this.setState({value: value })
+    console.log("Value : ", value);
+
+    console.log("State Value : ", this.state.value);
+    
 
     //handle api call with page numbers
     axios.get( EVENTS_BASE_URL+'?page='+this.state.value )
     .then(res => {
       this.setState({ 
-        events: res,
+        events: res.data,
       });
-      console.log("Pagination Events Searched : ", this.state.events);
-      console.log("Num of events : ", this.state.events.length);
+      console.log("Pagination Events Searched : ", res.data);
+      console.log("Num of events : ", res.data.length);
     })
     .catch(error => {
       console.log(error)
     })
 
-    this.setState({ value });
-    console.log("Tab `change :", this.state.value);
     
 };
-
-
-
   
 render(){
 
@@ -159,19 +161,7 @@ render(){
             ))}
           </GridList>
           <div> 
-          <Paper className={classes.root}>
-                <Tabs
-                    value={this.state.value}
-                    onChange={this.handleTabChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    centered
-                >
-                    <Tab label="Page 1" />
-                    <Tab label="Item 2" />
-                    <Tab label="Item 3" />
-                </Tabs>
-            </Paper>
+          
           </div>
 
         </div>

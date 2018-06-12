@@ -68,9 +68,10 @@ class MyEvents extends Component {
     if (!this.Auth.loggedIn()) {
       this.props.history.replace('/login')
       console.log('MyEvents Page: logged in', !!this.Auth.loggedIn())
+    }else{
+      const publicUserId = this.Auth.getProfile().public_id
+      this.setState({ publicUserId: publicUserId })
     }
-    const publicUserId = this.Auth.getProfile().public_id
-    this.setState({ publicUserId: publicUserId })
 
     
   }
