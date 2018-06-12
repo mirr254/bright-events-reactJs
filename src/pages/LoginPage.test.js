@@ -16,7 +16,6 @@ describe('Renders all components', () =>{
     describe('Full Login page mount', ()=>{
         const mountAll = mount(<Login />)
 
-        console.log("Login ", mountAll.debug());
         it('Has 2 labels', ()=>{
             expect( mountAll.find('label').length).toBe(2)
         })
