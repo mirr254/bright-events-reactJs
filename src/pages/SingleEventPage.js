@@ -125,6 +125,7 @@ class EventViewCard extends React.Component {
     this.Auth
     .fetch(EVENTS_BASE_URL+'/'+this.state.eventId+'/guests')
     .then(res => {
+      console.log("Guests :", res);
       
       this.setState({
         eventGuests: res
@@ -423,9 +424,31 @@ class EventViewCard extends React.Component {
                       <div>
                       <Typography paragraph variant='body2'>
                       Event Guests:
-
-                        {JSON.stringify( this.state.eventGuests[0])}
                       </Typography>
+
+                      {/* table */}
+                      <Paper className={classes.root}>
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Username</TableCell>
+            <TableCell>Response</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {this.state.eventGuests.map(guest => {
+            return (
+              <TableRow key={guest.username}>
+                <TableCell component="th" scope="row">
+                  {guest.username}
+                </TableCell>
+                <TableCell>{guest.rsvp}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </Paper>
 
                       </div>
 

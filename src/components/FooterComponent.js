@@ -32,8 +32,6 @@ class Footer extends Component {
                     centered
                 >
                     <Tab label="Page 1" />
-                    <Tab label="Item 2" />
-                    <Tab label="Item 3" />
                 </Tabs>
             </Paper>
         );
