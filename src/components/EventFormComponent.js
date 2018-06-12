@@ -40,8 +40,10 @@ function insert(str, index, value) {
 function EventForm (props) {
   const { classes, data } = props
 
-  console.log('New Date string', insert(data.date, 10, 'T').replace(/\s/g,''))
-  const newDate = insert(data.date, 10, 'T').replace(/\s/g,'');
+  console.log('New Date string', data !== undefined ? insert(data.date, 10, 'T').replace(/\s/g,'') : '' )
+  const newDate = data !== undefined ? insert(data.date, 10, 'T').replace(/\s/g,'') : '' ;
+  //console.log("Data props :", data);
+  
 
 
   return (

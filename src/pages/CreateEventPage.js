@@ -50,12 +50,13 @@ class CreateEventPage extends Component {
       eventData: {},
       loggedIn: false,
       pictures: {},
-      eventName: '',
-      eventLocation: '',
-      eventDate: '',
-      eventCost: 0,
-      eventDescription: '',
-      eventCategory: '',
+      name: '',
+      location: '',
+      date: '',
+      cost: '',
+      description: '',
+      category: '',
+      eventId: '',
       eventImgUrl: '',
       //snackbar
 
@@ -84,17 +85,17 @@ class CreateEventPage extends Component {
     
     this.setState({ 
         eventData: {
-          name: this.state.eventName,
-          location: this.state.eventLocation,
-          date: this.state.eventDate.replace( new RegExp("T","gi"), " "),
-          cost: parseInt( this.state.eventCost),
-          category: this.state.eventCategory,
-          description: this.state.eventDescription,
+          name: this.state.name,
+        location: this.state.location,
+        date: this.state.date.replace( new RegExp("T","gi"), " "),
+        cost: parseInt( this.state.cost),
+        category: this.state.category,
+        description: this.state.description,
           // eventImgUrl: this.state.eventImgUrl
         }
     }) 
   
-    console.log('State :', this.state)
+    console.log('Eventdata State :', this.state.eventData)
     
   }
 
