@@ -85,16 +85,13 @@ export class EditEventPage extends Component {
     
   }
 
-  // componentDidMount =() =>{
-  //  // this.setState({eventId: this.state.newEventData.event_id})
-  //   console.log("Event ID ", this.props.location.state.event_id);
-    
-  // }
-
   handleChange = props => event => {
-    // const {value, name } = event.target;
     console.log("Values changed", props ,event.target.value);
+    
     this.setState({ [props]: event.target.value})
+  
+    console.log("State: ", this.state);
+
     this.setState({ 
       newEventData: {
         name: this.state.name,
@@ -128,34 +125,31 @@ handleClick = (event) => {
   var config = {
     headers : headers
   }
-
-  console.log("Data to edit id : ", this.state.eventId);
-  console.log("Data to edit : ", this.state.newEventData); 
-
+  
+  console.log("State: ", this.state);
   
   
   console.log("Edited Data: ",this.state.newEventData);
-    axios.put(EVENTS_BASE_URL+'/'+this.state.eventId, JSON.stringify(this.state.newEventData), config)
-    .then( (response) =>{
-      console.log(response.status);
-      if (response.status === 201) {
+  //   axios.put(EVENTS_BASE_URL+'/'+this.state.eventId, JSON.stringify(this.state.newEventData), config)
+  //   .then( (response) =>{
+  //     if (response.status === 201) {
           
-          this.setState({
-            buttonLoading: false,
-            signupSnackBar: true,
-            errorMsg: 'Successfully updated the event '+this.state.data.eventName
-           })
-           this.props.history.replace('/events/'+this.state.data.event_id)
-      }
-  })
-  .catch((error) =>{
-      console.log('Edit Error', error.response);
-      this.setState({
-        buttonLoading: false,
-        signupSnackBar: true,
-        errorMsg: error.response.data.message
-       })
-  })
+  //         this.setState({
+  //           buttonLoading: false,
+  //           signupSnackBar: true,
+  //           errorMsg: 'Successfully updated the event '+this.state.data.eventName
+  //          })
+  //          this.props.history.replace('/events/'+this.state.data.event_id)
+  //     }
+  // })
+  // .catch((error) =>{
+  //     console.log('Edit Error', error.response);
+  //     this.setState({
+  //       buttonLoading: false,
+  //       signupSnackBar: true,
+  //       errorMsg: error.response.data.message
+  //      })
+  // })
 
 }
 
@@ -180,6 +174,7 @@ handleClick = (event) => {
                   onFileLoad = {this.onFileLoad}
                   onClick = {this.handleClick}
                   data={this.state.data}
+                  buttonLoading = {this.state.buttonLoading}
                 />
                 <Snackbar
                     anchorOrigin={{ vertical, horizontal }}
