@@ -124,7 +124,7 @@ handleClick = (event) => {
               errorMsg: 'Successfully created the event '+this.state.eventName
              })
             //redirect to all events
-            this.props.history.replace('/')
+            this.props.history.replace('/events/myevents')
         })
         .catch((error) => {
             console.log('Error creating :', error.response.data.message);
