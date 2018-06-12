@@ -50,7 +50,7 @@ function EventForm (props) {
       <Grid container spacing={24}>
 
         <Grid item xs={4} sm={3}>
-          <Paper className={classes.imagePaper}>
+          {/* <Paper className={classes.imagePaper}>
             image preview
             <input
               accept="image/*"
@@ -66,7 +66,7 @@ function EventForm (props) {
               </Button>
             </label> 
            
-          </Paper>
+          </Paper> */}
         </Grid>
 
         <Grid item xs={8} sm={5}>
