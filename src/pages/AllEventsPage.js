@@ -13,6 +13,7 @@ import {EVENTS_BASE_URL} from '../utils/ConstVariables';
 import AuthService from '../utils/AuthService';
 import Paper from 'material-ui/Paper';
 import Tabs, { Tab } from 'material-ui/Tabs';
+import Grid from '@material-ui/core/Grid';
 
 
 const styles = theme => ({
@@ -22,6 +23,7 @@ const styles = theme => ({
         justifyContent: 'space-around',
         overflow: 'hidden',
         backgroundColor: theme.palette.background.paper,
+        flexGrow: 1,
     },
     gridList: {
         // width: 900,
@@ -116,24 +118,28 @@ render(){
     const { classes, events } = this.props
 
     return (
-    <div>
+    <div className={classes.root}>
+    <Grid container spacing={24}>
+    
     <MyContext.Consumer>
     
       {context => (
             
         <div>
-          <Tooltip title="Search by event name">
-          <SearchBar
-            onChange={(searchName) => this.setState({searchName})
-            }
-            onRequestSearch={this.handleSearch}
-            style={{
-              margin: '0 auto',
-              maxWidth: '30%'
-            }}
-            hintText={'Search event by name'}
-          />
-          </Tooltip>
+          <Grid item xs={12}>
+            <Tooltip title="Search by event name">
+            <SearchBar
+              onChange={(searchName) => this.setState({searchName})
+              }
+              onRequestSearch={this.handleSearch}
+              style={{
+                margin: '0 auto',
+                maxWidth: '30%'
+              }}
+              hintText={'Search event by name'}
+            />
+            </Tooltip>
+          </Grid>
           
 
           <GridList cellHeight={300} className={classes.gridList} cols={3}>
@@ -154,11 +160,11 @@ render(){
                       </IconButton>
                     </Link>
                   }
-                />
+                  />
                 </Tooltip >
               </GridListTile>
 
-            ))}
+          ))}
           </GridList>
           <div> 
           
@@ -168,6 +174,7 @@ render(){
       )}
 
     </MyContext.Consumer>
+    </Grid>
 
   </div>
     )
