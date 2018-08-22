@@ -28,3 +28,5 @@ It can be accessed online via the link [Bright events React App](https://st-brig
 ## Testing
 After installation run `yarn test` to run the tests
 
+## Add jenkins-x
+
