@@ -10,9 +10,7 @@ pipeline {
     stages {
       stage('CI Build and push snapshot') {
         agent {
-                docker {
-                    image 'node:alpine'
-                }
+                dockerfile true 
             }
         when {
           branch 'PR-*'
