@@ -11,7 +11,7 @@ pipeline {
       stage('CI Build and push snapshot') {
         agent {
                 docker {
-                    image 'node:carbon'
+                    image 'node:alpine'
                 }
             }
         when {
