@@ -9,6 +9,11 @@ pipeline {
     }
     stages {
       stage('CI Build and push snapshot') {
+        agent {
+                docker {
+                    image 'node:carbon'
+                }
+            }
         when {
           branch 'PR-*'
         }
@@ -19,8 +24,8 @@ pipeline {
         }
         steps {
           container('nodejs') {
-            sh "npm install"
-            sh "CI=true DISPLAY=:99 npm test"
+            sh "yarn install"
+            sh "CI=true DISPLAY=:99 yarn test"
 
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
 
