@@ -36,7 +36,7 @@ RUN yarn build
 #production enviroment set up
 FROM nginx:1.15.2-alpine
 
-#build-deps is the name we gave that stage
+#build-deps is the name we gave the first stage
 COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
 
 #specify a port that is going to be used when accessing the application from the container
