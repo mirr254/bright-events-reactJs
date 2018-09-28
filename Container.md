@@ -58,4 +58,4 @@ docker run -p 8080:8080 shammir-tag
 
 `-p 8080:8080` binds the container port to host port and `shammir-tag` is used to specify which docker image to run.
 
-Visit `http://localhost:8080` to see the application in your brower.
+Visit `http://localhost:8080` to see the application in your brower. 
