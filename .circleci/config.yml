@@ -46,6 +46,10 @@ jobs:
       - GOOGLE_CLUSTER_NAME: "cluster-1"
     steps:
       - checkout
+      - run:
+          name: GCLOUD_SERVICE_KEY
+          command: |
+            echo $GCLOUD_SERVICE_KEY
       - run: 
           name: Setup Google Cloud SDK
           command: |
