@@ -30,7 +30,7 @@ FROM nginx:1.15.2-alpine
 #build-deps is the name we gave that stage
 COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
 
-EXPOSE 8080
+EXPOSE 80
 
 #run the server when the container starts
 CMD [ "nginx", "-g", "daemon off;" ]
