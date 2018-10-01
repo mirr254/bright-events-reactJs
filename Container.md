@@ -1,9 +1,9 @@
 ## How containers work with the application.
 
 We use docker containers to create a standard application environment that can be run on any platform.  
-Containers helps in running distributed applications without launching a virtual machine.
+Containers help in running distributed applications without launching a virtual machine.
 
-In this project we use dockerfile to specify what exactly we want installed in our docker container. This container is going to help us run our application independently from host OS.
+In this project we use dockerfile to specify what exactly we want installed in our docker container. This container will run our application independently from host OS.
 
 The docker file is shown and explained below. Statements that begin with # are comments.
 
