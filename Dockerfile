@@ -9,17 +9,13 @@ LABEL maintainer="shammir"
 RUN mkdir /usr/src/app
 
 #copy package.json and yarn.lock into the image
-COPY ./package.json /usr/src/app
-COPY ./yarn.lock /usr/src/app
+COPY ./package.json ./yarn.lock /usr/src/app/
 
 #cd to the working folder
 WORKDIR /usr/src/app
 
 #install dependacies
 RUN yarn install
-
-#copy everything else into the image
-COPY . /usr/src/app
 
 #run the app
 RUN yarn build
