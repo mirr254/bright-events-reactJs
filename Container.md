@@ -46,7 +46,15 @@ EXPOSE 3000
 CMD [ "nginx", "-g", "daemon off;" ]
 ```
 
-To test this on local machine run the following 2 commands
+As observed from the docker file above we use multi-stage builds for our container. This feature in Dockerfiles enables you to create smaller container images with better caching and smaller security footprint. The first stage is `FROM node:carbon as build-deps`. 
+The as build-deps part allows us to name this part of the build process. That name can then be referred to when configuring the production environment later.
+On lines 12 & 13 we copy package.json and yarn.lock into the image and then set `WORKDIR`- The WORKDIR instruction sets the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow it in the Dockerfile.
+Now we can run `yarn install` to install dependencies — this separates the dependency installation from the edits to our actual source files. This allows Docker to cache these steps so that subsequent builds — one’s in which we only edit source files and don’t install any new dependencies — will be faster.
+
+Since now we have all the dependencies installed we copy everything into the image on `line 22`.
+`yarn build` command creates a build directory as an artifact that we will copy later on to our production build environment on `line 31` - and because we’re using stock nginx, that directory is `/usr/share/nginx/html`.
+
+On line 33 `EXPOSE 80`  we expose a port that we will use to connect to the container with our running app in it. The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime. The we run server `line 36` when the container starts.
 
 ```
 docker build -t shammir-tag .
