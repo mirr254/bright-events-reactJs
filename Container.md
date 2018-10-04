@@ -8,23 +8,25 @@ In this project we use dockerfile to specify what exactly we want installed in o
 The docker file is shown and explained below. Statements that begin with # are comments.
 
 ```
+#Build process set up
+
 # base image on which we will run the application on. In this case is node verion 7
 #pull the node image
-
 FROM node:carbon as build-deps
 
 LABEL maintainer="shammir"
 
-RUN mkdir /usr/src/app
-
-#copy package.json and yarn.lock into the image app directory
-COPY ./package.json ./yarn.lock /usr/src/app/
-
 #cd to the working folder
 WORKDIR /usr/src/app
 
+#copy package.json and yarn.lock into the image
+COPY ./package.json ./yarn.lock ./
+
 #install dependacies
-RUN yarn install
+RUN yarn
+
+#copy everything else into the image
+COPY . ./
 
 #run the app
 RUN yarn build
@@ -32,11 +34,10 @@ RUN yarn build
 #production enviroment set up
 FROM nginx:1.15.2-alpine
 
-#build-deps is the name we gave the first stage
+#build-deps is the name we gave that stage
 COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
 
-#specify a port that is going to be used when accessing the application from the container
-EXPOSE 3000
+EXPOSE 80
 
 #run the server when the container starts
 CMD [ "nginx", "-g", "daemon off;" ]
@@ -44,10 +45,12 @@ CMD [ "nginx", "-g", "daemon off;" ]
 
 As observed from the docker file above we use multi-stage builds for our container. This feature in Dockerfiles enables you to create smaller container images with better caching and smaller security footprint. The first stage is `FROM node:carbon as build-deps`. 
 The as build-deps part allows us to name this part of the build process. That name can then be referred to when configuring the production environment later.
-On lines 12 we copy package.json and yarn.lock into the directory we want in the image and then set `WORKDIR`- In a Dockerfile, WORKDIR is used to set the current working directory. Any other command run after WORKDIR is set, is run under that directory.  
-From now till the next stage, the commands executed will under the dir `/usr/src/app` which has the `yarn.lock` and `package.json` since we switched/changed directory.  
+On line 10, we set the directory we want to work with . `WORKDIR`- In a Dockerfile, WORKDIR is used to set the current working directory. Any other command run after WORKDIR is set, is run under that directory. lines 12 we copy package.json and yarn.lock into the directory.  
+From now till the next stage, the commands executed will be under the dir `/usr/src/app` which has the `yarn.lock` and `package.json` since we switched/changed directory.  
 
 Now we can run `yarn install` to install dependencies — this separates the dependency installation from the edits to our actual source files. This allows Docker to cache these steps so that subsequent builds — one’s in which we only edit source files and don’t install any new dependencies — will be faster.
+
+On line 19 we copy everything else except those defined in `.dockerignore` file. 
 
 While in that directory we run `yarn build` command that creates a build directory as an artifact that we will copy later on to our production build environment on `line 31` - and because we’re using stock nginx, that directory is `/usr/share/nginx/html`.
 

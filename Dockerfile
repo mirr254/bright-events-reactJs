@@ -6,16 +6,17 @@ FROM node:carbon as build-deps
 
 LABEL maintainer="shammir"
 
-RUN mkdir /usr/src/app
-
-#copy package.json and yarn.lock into the image
-COPY ./package.json ./yarn.lock /usr/src/app/
-
 #cd to the working folder
 WORKDIR /usr/src/app
 
+#copy package.json and yarn.lock into the image
+COPY ./package.json ./yarn.lock ./
+
 #install dependacies
-RUN yarn install
+RUN yarn
+
+#copy everything else into the image
+COPY . ./
 
 #run the app
 RUN yarn build
