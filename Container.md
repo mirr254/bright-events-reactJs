@@ -50,7 +50,7 @@ From now till the next stage, the commands executed will be under the dir `/usr/
 
 Now we can run `yarn install` to install dependencies — this separates the dependency installation from the edits to our actual source files. This allows Docker to cache these steps so that subsequent builds — one’s in which we only edit source files and don’t install any new dependencies — will be faster.
 
-On line 19 we copy everything else except those defined in `.dockerignore` file. 
+On line 19 we copy everything else except those defined in `.dockerignore` file into the image. 
 
 While in that directory we run `yarn build` command that creates a build directory as an artifact that we will copy later on to our production build environment on `line 31` - and because we’re using stock nginx, that directory is `/usr/share/nginx/html`.
 
